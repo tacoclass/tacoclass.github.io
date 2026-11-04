@@ -218,6 +218,57 @@ nav .dot{position:absolute;top:3px;left:calc(50% + 6px);width:8px;height:8px;bor
   .cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 }
 @media(min-width:1300px){.wgrid{grid-template-columns:1fr 1fr 1fr}}
+/* ---- 2.1 ---- */
+.tr2{display:flex;align-items:center;gap:8px;min-width:0;flex-shrink:1;max-width:64%}
+.tr2 .pbtn{max-width:none;min-width:0}
+.bell{flex-shrink:0;border:0;background:var(--card);box-shadow:var(--sh);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;color:var(--tx);padding:0}
+.bell svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bell .dot{position:absolute;top:5px;right:6px;width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid var(--card)}
+.top .st .sem{font-weight:700;color:var(--mut)}
+nav button.tabonly{display:none}
+.robar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--org) 14%,var(--card));border-radius:12px;padding:9px 12px;font-size:13px;margin:6px 0 4px}
+.lchips{display:flex;gap:7px;overflow-x:auto;margin-top:10px;padding:2px 1px 4px;-webkit-overflow-scrolling:touch}
+.lchip{flex:none;border:1.5px solid var(--line);border-left:4px solid var(--a);background:var(--card);color:var(--tx);border-radius:12px;padding:7px 11px;text-align:left;cursor:pointer;min-width:86px}
+.lchip b{display:block;font-size:14px}
+.lchip b em{font-style:normal;color:var(--grn)}
+.lchip span{font-size:11px;color:var(--mut);white-space:nowrap;max-width:130px;overflow:hidden;text-overflow:ellipsis;display:block}
+.lchip.on{background:color-mix(in srgb,var(--a) 15%,var(--card));border-color:var(--a)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+@media(max-width:420px){.tiles{grid-template-columns:1fr 1fr}}
+.tile{border:0;background:var(--card);box-shadow:var(--sh);border-radius:16px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;min-height:108px;color:var(--tx);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;transition:transform .08s}
+.tile:active{transform:scale(.96)}
+.tile b{font-size:13.5px;text-align:center;line-height:1.25;overflow-wrap:anywhere}
+.tile small{font-size:11.5px;font-weight:700;color:var(--grn)}
+.tile.pt{background:color-mix(in srgb,var(--red) 17%,var(--card));box-shadow:0 0 0 2px var(--red)}
+.tile.pt small{color:var(--red)}
+.tile.pt .av{background:var(--red);color:#fff}
+.tile.p1,.tile.p2{background:color-mix(in srgb,var(--org) 17%,var(--card));box-shadow:0 0 0 2px var(--org)}
+.tile.p1 small,.tile.p2 small{color:var(--org)}
+.tile.p1 .av,.tile.p2 .av{background:var(--org);color:#fff}
+.sticky{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom));margin-top:14px;z-index:5}
+.sticky .btn{box-shadow:0 8px 24px rgba(0,0,0,.22);padding:16px;font-size:16px}
+.jl{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;border:0;border-top:1px solid var(--line);background:none;color:var(--tx);padding:10px 0 0;margin-top:10px;cursor:pointer;text-align:left;font-size:13.5px}
+.jl small{display:block;font-size:11px;color:var(--mut2);margin-top:1px}
+.jl .r{white-space:nowrap}
+.lib{background:var(--card);box-shadow:var(--sh);border-radius:14px;padding:12px 14px;border-left:4px solid var(--a);margin-top:8px}
+.lib .t{font-weight:700;font-size:15px}
+.lib .s{font-size:12px;color:var(--mut);margin-top:2px}
+.lib .d{font-size:13.5px;margin-top:6px;white-space:pre-wrap;line-height:1.45}
+.filebox{display:block;position:relative;border:1.5px dashed var(--inpb);border-radius:12px;padding:14px;text-align:center;font-size:14px;font-weight:600;cursor:pointer;background:var(--inp);overflow:hidden}
+.filebox input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.about .alogo{width:60px;height:60px;border-radius:16px}
+.about details{border-top:1px solid var(--line);padding:11px 0 2px;margin-top:10px}
+.about summary{cursor:pointer;font-weight:700;font-size:14px}
+.about .ab{font-size:13.5px;line-height:1.55;margin-top:8px}
+.about .ab ul{padding-left:18px;margin:4px 0 10px}
+@media(min-width:900px){
+  nav button.tabonly{display:flex}
+  .sticky{bottom:16px}
+  .libgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+}
+.top>div:first-child{flex:1;min-width:0}
+.top .st{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tr2{flex-shrink:0}
 
 </style>
 </head><body>
@@ -240,14 +291,20 @@ const DEV_EMAILS = ["aydinomurpro@gmail.com"];
 const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 
+const VERSION="2.1",VDATE="4 Kasım 2026";
 const PERMS = [
+  ["jurnal","Yoklama / jurnal girebilir"],
+  ["sinav","Sınav tarihlerini girebilir"],
   ["ann","Duyuru paylaşabilir"],
-  ["prog","Programı, ders değişikliklerini ve sınavları düzenleyebilir"],
   ["hak","Devamsızlık haklarını girebilir"],
+  ["prog","Ders programını ve ders değişikliklerini düzenleyebilir"],
   ["odev","Sınıf ödevi ekleyebilir ve teslimleri görebilir"],
-  ["sinif","Sınıfın devamsızlıklarını görebilir"],
-  ["onay","Yeni üyeleri onaylayabilir"]
+  ["sinif","Sınıfın kendi girdiği devamsızlıkları görebilir"],
+  ["onay","Yeni üyeleri onaylayabilir"],
+  ["kut","Kütüphanede başkalarının notlarını silebilir"]
 ];
+const BASKAN=["jurnal","sinav","ann","hak"];
+const FILE_MAX=3*1024*1024,CHUNK=700*1024;
 const DEFAULT_CLASS = {
   subjects: {
     nf:{n:"Normal Fizyoloji",c:"#3f6fd8"}, mb:{n:"Mikrobiyoloji",c:"#8a4fd1"}, bk:{n:"Biokimya",c:"#d9891a"},
@@ -286,7 +343,8 @@ async function firebaseBackend(){
     reset:e=>Au.sendPasswordResetEmail(auth,e),
     out:()=>Au.signOut(auth),
     watchDoc:(p,cb)=>F.onSnapshot(ref(p),s=>cb(s.exists()?s.data():null),e=>{console.warn(p,e.code);cb(null,e)}),
-    watchCol:(c,cb,w)=>F.onSnapshot(w?F.query(col(c),F.where(w[0],"==",w[1])):col(c),s=>cb(s.docs.map(d=>({id:d.id,...d.data()}))),e=>{console.warn(c,e.code);cb([],e)}),
+    watchCol:(c,cb,w)=>F.onSnapshot(w?F.query(col(c),F.where(w[0],w.length>2?w[1]:"==",w.length>2?w[2]:w[1])):col(c),s=>cb(s.docs.map(d=>({id:d.id,...d.data()}))),e=>{console.warn(c,e.code);cb([],e)}),
+    get:async p=>{const s=await F.getDoc(ref(p));return s.exists()?s.data():null},
     set:(p,d,merge)=>F.setDoc(ref(p),d,merge?{merge:true}:{}),
     add:(c,d)=>F.addDoc(col(c),d),
     del:p=>F.deleteDoc(ref(p))
@@ -298,7 +356,9 @@ function mockBackend(){
   const subs=[],auths=[];const save=()=>{try{localStorage.setItem(K,JSON.stringify(D))}catch(_){}};
   const who=()=>D.cur&&D.acc[D.cur];const U=()=>{const w=who();return w&&{uid:w.uid,email:w.email,name:w.name,verified:true}};
   const colOf=c=>Object.keys(D.docs).filter(k=>k.startsWith(c+"/")&&k.split("/").length===2).map(k=>({id:k.split("/")[1],...JSON.parse(JSON.stringify(D.docs[k]))}));
-  const fire=()=>subs.forEach(s=>{if(s.doc)s.cb(D.docs[s.p]?JSON.parse(JSON.stringify(D.docs[s.p])):null);else s.cb(colOf(s.p).filter(x=>!s.w||x[s.w[0]]===s.w[1]))});
+  const mt=(x,w)=>{if(!w)return true;if(w.length>2&&w[1]==="array-contains")return(x[w[0]]||[]).includes(w[2]);return x[w[0]]===(w.length>2?w[2]:w[1])};
+  const deep=(a,b)=>{Object.keys(b).forEach(k=>{if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k])&&a[k]&&typeof a[k]==="object"&&!Array.isArray(a[k]))deep(a[k],b[k]);else a[k]=b[k]});return a};
+  const fire=()=>subs.forEach(s=>{if(s.doc)s.cb(D.docs[s.p]?JSON.parse(JSON.stringify(D.docs[s.p])):null);else s.cb(colOf(s.p).filter(x=>mt(x,s.w)))});
   const fireAuth=()=>auths.forEach(f=>f(U()));
   const T=f=>setTimeout(f,20);
   return{
@@ -309,15 +369,18 @@ function mockBackend(){
     reset:async()=>{},
     out:async()=>{D.cur=null;save();subs.length=0;fireAuth()},
     watchDoc:(p,cb)=>{const s={doc:1,p,cb};subs.push(s);T(()=>cb(D.docs[p]?JSON.parse(JSON.stringify(D.docs[p])):null));return()=>{const i=subs.indexOf(s);if(i>=0)subs.splice(i,1)}},
-    watchCol:(c,cb,w)=>{const s={p:c,cb,w};subs.push(s);T(()=>cb(colOf(c).filter(x=>!w||x[w[0]]===w[1])));return()=>{const i=subs.indexOf(s);if(i>=0)subs.splice(i,1)}},
-    set:async(p,d,merge)=>{D.docs[p]=merge?Object.assign(D.docs[p]||{},JSON.parse(JSON.stringify(d))):JSON.parse(JSON.stringify(d));save();T(fire)},
+    watchCol:(c,cb,w)=>{const s={p:c,cb,w};subs.push(s);T(()=>cb(colOf(c).filter(x=>mt(x,w))));return()=>{const i=subs.indexOf(s);if(i>=0)subs.splice(i,1)}},
+    get:async p=>D.docs[p]?JSON.parse(JSON.stringify(D.docs[p])):null,
+    set:async(p,d,merge)=>{D.docs[p]=merge?deep(D.docs[p]||{},JSON.parse(JSON.stringify(d))):JSON.parse(JSON.stringify(d));save();T(fire)},
     add:async(c,d)=>{const id="d"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);D.docs[c+"/"+id]=JSON.parse(JSON.stringify(d));save();T(fire);return{id}},
     del:async p=>{delete D.docs[p];save();T(fire)}
   };
 }
 
 /* ============================================================ STATE */
-let B=null,me,member=null,isDev=false,roles={},cls=null,hak=null,anns=[],exams=[],changes=[],hws=[],subsList=[],members=[],users=[],prof=null;
+let B=null,me,member=null,isDev=false,roles={},cls=null,hak=null,anns=[],examsAll=[],changesAll=[],hwsAll=[],subsAll=[],members=[],users=[],prof=null;
+let cfg=null,vSem=null,jurAll=[],jmeta=null,libShared=[],libMine=[],yk=null,unsubSem=[],absTab="mine",kutTab="all",kutS="",kutQ="",dlBusy="";
+let exams=[],changes=[],hws=[],subsList=[],jentAll=[],exA=[],exP=[],lpT=null,lpFired=false,lpXY=null;const blobCache={};
 let route={v:"home"},stack=[],pend=null,statusMsg="",saveTimer=null,loginMode="in",loginErr="",loginOk="",busy=false,msg="";
 const yOpen=new Set();let form=null,draft=null,hdraft=null,odevFilter="all",absSel=null,progDay=null,progWeek=0,unsubAll=[],unsubPerm=[],dataStarted=false;
 const $app=document.getElementById("app");
@@ -342,17 +405,33 @@ function pl(a){return a.p==="1"?"1. yarı":(a.p==="2"?"2. yarı":"Tamamı")}
 function tint(hex){return hex}
 function col(s){const S=C().subjects[s];return"--a:"+(S?S.c:"#6b7486")}
 function sname(s){const S=C().subjects[s];return S?S.n:"Genel"}
-function C(){return cls||DEFAULT_CLASS}
+function C(){return cls||(vSem==="s1"||!vSem?DEFAULT_CLASS:{subjects:{},order:[],sch:{}})}
+function semId(){return(cfg&&cfg.sem)||"s1"}
+function VS(){return vSem||semId()}
+function semOf(x){return(x&&x.sem)||"s1"}
+function ro(){return VS()!==semId()}
+function semName(id){const x=((cfg&&cfg.sems)||[{id:"s1",ad:"1. dönem"}]).find(y=>y.id===id);return x?x.ad:"1. dönem"}
+function semList(){return(cfg&&cfg.sems)||[{id:"s1",ad:"1. dönem",at:0}]}
+function mainPath(id){return id==="s1"?"class/main":"class/main_"+id}
+function hakPath(id){return id==="s1"?"class/haklar":"class/haklar_"+id}
+function refilter(){const v=VS();examsAll=exA.concat(exP.map(x=>Object.assign({},x,{_p:true})));exams=examsAll.filter(x=>semOf(x)===v);changes=changesAll.filter(x=>semOf(x)===v);hws=hwsAll.filter(x=>semOf(x)===v);const ids=new Set(hws.map(x=>x.id));subsList=subsAll.filter(x=>ids.has(x.hw))}
 function L(){const h=(hak&&hak.lim)||(cls&&cls.lim)||{};return h}
 function DONE(){return(hak&&hak.done)||(cls&&cls.done)||{}}
-function abs(){return(prof&&prof.abs)||[]}
-function kis(){return(prof&&prof.kisisel)||[]}
+function absAll(){return(prof&&prof.abs)||[]}
+function kisAll(){return(prof&&prof.kisisel)||[]}
+function abs(){const v=VS();return absAll().filter(a=>semOf(a)===v)}
+function kis(){const v=VS();return kisAll().filter(a=>semOf(a)===v)}
+function jur(){const v=VS();return jurAll.filter(x=>semOf(x)===v)}
+function myJ(uid){const v=VS();if(!uid||uid===me.uid)return jentAll.filter(x=>semOf(x)===v).map(x=>({id:x.id,d:x.d,t:x.key,s:x.s,k:x.k,p:x.p}));const r=[];jur().forEach(x=>{const p=(x.abs||{})[uid];if(p)r.push({id:x.id+"_"+uid,d:x.d,t:x.key,s:x.s,k:x.k,p})});return r}
+function approvedMembers(){return members.filter(m=>m.status==="approved").sort((a,b)=>(a.name||a.email||"").localeCompare(b.name||b.email||"","tr"))}
+const WL={over:"Kesildin",edge:"Limitte",warn:"Dikkat",ok:"Rahat",none:""};
 function initials(n){return(n||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
 function uid8(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function myName(){return(prof&&prof.name)||(member&&member.name)||me.name||me.email.split("@")[0]}
 function P(){if(isDev){const o={};PERMS.forEach(p=>o[p[0]]=true);return o}const r=roles[me.uid];return(r&&r.p)||{}}
-function can(k){return!!P()[k]}
-function anyPerm(){return isDev||PERMS.some(p=>can(p[0]))}
+function canRaw(k){return!!P()[k]}
+function can(k){return!ro()&&!!P()[k]}
+function anyPerm(){return isDev||PERMS.some(p=>canRaw(p[0]))}
 function approved(){return isDev||(member&&member.status==="approved")}
 function lsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:v}catch(_){return d}}
 function lsSet(k,v){try{localStorage.setItem(k,v)}catch(_){}}
@@ -424,13 +503,13 @@ function weekDates(off){const d=new Date();const wd=d.getDay()||7;d.setDate(d.ge
 function saveProf(){
   statusMsg="Kaydediliyor…";render();clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
-    try{await B.set("users/"+me.uid,{abs:abs(),kisisel:kis(),name:myName(),email:me.email,at:Date.now()},true);statusMsg="Kaydedildi ✓"}
+    try{await B.set("users/"+me.uid,{abs:absAll(),kisisel:kisAll(),name:myName(),email:me.email,autoJ:!!(prof&&prof.autoJ),jSeen:(prof&&prof.jSeen)||[],at:Date.now()},true);statusMsg="Kaydedildi ✓"}
     catch(e){statusMsg="Kaydedilemedi: "+errText(e)}
     saveTimer=null;render();
   },400);
 }
-function setAbs(list){prof=prof||{};prof.abs=list;saveProf()}
-function setKis(list){prof=prof||{};prof.kisisel=list;saveProf()}
+function setAbs(list){if(ro())return;const v=semId();prof=prof||{};prof.abs=absAll().filter(a=>semOf(a)!==v).concat(list.map(a=>Object.assign({},a,{sem:v})));saveProf()}
+function setKis(list){if(ro())return;const v=semId();prof=prof||{};prof.kisisel=kisAll().filter(a=>semOf(a)!==v).concat(list.map(a=>Object.assign({},a,{sem:v})));saveProf()}
 function findAbs(d,key){return abs().find(a=>a.d===d&&a.t===key)}
 
 /* ============================================================ ICONS */
@@ -440,7 +519,10 @@ const I={
   abs:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
   odev:'<svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg>',
   ann:'<svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l6 4V5L8 9H5a1 1 0 0 0-1 1zM18 8a5 5 0 0 1 0 8"/></svg>',
-  sinif:'<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></svg>'
+  sinif:'<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></svg>',
+  kut:'<svg viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2zM4 19.5A2 2 0 0 0 6 21h14v-3"/><path d="M9 7.5h7M9 11h5"/></svg>',
+  yon:'<svg viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg>',
+  bell:'<svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>'
 };
 const ICON_SRC=document.querySelector('link[rel=apple-touch-icon]').href;
 
@@ -473,17 +555,25 @@ function render(){
     else if(v==="hakedit")body=hakEdit();
     else if(v==="exf")body=examForm();
     else if(v==="chf")body=changeForm();
+    else if(v==="yok")body=ykView();
+    else if(v==="yon")body=yonView();
+    else if(v==="kut")body=kutView();
+    else if(v==="kutf")body=kutForm();
+    else if(v==="donem")body=donemView();
     else body=homeView();
   }catch(e){console.error(e);body='<div class="card err">Bir hata oluştu: '+esc(e.message)+'</div>'}
-  const titles={home:"🌮 Taco",prog:"Program",ders:sname(route.s),abs:"Devamsızlık",odev:"Ödevler",odevd:"Ödev",odevf:"Ödev",kisf:"Kişisel ödev",ann:"Duyurular",sinif:"Sınıf",uye:"Üye",profil:"Profilim",yetki:"Yetkiler",progedit:"Programı düzenle",hakedit:"Devamsızlık hakları",exf:"Sınav",chf:"Ders değişikliği"};
-  let h='<div class="wrap"><div class="top"><div><h1>'+esc(titles[v]||"Taco")+'</h1><div class="st">'+esc(statusMsg)+'</div></div><button class="pbtn" data-a="go" data-v="profil"><span class="av">'+esc(initials(myName()))+'</span><span>Profilim</span></button></div>'+body+'</div>';
+  const titles={home:"🌮 Taco",prog:"Program",ders:sname(route.s),abs:"Devamsızlık",odev:"Ödevler",odevd:"Ödev",odevf:"Ödev",kisf:"Kişisel ödev",ann:"Duyurular",sinif:"Sınıf",uye:"Üye",profil:"Profilim",yetki:"Yetkiler",progedit:"Programı düzenle",hakedit:"Devamsızlık hakları",exf:"Sınav",chf:"Ders değişikliği",yok:"Yoklama",yon:"Yönetim",kut:"Kütüphane",kutf:"Not ekle",donem:"Dönemler"};
   const newAnn=anns.length&&anns[0].at>seen("ann");
   const newHw=hws.some(x=>x.at>seen("odev"));
-  const tabs=[["home","Ana Sayfa"],["prog","Program"],["abs","Devamsızlık"],["odev","Ödevler"],["ann","Duyurular"]];
-  if(can("sinif")||can("onay"))tabs.push(["sinif","Sınıf"]);
-  const act={ders:"prog",odevd:"odev",odevf:"odev",kisf:"odev",uye:"sinif",exf:"prog",chf:"prog"}[v]||v;
-  const pendN=can("onay")?members.filter(m=>m.status==="pending").length:0;
-  h+='<nav><div class="in"><div class="brand"><img src="'+ICON_SRC+'" alt="">Taco</div>'+tabs.map(t=>'<button data-a="tab" data-v="'+t[0]+'" class="'+(act===t[0]?"on":"")+'">'+I[t[0]]+'<span>'+t[1]+'</span>'+((t[0]==="ann"&&newAnn&&v!=="ann")||(t[0]==="odev"&&newHw&&act!=="odev")||(t[0]==="sinif"&&pendN)?'<span class="dot"></span>':'')+'</button>').join("")+'</div></nav>';
+  const pendN=canRaw("onay")?members.filter(m=>m.status==="pending").length:0;
+  const yonDot=pendN||(can("jurnal")&&missingJ());
+  let h='<div class="wrap"><div class="top"><div style="min-width:0"><h1>'+esc(titles[v]||"Taco")+'</h1><div class="st"><span class="sem">'+esc(semName(VS()))+'</span>'+(statusMsg?' · '+esc(statusMsg):'')+'</div></div><div class="tr2"><button class="bell" data-a="tab" data-v="ann" aria-label="Duyurular">'+I.bell+(newAnn&&v!=="ann"?'<span class="dot"></span>':'')+'</button><button class="pbtn" data-a="go" data-v="profil"><span class="av">'+esc(initials(myName()))+'</span><span>Profilim</span></button></div></div>';
+  if(ro())h+='<div class="robar"><span>📁 <b>'+esc(semName(VS()))+'</b> · geçmiş dönem, sadece görüntüleme</span><button class="btn sm dark" data-a="semview" data-v="">Güncel döneme dön</button></div>';
+  h+=body+'</div>';
+  const tabs=[["home","Ana Sayfa"],["prog","Program"],["abs","Devamsızlık"],["odev","Ödevler"],["kut","Kütüphane"],["ann","Duyurular",1]];
+  if(anyPerm())tabs.push(["yon","Yönetim"]);
+  const act={ders:"prog",odevd:"odev",odevf:"odev",kisf:"odev",kutf:"kut",uye:"yon",sinif:"yon",yok:"yon",yetki:"yon",donem:"yon",progedit:"yon",hakedit:"yon",exf:"yon",chf:"prog"}[v]||v;
+  h+='<nav><div class="in"><div class="brand"><img src="'+ICON_SRC+'" alt="">Taco</div>'+tabs.map(t=>'<button data-a="tab" data-v="'+t[0]+'" class="'+(act===t[0]?"on":"")+(t[2]?" tabonly":"")+'">'+I[t[0]]+'<span>'+t[1]+'</span>'+((t[0]==="ann"&&newAnn&&v!=="ann")||(t[0]==="odev"&&newHw&&act!=="odev")||(t[0]==="yon"&&yonDot)?'<span class="dot"></span>':'')+'</button>').join("")+'</div></nav>';
   $app.innerHTML=h;
   window.scrollTo(0,sy);
 }
@@ -520,6 +610,7 @@ function slotRow(sl,d,opts){
   if(isT&&!sl.cancel&&opts.live){if(n>=st0&&n<st0+LESSON_MIN){cls+=" now";stag='<span class="tag">Şu an</span>'}else if(n>=st0+LESSON_MIN)cls+=" past"}
   let h='<div class="'+cls+'" style="'+col(cs)+'"><div class="tm">'+esc(t||"—")+(sl.newT?'<s>'+esc(sl.t)+'</s>':'')+'</div><div class="info"><div class="nm">'+esc(a?sname(a.s):sl.l)+stag+(sl.cancel?'<span class="tag red">İptal</span>':'')+(sl.newT?'<span class="tag org">Saat değişti</span>':'')+(sl.extra?'<span class="tag gry">Ekstra</span>':'')+'</div><div class="ty">'+(a?TY[a.k]+" · "+pl(a):[...new Set(sl.o.map(o=>TY[o[1]]))].join(" / "))+(S.h?" · "+esc(S.h):"")+(S.o?" · "+esc(S.o):"")+'</div>'+(sl.note?'<div class="ty" style="color:var(--tx)">📌 '+esc(sl.note)+'</div>':'')+'</div><div class="acts">';
   if(sl.cancel){}
+  else if(ro()){if(a)h+='<div class="gone">'+(u(a)===2?"Gelmedim":pl(a)+" gelmedim")+'</div>'}
   else if(a)h+='<div class="gone">'+(u(a)===2?"Gelmedim":pl(a)+" gelmedim")+'<button data-a="delabs" data-id="'+a.id+'">Geri al</button>'+(u(a)===1?'<button data-a="fullabs" data-id="'+a.id+'">Diğer yarıya da gelmedim</button>':'')+'</div>';
   else if(!(pend&&pend.d===d&&pend.key===sl.key)){
     if(sl.o.length===1)h+='<button class="btn mark" data-a="pick" data-d="'+d+'" data-key="'+esc(sl.key)+'" data-s="'+sl.o[0][0]+'" data-k="'+sl.o[0][1]+'">Gelmedim</button>';
@@ -545,6 +636,7 @@ function homeView(){
   let h='<p class="muted" style="font-size:14px">'+greet+', <b style="color:var(--tx)">'+esc(myName().split(" ")[0])+'</b> · '+esc(fmt(d))+'</p>';
   if(anns.length&&anns[0].at>seen("ann"))h+='<button class="banner" style="margin-top:12px" data-a="tab" data-v="ann"><b>Yeni duyuru</b><span>'+esc(anns[0].text)+'</span></button>';
   h+='<div class="wgrid">';
+  if(can("jurnal"))h+=ykHomeCard();
   // today
   h+='<div class="card span2"><div class="wtitle">Bugünün dersleri<button class="lnk" data-a="tab" data-v="prog">Program ›</button></div>';
   if(!sl.length){
@@ -568,8 +660,8 @@ function homeView(){
   up.forEach(o=>{const x=o.x;h+='<button class="li" style="'+col(x.s)+'" data-a="'+(o.k==="c"?"openhw":"openkis")+'" data-id="'+x.id+'"><span class="dt"></span><span class="w"><b>'+esc(x.title)+'</b><small>'+esc(sname(x.s))+(o.k==="p"?" · Kişisel":"")+'</small></span><span class="r"><span class="due '+dueCls(x.due)+'">'+esc(dueTxt(x.due)||"Tarihsiz")+'</span></span></button>'});
   h+='</div>';
   // abs mini
-  const S=summary(abs());
-  h+='<div class="card"><div class="wtitle">Devamsızlık<button class="lnk" data-a="tab" data-v="abs">Detay ›</button></div><div class="row2" style="align-items:baseline;gap:6px"><span class="cnt">'+f(S.used)+'</span><span class="muted">ders kaçırıldı</span></div><div class="chips">';
+  const S=summary(abs()),J=summary(myJ()),nd=compareJ().filter(c=>c.ty!=="extra").length;
+  h+='<div class="card"><div class="wtitle">Devamsızlık<button class="lnk" data-a="tab" data-v="abs">Detay ›</button></div><div class="muted" style="font-size:11px;font-weight:700;letter-spacing:.5px">BENİM HESABIM</div><div class="row2" style="align-items:baseline;gap:6px"><span class="cnt">'+f(S.used)+'</span><span class="muted">ders kaçırıldı</span></div><div class="chips">';
   if(S.cnt.over)h+='<span class="chip over">'+S.cnt.over+' derste kesildin</span>';
   if(S.cnt.edge)h+='<span class="chip edge">'+S.cnt.edge+' derste limitte</span>';
   if(S.cnt.warn)h+='<span class="chip warn">'+S.cnt.warn+' derste dikkat</span>';
@@ -577,6 +669,7 @@ function homeView(){
   if(!S.tot)h+='<span class="chip">Haklar henüz girilmedi</span>';
   h+='</div>';
   S.items.filter(c=>["over","edge","warn"].includes(c.worst.st.c)).slice(0,3).forEach(c=>{h+='<div class="row" style="'+col(c.s)+'"><div class="rh"><div class="nm"><i></i>'+esc(sname(c.s))+'</div><div class="lf '+c.worst.st.c+'">'+esc(c.worst.st.short)+'</div></div></div>'});
+  h+='<button class="jl" data-a="absj"><span><b>Jurnale göre</b><small>'+(jmeta&&jmeta.at?'Son: '+esc(timeAgo(jmeta.at)):'Henüz kayıt yok')+'</small></span><span class="r"><b>'+f(J.used)+'</b> ders'+(J.worst!=="none"&&J.used?' <span class="chip '+J.worst+'">'+WL[J.worst]+'</span>':'')+(nd?' <span class="chip warn">'+nd+' fark</span>':'')+' ›</span></button>';
   h+='</div>';
   // ann
   h+='<div class="card"><div class="wtitle">Son duyuru<button class="lnk" data-a="tab" data-v="ann">Tümü ›</button></div>';
@@ -587,7 +680,7 @@ function homeView(){
 }
 function nextSchoolDay(){const d=new Date();for(let i=1;i<8;i++){d.setDate(d.getDate()+1);const s=iso(d),w=d.getDay();if(w>=1&&w<=5){const sl=slotsFor(s).filter(x=>!x.cancel);if(sl.length)return{d:s,sl}}}return null}
 function timeAgo(t){const d=new Date(t);return d.toLocaleDateString("tr-TR",{day:"numeric",month:"long"})+" · "+d.toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"})}
-function examRow(x,ed){const n=daysTo(x.d);return'<div class="ex" style="'+col(x.s)+'"><div class="cd"><b>'+(n<0?"✓":n)+'</b><small>'+(n<0?"geçti":(n===0?"BUGÜN":"gün"))+'</small></div><div class="w"><b>'+esc(sname(x.s))+' · '+esc(EXK[x.kind]||x.kind)+'</b><small>'+esc(fmt(x.d))+(x.t?" · "+esc(x.t):"")+(x.yer?" · "+esc(x.yer):"")+'</small>'+(x.not?'<small style="display:block;color:var(--tx);margin-top:2px">'+esc(x.not)+'</small>':'')+'</div>'+(ed&&can("prog")?'<button class="btn sm" data-a="editex" data-id="'+x.id+'">Düzenle</button>':'')+'</div>'}
+function examRow(x,ed){const n=daysTo(x.d);return'<div class="ex" style="'+col(x.s)+'"><div class="cd"><b>'+(n<0?"✓":n)+'</b><small>'+(n<0?"geçti":(n===0?"BUGÜN":"gün"))+'</small></div><div class="w"><b>'+esc(sname(x.s))+' · '+esc(EXK[x.kind]||x.kind)+'</b><small>'+esc(fmt(x.d))+(x.t?" · "+esc(x.t):"")+(x.yer?" · "+esc(x.yer):"")+'</small>'+(x.not?'<small style="display:block;color:var(--tx);margin-top:2px">'+esc(x.not)+'</small>':'')+(x._p?'<small style="display:block;color:var(--acc);margin-top:2px">👤 Bireysel'+(canRaw("sinav")?' · '+esc((x.names||[]).join(", ")):'')+'</small>':'')+'</div>'+(ed&&can("sinav")?'<button class="btn sm" data-a="editex" data-id="'+x.id+'">Düzenle</button>':'')+'</div>'}
 
 /* ---------- PROGRAM ---------- */
 function progView(){
@@ -605,7 +698,7 @@ function progView(){
   h+='</div>';
   // exams
   const ex=exams.slice().sort((a,b)=>a.d<b.d?-1:1),upx=ex.filter(x=>daysTo(x.d)>=0),past=ex.filter(x=>daysTo(x.d)<0);
-  h+='<div class="cols2"><div><h2>Sınav takvimi'+(can("prog")?'<button class="lnk" data-a="newex">+ Sınav ekle</button>':'')+'</h2><div class="card">';
+  h+='<div class="cols2"><div><h2>Sınav takvimi'+(can("sinav")?'<button class="lnk" data-a="newex">+ Sınav ekle</button>':'')+'</h2><div class="card">';
   if(!upx.length)h+='<div class="empty">Yaklaşan sınav yok</div>';
   upx.forEach(x=>h+=examRow(x,true));
   if(past.length)h+='<details style="margin-top:8px"><summary class="muted" style="cursor:pointer">Geçmiş sınavlar ('+past.length+')</summary>'+past.reverse().map(x=>examRow(x,true)).join("")+'</details>';
@@ -631,12 +724,13 @@ function dersView(){
   const c=calc(s,abs());
   h+='<h2>Devamsızlığın</h2><div class="card">'+absRow(c,true)+'</div>';
   const ex=exams.filter(x=>x.s===s).sort((a,b)=>a.d<b.d?-1:1);
-  h+='<h2>Sınavlar'+(can("prog")?'<button class="lnk" data-a="newex" data-s="'+s+'">+ Ekle</button>':'')+'</h2><div class="card">'+(ex.length?ex.map(x=>examRow(x,true)).join(""):'<div class="empty">Sınav yok</div>')+'</div>';
+  h+='<h2>Sınavlar'+(can("sinav")?'<button class="lnk" data-a="newex" data-s="'+s+'">+ Ekle</button>':'')+'</h2><div class="card">'+(ex.length?ex.map(x=>examRow(x,true)).join(""):'<div class="empty">Sınav yok</div>')+'</div>';
   const hw=hws.filter(x=>x.s===s),kp=kis().filter(x=>x.s===s);
   h+='<h2>Ödevler'+(can("odev")?'<button class="lnk" data-a="newhw" data-s="'+s+'">+ Ekle</button>':'')+'</h2>';
   if(!hw.length&&!kp.length)h+='<div class="card"><div class="empty">Ödev yok</div></div>';
   hw.forEach(x=>h+=hwCard(x));kp.forEach(x=>h+=kisCard(x));
-  h+='<h2>Ders notları <span>· 2. aşamada gelecek</span></h2>';
+  const nl=libItems().filter(x=>x.s===s&&(x.share==="all"||x.owner===me.uid));
+  h+='<h2>Ders notları<button class="lnk" data-a="newlib" data-s="'+s+'">+ Not ekle</button></h2>'+(nl.length?nl.map(x=>libCard(x)).join(""):'<div class="card"><div class="empty">Bu derse henüz not eklenmedi</div></div>');
   return h;
 }
 
@@ -663,12 +757,15 @@ function summaryCard(list,own){
   return h;
 }
 function absView(){
+  const nd=compareJ().filter(c=>c.ty!=="extra").length;
+  const seg='<div class="seg" style="margin-top:6px"><button class="'+(absTab==="mine"?"on":"")+'" data-a="abstab" data-v="mine">Benim kayıtlarım</button><button class="'+(absTab==="j"?"on":"")+'" data-a="abstab" data-v="j">Jurnal'+(nd?' · '+nd+' fark':'')+'</button></div>';
+  if(absTab==="j")return seg+jurView();
   if(!absSel)absSel=today();
   const day=parse(absSel).getDay(),sl=(day>=1&&day<=5)?slotsFor(absSel):[],isT=absSel===today();
-  let h='<div class="cols2"><div><h2 style="margin-top:6px">Devamsızlık gir</h2><div class="card"><div class="datebar"><button class="btn arrow" data-a="absday" data-v="-1">‹</button><div class="d">'+esc(fmt(absSel))+'<small>'+(isT?"Bugün":esc(parse(absSel).getFullYear()))+'</small></div><button class="btn arrow" data-a="absday" data-v="1">›</button></div>';
+  let h=seg+'<div class="cols2"><div><h2 style="margin-top:6px">'+(ro()?"Günler":"Devamsızlık gir")+'</h2><div class="card"><div class="datebar"><button class="btn arrow" data-a="absday" data-v="-1">‹</button><div class="d">'+esc(fmt(absSel))+'<small>'+(isT?"Bugün":esc(parse(absSel).getFullYear()))+'</small></div><button class="btn arrow" data-a="absday" data-v="1">›</button></div>';
   if(!isT)h+='<p style="text-align:center;margin-top:8px"><button class="lnk" data-a="abstoday">Bugüne dön</button></p>';
   h+='<div style="margin-top:12px">'+(sl.length?sl.map(x=>slotRow(x,absSel)).join(""):'<div class="empty">Bu gün ders yok.</div>')+'</div></div>';
-  h+='<h2>Geçmiş</h2>'+histList(abs(),true)+'</div><div><h2 style="margin-top:6px">Durum</h2>'+summaryCard(abs(),true)+'</div></div>';
+  h+='<h2>Geçmiş</h2>'+histList(abs(),!ro())+'</div><div><h2 style="margin-top:6px">Durum</h2>'+summaryCard(abs(),true)+'</div></div>';
   return h;
 }
 function histList(list,editable){
@@ -775,7 +872,7 @@ function annView(){
 
 /* ---------- CLASS ---------- */
 function sinifView(){
-  let h='';
+  let h='<button class="back" data-a="back">‹ Geri</button>';
   if(can("onay")){
     const p=members.filter(m=>m.status==="pending");
     h+='<h2 style="margin-top:6px">Onay bekleyenler <span>· '+p.length+'</span></h2><div class="card">';
@@ -788,10 +885,15 @@ function sinifView(){
   const ap=members.filter(m=>m.status==="approved");
   h+='<h2>Sınıf <span>· '+ap.length+' kişi</span></h2><div class="card">';
   if(!ap.length)h+='<div class="empty">Henüz onaylı üye yok</div>';
-  const rows=ap.map(m=>{const x=users.find(y=>y.id===m.id);return{m,S:summary((x&&x.abs)||[])}});
-  if(can("sinif"))rows.sort((a,b)=>RANK[b.S.worst]-RANK[a.S.worst]||b.S.used-a.S.used);else rows.sort((a,b)=>(a.m.name||"").localeCompare(b.m.name||"","tr"));
-  rows.forEach(r=>{const lab={over:"Kesildi",edge:"Limitte",warn:"Dikkat",ok:"Rahat",none:""}[r.S.worst];const isA=roles[r.m.id]||DEV_EMAILS.includes((r.m.email||"").toLowerCase());
-    h+='<button class="li" data-a="uye" data-id="'+r.m.id+'"><span class="av">'+esc(initials(r.m.name||r.m.email))+'</span><span class="w"><b>'+esc(r.m.name||r.m.email)+(isA?' <span class="badge">'+(DEV_EMAILS.includes((r.m.email||"").toLowerCase())?"Geliştirici":"Yetkili")+'</span>':'')+'</b><small>'+esc(r.m.email||"")+'</small></span>'+(can("sinif")?'<span class="r"><span class="cnt" style="font-size:16px">'+f(r.S.used)+'</span>'+(lab?'<br><span class="chip '+r.S.worst+'">'+lab+'</span>':'')+'</span>':'')+'</button>'});
+  const cS=canRaw("sinif"),cJ=canRaw("sinif")||canRaw("jurnal");
+  const rows=ap.map(m=>{const x=users.find(y=>y.id===m.id);return{m,S:summary(((x&&x.abs)||[]).filter(a=>semOf(a)===VS())),J:cJ?summary(myJ(m.id)):null}});
+  if(cJ)rows.sort((a,b)=>RANK[b.J.worst]-RANK[a.J.worst]||b.J.used-a.J.used);else if(cS)rows.sort((a,b)=>RANK[b.S.worst]-RANK[a.S.worst]||b.S.used-a.S.used);else rows.sort((a,b)=>(a.m.name||"").localeCompare(b.m.name||"","tr"));
+  if(cJ)h+='<p class="muted" style="margin:-4px 2px 8px">'+(cS?'Sol: jurnal (resmi) · Sağ: kişinin kendi kaydı':'Jurnale göre (resmi)')+(jmeta&&jmeta.at?' · son güncelleme '+esc(timeAgo(jmeta.at))+' · '+esc(jmeta.by||""):'')+'</p>';
+  rows.forEach(r=>{const isA=roles[r.m.id]||DEV_EMAILS.includes((r.m.email||"").toLowerCase());
+    let rt='';
+    if(cJ)rt+='<span class="r"><span class="cnt" style="font-size:16px">'+f(r.J.used)+'</span><small class="muted"> jurnal</small>'+(WL[r.J.worst]&&r.J.used?'<br><span class="chip '+r.J.worst+'">'+WL[r.J.worst]+'</span>':'')+'</span>';
+    if(cS)rt+='<span class="r" style="margin-left:10px;opacity:.75"><span class="cnt" style="font-size:14px">'+f(r.S.used)+'</span><small class="muted"> kendi</small>'+(WL[r.S.worst]&&r.S.used?'<br><span class="chip '+r.S.worst+'">'+WL[r.S.worst]+'</span>':'')+'</span>';
+    h+='<button class="li" data-a="uye" data-id="'+r.m.id+'"><span class="av">'+esc(initials(r.m.name||r.m.email))+'</span><span class="w"><b>'+esc(r.m.name||r.m.email)+(isA?' <span class="badge">'+(DEV_EMAILS.includes((r.m.email||"").toLowerCase())?"Geliştirici":"Yetkili")+'</span>':'')+'</b><small>'+esc(r.m.email||"")+'</small></span>'+rt+'</button>'});
   return h+'</div>';
 }
 function uyeView(){
@@ -800,7 +902,8 @@ function uyeView(){
   let h='<button class="back" data-a="back">‹ Sınıf</button><div class="card row2" style="margin-top:6px;gap:12px"><span class="av big">'+esc(initials(m.name||m.email))+'</span><div><b style="font-size:17px">'+esc(m.name||"")+'</b><p class="muted">'+esc(m.email||"")+'</p></div></div>';
   if(isDev&&m.id!==me.uid)h+='<button class="btn line full" style="margin-top:10px" data-a="go" data-v="yetki" data-id="'+m.id+'">🔑 Yetkilerini düzenle</button>';
   if(can("onay")&&m.id!==me.uid)h+='<button class="btn red full" style="margin-top:8px" data-a="reject" data-id="'+m.id+'">Sınıftan çıkar</button>';
-  if(can("sinif"))h+='<h2>Devamsızlık</h2>'+summaryCard((x&&x.abs)||[],false)+'<h2>Geçmiş</h2>'+histList((x&&x.abs)||[],false);
+  if(canRaw("sinif")||canRaw("jurnal")){const J=myJ(m.id);h+='<h2>Jurnale göre</h2>'+summaryCard(J,false).replace('<h2>Derslere göre kalan hak <span>· ders cinsinden</span></h2>','')+'<h2>Jurnal kayıtları</h2>'+histList(J,false)}
+  if(canRaw("sinif")){const own=((x&&x.abs)||[]).filter(a=>semOf(a)===VS());h+='<h2>Kendi girdiği devamsızlık</h2>'+summaryCard(own,false).replace('<h2>Derslere göre kalan hak <span>· ders cinsinden</span></h2>','')+'<h2>Geçmiş</h2>'+histList(own,false)}
   return h;
 }
 
@@ -811,18 +914,12 @@ function profilView(){
   h+='<div class="cols2"><div><h2>Hesap</h2><div class="card"><form data-form="name"><label class="f" style="margin-top:0">Adın soyadın</label><div class="row2"><input name="n" value="'+esc(myName())+'"><button class="btn dark" type="submit">Kaydet</button></div></form></div>';
   h+='<h2>Görünüm</h2><div class="card"><div class="seg">'+[["light","☀️ Açık"],["dark","🌙 Koyu"],["sys","📱 Sistem"]].map(t=>'<button class="'+(th===t[0]?"on":"")+'" data-a="theme" data-v="'+t[0]+'">'+t[1]+'</button>').join("")+'</div></div>';
   h+='<h2>Eski kayıtları aktar</h2><div class="card"><p class="muted">Eski devamsızlık sayfandan aldığın kayıt kodunu yapıştır.</p><form data-form="import"><textarea name="j" placeholder=\'{"abs":[...]}\' style="margin-top:8px;font-size:12px"></textarea><button class="btn full" style="margin-top:8px" type="submit">Kayıtları ekle</button></form></div></div><div>';
-  if(anyPerm()){
-    h+='<h2>Yönetim</h2><div class="card menu">';
-    if(can("prog"))h+='<button class="it" data-a="go" data-v="progedit">📅 Ders programını düzenle<span>›</span></button><button class="it" data-a="newex">📝 Sınav ekle<span>›</span></button>';
-    if(can("hak"))h+='<button class="it" data-a="go" data-v="hakedit">⏱️ Devamsızlık hakları<span>›</span></button>';
-    if(can("odev"))h+='<button class="it" data-a="newhw">📚 Sınıf ödevi ekle<span>›</span></button>';
-    if(can("ann"))h+='<button class="it" data-a="tab" data-v="ann">📢 Duyuru paylaş<span>›</span></button>';
-    if(can("sinif")||can("onay"))h+='<button class="it" data-a="tab" data-v="sinif">👥 Sınıf ve onaylar<span>›</span></button>';
-    if(isDev)h+='<button class="it" data-a="go" data-v="yetki">🔑 Yetkiler<span>›</span></button>';
-    h+='</div>';
-  }
+  if(anyPerm())h+='<h2>Yönetim</h2><div class="card menu"><button class="it" data-a="tab" data-v="yon">⚙️ Yönetim paneli<span>›</span></button></div>';
+  h+='<h2>Jurnal</h2><div class="card"><label class="tgl" style="padding:2px 0"><input type="checkbox" data-autoj="1"'+(prof&&prof.autoJ?" checked":"")+'><span>Jurnale girilenleri kendi kayıtlarıma otomatik ekle<small>Başkan yoklamada seni "yok" yazınca kendi devamsızlığına da eklenir.</small></span></label></div>';
+  const past=semList().filter(x=>x.id!==semId()).reverse();
+  h+='<h2>Geçmiş dönemler</h2><div class="card menu"><div class="muted" style="padding:2px 2px 8px">Şu anki dönem: <b style="color:var(--tx)">'+esc(semName(semId()))+'</b></div>'+(ro()?'<button class="it" data-a="semview" data-v="">↩︎ Güncel döneme dön<span>›</span></button>':'')+(past.length?past.map(x=>'<button class="it" data-a="semview" data-v="'+x.id+'">📁 '+esc(x.ad)+(VS()===x.id?' <span class="chip acc">görüntüleniyor</span>':'')+'<span>›</span></button>').join(""):'<div class="muted" style="padding:6px 2px">Henüz geçmiş dönem yok.</div>')+'</div>';
   h+='<h2>Oturum</h2><div class="card"><button class="btn red full" data-a="logout">Çıkış yap</button><p class="muted" style="text-align:center;margin-top:10px">Devamsızlıklarını sen ve yetkili kişiler görebilir.</p></div></div></div>';
-  return h+(msg?'<div class="ok">'+esc(msg)+'</div>':'');
+  return h+(msg?'<div class="ok">'+esc(msg)+'</div>':'')+aboutView();
 }
 function yetkiView(){
   if(!isDev)return'';
@@ -832,7 +929,7 @@ function yetkiView(){
   ap.sort((a,b)=>(b.id===focus)-(a.id===focus)).forEach(m=>{const r=(roles[m.id]&&roles[m.id].p)||{};const n=PERMS.filter(p=>r[p[0]]).length;
     h+='<details class="card" data-yid="'+m.id+'" style="margin-top:10px"'+(yOpen.has(m.id)||m.id===focus?" open":"")+'><summary style="cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none"><span class="av">'+esc(initials(m.name||m.email))+'</span><span style="flex:1;min-width:0"><b>'+esc(m.name||m.email)+'</b><br><small class="muted">'+(n?n+" yetki":"Öğrenci")+'</small></span><span class="muted">›</span></summary><div style="margin-top:8px">';
     PERMS.forEach(p=>h+='<label class="tgl"><input type="checkbox" data-perm="'+m.id+'" value="'+p[0]+'"'+(r[p[0]]?" checked":"")+'><span>'+esc(p[1])+'</span></label>');
-    h+='<div class="row2" style="margin-top:6px"><button class="btn sm line" data-a="permall" data-id="'+m.id+'" data-v="1">Hepsini ver (başkan)</button><button class="btn sm line" data-a="permall" data-id="'+m.id+'" data-v="0">Hepsini kaldır</button></div></div></details>';
+    h+='<div class="row2" style="margin-top:6px;flex-wrap:wrap;gap:6px"><button class="btn sm dark" data-a="permset" data-id="'+m.id+'" data-v="baskan">⭐ Başkan yap</button><button class="btn sm line" data-a="permset" data-id="'+m.id+'" data-v="all">Hepsini ver</button><button class="btn sm line" data-a="permset" data-id="'+m.id+'" data-v="none">Hepsini kaldır</button></div><p class="muted" style="margin-top:6px">Başkan: yoklama/jurnal, sınav tarihleri, duyuru, devamsızlık hakları.</p></div></details>';
   });
   if(!ap.length)h+='<div class="card empty" style="margin-top:10px">Henüz onaylı başka üye yok.</div>';
   return h;
@@ -871,8 +968,9 @@ function hakEdit(){
 }
 function examForm(){
   const F=form;
-  let h='<button class="back" data-a="back">‹ Vazgeç</button><div class="card" style="margin-top:6px"><label class="f" style="margin-top:0">Ders</label><select data-f="s">'+subjOpts(F.s)+'</select><div class="g2"><div><label class="f">Tür</label><select data-f="kind">'+Object.keys(EXK).map(k=>'<option value="'+k+'"'+(F.kind===k?" selected":"")+'>'+EXK[k]+'</option>').join("")+'</select></div><div><label class="f">Tarih</label><input type="date" data-f="d" value="'+esc(F.d)+'"></div></div><div class="g2"><div><label class="f">Saat</label><input data-f="t" value="'+esc(F.t)+'" placeholder="10.30"></div><div><label class="f">Yer</label><input data-f="yer" value="'+esc(F.yer)+'" placeholder="Otaq 214"></div></div><label class="f">Not</label><textarea data-f="not" placeholder="Konular, sorular...">'+esc(F.not)+'</textarea></div>';
-  h+='<button class="btn dark full" style="margin-top:14px" data-a="saveex">Kaydet</button>';
+  let h='<button class="back" data-a="back">‹ Vazgeç</button><div class="card" style="margin-top:6px"><label class="f" style="margin-top:0">Ders</label><select data-f="s">'+subjOpts(F.s)+'</select><div class="g2"><div><label class="f">Tür</label><select data-f="kind">'+Object.keys(EXK).map(k=>'<option value="'+k+'"'+(F.kind===k?" selected":"")+'>'+EXK[k]+'</option>').join("")+'</select></div><div><label class="f">Tarih</label><input type="date" data-f="d" value="'+esc(F.d)+'"></div></div><div class="g2"><div><label class="f">Saat</label><input data-f="t" value="'+esc(F.t)+'" placeholder="10.30"></div><div><label class="f">Yer</label><input data-f="yer" value="'+esc(F.yer)+'" placeholder="Otaq 214"></div></div><label class="f">Not</label><textarea data-f="not" placeholder="Konular, sorular...">'+esc(F.not)+'</textarea><label class="f">Kimin için?</label><div class="seg"><button class="'+(F.scope!=="some"?"on":"")+'" data-a="exscope" data-v="all">👥 Tüm sınıf</button><button class="'+(F.scope==="some"?"on":"")+'" data-a="exscope" data-v="some">👤 Bireysel</button></div>';
+  if(F.scope==="some")h+='<p class="muted" style="margin-top:8px">Sadece seçtiğin kişiler bu sınavı görür.</p><div class="ck">'+approvedMembers().map(m=>'<label><input type="checkbox" data-exu="1" value="'+m.id+'"'+((F.uids||[]).includes(m.id)?" checked":"")+'>'+esc(m.name||m.email)+'</label>').join("")+'</div>';
+  h+='</div><button class="btn dark full" style="margin-top:14px" data-a="saveex">Kaydet</button>';
   if(F.id)h+='<button class="btn red full" style="margin-top:8px" data-a="delex" data-id="'+F.id+'">Sınavı sil</button>';
   return h+(msg?'<div class="err">'+esc(msg)+'</div>':'');
 }
@@ -889,6 +987,170 @@ function changeForm(){
   return h;
 }
 
+/* ---------- YOKLAMA / JURNAL ---------- */
+function lessons(d){const w=parse(d).getDay();return(w>=1&&w<=5)?slotsFor(d).filter(x=>!x.cancel):[]}
+function jdoc(d,key){const id=VS()+"_"+d+"_"+key;return jurAll.find(x=>x.id===id)}
+function jTaken(d,key){return!!(jmeta&&jmeta.taken&&jmeta.taken[VS()+"_"+d+"_"+key])}
+function curLesson(d){const sl=lessons(d);if(!sl.length)return null;if(d!==today())return sl[0];const n=nowMin();return sl.find(x=>n<tm(x.newT||x.t)+LESSON_MIN)||sl[sl.length-1]}
+function missingJ(){if(!canRaw("jurnal")||ro())return 0;const d=today(),n=nowMin();return lessons(d).filter(x=>tm(x.newT||x.t)<=n&&!jdoc(d,x.key)).length}
+function ykLoad(d,key){
+  const sl=lessons(d);let x=key?sl.find(s=>s.key===key):curLesson(d);if(!x&&sl.length)x=sl[0];
+  const doc=x?jdoc(d,x.key):null,one=x&&x.o.length===1;
+  yk={d,key:x?x.key:null,map:doc?clone(doc.abs||{}):{},s:doc?doc.s:(one?x.o[0][0]:""),k:doc?doc.k:(one?x.o[0][1]:""),q:(yk&&yk.q)||"",dirty:false};
+}
+function qm(q,txt){return!q||txt.includes(q.toLocaleLowerCase("tr"))}
+function ykView(){
+  if(!can("jurnal"))return'<button class="back" data-a="back">‹ Geri</button><div class="card empty" style="margin-top:6px">Yoklama yetkin yok.</div>';
+  if(!yk)ykLoad(today());
+  const d=yk.d,sl=lessons(d),x=sl.find(s=>s.key===yk.key),isT=d===today();
+  let h='<button class="back" data-a="back">‹ Geri</button><div class="card" style="margin-top:6px;padding:10px"><div class="datebar"><button class="btn arrow" data-a="ykday" data-v="-1">‹</button><div class="d">'+esc(fmt(d))+'<small>'+(isT?"Bugün":'<button class="lnk" data-a="ykday" data-v="0">Bugüne dön</button>')+'</small></div><button class="btn arrow" data-a="ykday" data-v="1">›</button></div>';
+  if(!sl.length)return h+'</div><div class="card" style="margin-top:10px"><div class="empty">Bu gün ders yok.</div></div>';
+  h+='<div class="lchips">'+sl.map(s=>'<button class="lchip'+(s.key===yk.key?" on":"")+'" style="'+col(s.o[0][0])+'" data-a="yklesson" data-v="'+esc(s.key)+'"><b>'+esc(s.newT||s.t)+(jdoc(d,s.key)?' <em>✓</em>':'')+'</b><span>'+esc(s.l)+'</span></button>').join("")+'</div></div>';
+  if(!x)return h;
+  if(x.o.length>1)h+='<div class="card" style="margin-top:10px"><div class="muted" style="margin-bottom:6px">Bu saatte hangi ders işlendi?</div><div class="seg">'+x.o.map(o=>'<button class="'+(yk.s===o[0]?"on":"")+'" data-a="yksubj" data-s="'+o[0]+'" data-k="'+o[1]+'">'+esc(sname(o[0]))+'<small>'+TY[o[1]]+'</small></button>').join("")+'</div></div>';
+  const doc=jdoc(d,x.key),ms=approvedMembers();
+  h+='<div class="row2" style="margin-top:10px;gap:8px"><input data-ykq="1" placeholder="🔍 İsim ara" value="'+esc(yk.q)+'" style="flex:1;min-width:0"><button class="btn line" data-a="ykcopy" style="white-space:nowrap">⧉ Önceki ders</button></div>';
+  h+='<p class="muted" style="margin:8px 2px">Gelmeyene dokun: <b>Yok</b> → <b>1. yarı</b> → <b>2. yarı</b> → <b>Geldi</b>. Basılı tutarsan bugünün bütün derslerine yok yazılır.'+(doc?'<br>✓ Kaydedildi · '+esc(doc.by||"")+' · '+esc(timeAgo(doc.at)):'')+'</p>';
+  const L1={t:"Yok",1:"1. yarı yok",2:"2. yarı yok"};
+  h+='<div class="tiles">'+ms.map(m=>{const p=yk.map[m.id],q=(m.name||m.email||"").toLocaleLowerCase("tr");return'<button class="tile'+(p?" p"+p:"")+'" data-tile="'+m.id+'" data-q="'+esc(q)+'"'+(qm(yk.q,q)?'':' style="display:none"')+'><span class="av">'+esc(initials(m.name||m.email))+'</span><b>'+esc(m.name||m.email)+'</b><small>'+(p?L1[p]:"Geldi")+'</small></button>'}).join("")+'</div>';
+  if(!ms.length)h+='<div class="card"><div class="empty">Onaylı üye yok</div></div>';
+  const n=Object.keys(yk.map).length;
+  h+='<div class="sticky"><button class="btn dark full" data-a="yksave">'+(n?"Kaydet · "+n+" kişi yok":"Herkes geldi, kaydet")+'</button></div>';
+  return h+(msg?'<div class="err">'+esc(msg)+'</div>':'');
+}
+async function jSave(d,sl,map,s,k){
+  const sem=semId(),id=sem+"_"+d+"_"+sl.key,prev=jurAll.find(x=>x.id===id),by=myName(),at=Date.now(),uids=Object.keys(map);
+  await B.set("jurnal/"+id,{sem,d,key:sl.key,t:sl.newT||sl.t,s,k,abs:map,uids,by,byUid:me.uid,at});
+  const pa=(prev&&prev.abs)||{},same=prev&&prev.s===s&&prev.k===k,ops=[];
+  uids.forEach(x=>{if(!same||pa[x]!==map[x])ops.push(B.set("jentries/"+id+"_"+x,{sem,d,key:sl.key,s,k,p:map[x],uid:x,lid:id,by,at}))});
+  Object.keys(pa).forEach(x=>{if(!map[x])ops.push(B.del("jentries/"+id+"_"+x))});
+  await Promise.all(ops);
+  await B.set("jmeta/"+sem,{at,by,taken:{[id]:true}},true);
+}
+async function ykAllDay(uid){
+  if(!yk||!can("jurnal"))return;const d=yk.d,m=members.find(x=>x.id===uid);
+  yk.map[uid]="t";render();
+  try{for(const s of lessons(d)){
+      if(s.key===yk.key){await jSave(d,s,yk.map,yk.s||s.o[0][0],yk.k||s.o[0][1]);continue}
+      const doc=jdoc(d,s.key),map=doc?clone(doc.abs||{}):{};map[uid]="t";await jSave(d,s,map,doc?doc.s:s.o[0][0],doc?doc.k:s.o[0][1]);
+    }
+    yk.dirty=false;statusMsg=(m?m.name:"")+": bugünün bütün derslerine yok yazıldı ✓";
+  }catch(e){statusMsg=errText(e)}render();
+}
+function ykHomeCard(){
+  const d=today(),x=curLesson(d),miss=missingJ();
+  let h='<div class="card"><div class="wtitle">Yoklama<button class="lnk" data-a="openyk">Aç ›</button></div>';
+  if(!x)h+='<div class="empty">Bugün ders yok</div>';
+  else{const doc=jdoc(d,x.key);h+='<button class="li" style="'+col(x.o[0][0])+'" data-a="openyk" data-v="'+esc(x.key)+'"><span class="dt"></span><span class="w"><b>'+esc(x.l)+'</b><small>'+esc(x.newT||x.t)+' · '+(doc?'✓ alındı · '+Object.keys(doc.abs||{}).length+' kişi yok':'henüz alınmadı')+'</small></span><span class="r"><span class="btn sm dark">'+(doc?"Düzenle":"Yoklama al")+'</span></span></button>'}
+  if(miss)h+='<div class="msg edge" style="margin-top:8px">⚠️ Bugün '+miss+' dersin yoklaması girilmedi</div>';
+  return h+'</div>';
+}
+function compareJ(){
+  const mine=abs(),J=myJ(),r=[];
+  J.forEach(j=>{const m=mine.find(a=>a.d===j.d&&a.t===j.t);if(!m)r.push({ty:"add",j});else if(m.p!==j.p||m.s!==j.s)r.push({ty:"fix",j,m})});
+  mine.forEach(m=>{if(jTaken(m.d,m.t)&&!J.some(j=>j.d===m.d&&j.t===m.t))r.push({ty:"extra",m})});
+  return r.sort((a,b)=>{const x=(a.j||a.m).d,y=(b.j||b.m).d;return x<y?1:-1});
+}
+function jurView(){
+  const J=myJ(),cmp=compareJ(),act=cmp.filter(c=>c.ty!=="extra");
+  let h='<div class="card jinfo" style="margin-top:12px">📋 '+(jmeta&&jmeta.at?'Jurnal son güncelleme: <b>'+esc(timeAgo(jmeta.at))+'</b> · '+esc(jmeta.by||""):'Jurnale henüz kayıt girilmedi.')+'<p class="muted" style="margin-top:4px">Jurnal, başkanın yoklamada girdiği resmi devamsızlıktır. Burada sadece kendi kayıtlarını görürsün.</p></div>';
+  h+='<div class="cols2"><div><h2>Karşılaştırma <span>· '+(cmp.length?cmp.length+' fark':'uyuşuyor ✓')+'</span>'+(act.length>1&&!ro()?'<button class="lnk" data-a="jall">Hepsini düzelt</button>':'')+'</h2><div class="card">';
+  if(!cmp.length)h+='<div class="empty">Kendi kayıtlarınla jurnal aynı 👍</div>';
+  cmp.forEach(c=>{const x=c.j||c.m;
+    let txt=c.ty==="add"?"Jurnalde var, sende yok":(c.ty==="fix"?"Sende: "+esc(sname(c.m.s))+" · "+pl(c.m)+" → jurnalde: "+esc(sname(c.j.s))+" · "+pl(c.j):"Sende var, jurnalde yok");
+    h+='<div class="li" style="'+col(x.s)+';cursor:default"><span class="dt"></span><span class="w"><b>'+esc(sname(x.s))+' <span style="color:var(--mut2);font-weight:500">· '+pl(x)+'</span></b><small>'+esc(fmtS(x.d))+' · '+esc(x.t)+' · '+txt+'</small></span>'+(ro()?'':(c.ty==="add"?'<button class="btn sm dark" data-a="jadd" data-id="'+c.j.id+'">Kayıtlarıma ekle</button>':(c.ty==="fix"?'<button class="btn sm line" data-a="jfix" data-id="'+c.j.id+'">Düzelt</button>':'<span class="chip warn">Kontrol et</span>')))+'</div>'});
+  h+='</div><h2>Jurnal kayıtların</h2>'+histList(J,false)+'</div><div><h2>Jurnale göre durum</h2>'+summaryCard(J,true)+'</div></div>';
+  return h;
+}
+function jApply(list){const mine=abs().slice();list.forEach(j=>{const i=mine.findIndex(a=>a.d===j.d&&a.t===j.t);const r={id:i>=0?mine[i].id:uid8(),d:j.d,t:j.t,s:j.s,k:j.k,p:j.p};if(i>=0)mine[i]=r;else mine.push(r)});setAbs(mine)}
+function syncAutoJ(force){
+  if(!prof||!prof.autoJ||ro()||(saveTimer&&!force))return;
+  const seenS=new Set(prof.jSeen||[]),mine=abs(),add=[];let ch=false;
+  jentAll.filter(x=>semOf(x)===semId()).forEach(x=>{const sig=x.id+"|"+x.p+"|"+x.s;if(seenS.has(sig))return;seenS.add(sig);ch=true;if(!mine.some(a=>a.d===x.d&&a.t===x.key)&&!add.some(a=>a.d===x.d&&a.t===x.key))add.push({id:uid8(),d:x.d,t:x.key,s:x.s,k:x.k,p:x.p})});
+  if(!ch&&!force)return;
+  prof.jSeen=[...seenS].slice(-800);
+  setAbs(mine.concat(add));
+  if(add.length)statusMsg=add.length+" jurnal kaydı eklendi ✓";
+}
+
+/* ---------- YÖNETİM ---------- */
+function yonView(){
+  const pendN=canRaw("onay")?members.filter(m=>m.status==="pending").length:0,miss=missingJ();
+  const it=(cond,attrs,txt)=>cond?'<button class="it" '+attrs+'>'+txt+'<span>›</span></button>':'';
+  let h='';
+  if(ro())h+='<p class="muted" style="margin:6px 2px">Geçmiş dönemi görüntülüyorsun; düzenleme kapalı.</p>';
+  h+='<div class="card menu" style="margin-top:6px">';
+  h+=it(can("jurnal"),'data-a="openyk"','✅ Yoklama al'+(miss?' <span class="chip edge">'+miss+' ders eksik</span>':''));
+  h+=it(canRaw("sinif")||canRaw("onay")||canRaw("jurnal"),'data-a="go" data-v="sinif"','👥 Sınıf'+(canRaw("onay")?' ve onaylar':'')+(pendN?' <span class="chip edge">'+pendN+' bekliyor</span>':''));
+  h+=it(can("sinav"),'data-a="newex"','📝 Sınav ekle');
+  h+=it(can("ann"),'data-a="tab" data-v="ann"','📢 Duyuru paylaş');
+  h+=it(can("hak"),'data-a="go" data-v="hakedit"','⏱️ Devamsızlık hakları');
+  h+=it(can("prog"),'data-a="go" data-v="progedit"','📅 Ders programını düzenle');
+  h+=it(can("prog"),'data-a="tab" data-v="prog"','🔁 Ders değişikliği (Program sayfasından)');
+  h+=it(can("odev"),'data-a="newhw"','📚 Sınıf ödevi ekle');
+  h+=it(isDev,'data-a="go" data-v="yetki"','🔑 Yetkiler');
+  h+=it(isDev,'data-a="go" data-v="donem"','🗓️ Dönemler');
+  return h+'</div>';
+}
+function donemView(){
+  if(!isDev)return'';
+  let h='<button class="back" data-a="back">‹ Geri</button><div class="card" style="margin-top:6px"><div class="muted">Şu anki dönemin adı</div><form data-form="semname" class="row2" style="margin-top:6px;gap:8px"><input name="n" value="'+esc(semName(semId()))+'" style="flex:1;min-width:0"><button class="btn dark" type="submit">Kaydet</button></form></div>';
+  h+='<h2>Yeni dönem başlat</h2><div class="card"><p class="muted" style="line-height:1.5">Yeni dönemde devamsızlıklar, jurnal, ödevler, sınavlar, ders değişiklikleri ve haklar sıfırdan başlar. Eski dönem silinmez; herkes Profilim → Geçmiş dönemler\'den bakabilir. Duyurular ve kütüphane ortak kalır.</p><form data-form="newsem"><label class="f">Yeni dönemin adı</label><input name="n" required placeholder="Örn. 2026-27 Bahar"><label class="tgl"><input type="checkbox" name="copy" checked><span>Mevcut ders programını kopyala<small>Dersler, saatler, hoca ve otaq bilgileri kopyalanır; haklar boş başlar. İşaretsizse boş program.</small></span></label><button class="btn dark full" type="submit">Yeni dönemi başlat</button></form></div>';
+  h+='<h2>Dönemler</h2><div class="card">'+semList().slice().reverse().map(x=>'<div class="li" style="cursor:default"><span class="w"><b>'+esc(x.ad)+(x.id===semId()?' <span class="badge">Şu an</span>':'')+'</b><small>'+(x.at?"Başlangıç: "+esc(new Date(x.at).toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})):"İlk dönem")+'</small></span></div>').join("")+'</div>';
+  return h+(msg?'<div class="err">'+esc(msg)+'</div>':'');
+}
+function semSubs(){
+  unsubSem.forEach(f=>{try{f()}catch(_){}});unsubSem=[];cls=null;hak=null;jmeta=null;
+  const v=VS();
+  unsubSem.push(B.watchDoc(mainPath(v),d=>{cls=d;render()}));
+  unsubSem.push(B.watchDoc(hakPath(v),d=>{hak=d;render()}));
+  unsubSem.push(B.watchDoc("jmeta/"+v,d=>{jmeta=d;render()}));
+}
+
+/* ---------- KÜTÜPHANE ---------- */
+function libItems(){const m=new Map();libShared.concat(libMine).forEach(x=>m.set(x.id,x));return[...m.values()].sort((a,b)=>b.at-a.at)}
+function fsz(n){return n>=1048576?(n/1048576).toFixed(1).replace(".",",")+" MB":Math.max(1,Math.round(n/1024))+" KB"}
+function libCard(x,q){
+  const own=x.owner===me.uid,canDel=own||isDev||canRaw("kut"),txt=(x.title+" "+(x.desc||"")+" "+(x.ownerName||"")+" "+sname(x.s)+" "+(x.file?x.file.name:"")).toLocaleLowerCase("tr");
+  let h='<div class="lib" style="'+col(x.s)+(qm(q,txt)?'':';display:none')+'" data-lq="'+esc(txt)+'"><div class="t">'+esc(x.title)+(x.share==="me"?'<span class="tag gry">🔒 Sadece ben</span>':'')+'</div><div class="s">'+esc(x.s?sname(x.s):"Genel")+' · '+esc(x.ownerName||"")+' · '+esc(new Date(x.at).toLocaleDateString("tr-TR",{day:"numeric",month:"short",year:"numeric"}))+'</div>'+(x.desc?'<p class="d">'+esc(x.desc)+'</p>':'');
+  h+='<div class="row2" style="gap:6px;margin-top:9px;flex-wrap:wrap">';
+  if(x.file)h+='<button class="btn sm dark" data-a="libopen" data-id="'+x.id+'">'+(dlBusy===x.id?"İndiriliyor…":"📄 "+esc(x.file.name.length>28?x.file.name.slice(0,25)+"…":x.file.name)+" · "+fsz(x.file.size))+'</button>';
+  else if(x.up)h+='<span class="chip">Dosya yükleniyor…</span>';
+  if(x.link)h+='<a class="btn sm line" style="text-decoration:none" href="'+esc(x.link)+'" target="_blank" rel="noopener">🔗 Linki aç</a>';
+  if(own)h+='<button class="btn sm line" data-a="libshare" data-id="'+x.id+'">'+(x.share==="me"?"👥 Herkesle paylaş":"🔒 Sadece ben yap")+'</button>';
+  if(canDel)h+='<button class="btn sm red" data-a="libdel" data-id="'+x.id+'">Sil</button>';
+  return h+'</div></div>';
+}
+function kutView(){
+  let h='<div class="seg" style="margin-top:6px"><button class="'+(kutTab==="all"?"on":"")+'" data-a="kuttab" data-v="all">👥 Ortak</button><button class="'+(kutTab==="me"?"on":"")+'" data-a="kuttab" data-v="me">🗂️ Notlarım</button></div>';
+  h+='<div class="row2" style="margin-top:10px;gap:8px"><select data-kuts="1" style="flex:1;min-width:0"><option value="">Tüm dersler</option>'+C().order.map(k=>'<option value="'+k+'"'+(kutS===k?" selected":"")+'>'+esc(C().subjects[k].n)+'</option>').join("")+'</select><button class="btn dark" data-a="newlib" style="white-space:nowrap">+ Not ekle</button></div><input data-kutq="1" placeholder="🔍 Notlarda ara" value="'+esc(kutQ)+'" style="margin-top:8px">';
+  let L2=libItems().filter(x=>kutTab==="me"?x.owner===me.uid:x.share==="all");if(kutS)L2=L2.filter(x=>x.s===kutS);
+  h+='<p class="muted" style="margin:10px 2px 0">'+(kutTab==="me"?"Kendi eklediğin bütün notlar (paylaştıkların ve sadece sana ait olanlar).":"Sınıfın herkesle paylaştığı ders notları.")+'</p><div class="libgrid">';
+  if(!L2.length)h+='<div class="card" style="margin-top:8px"><div class="empty">'+(kutTab==="me"?"Henüz not eklemedin.":"Henüz paylaşılan not yok. İlk notu sen ekle!")+'</div></div>';
+  L2.forEach(x=>h+=libCard(x,kutQ));
+  return h+'</div>'+(msg?'<div class="err">'+esc(msg)+'</div>':'');
+}
+function kutForm(){
+  const F=form;
+  let h='<button class="back" data-a="back">‹ Vazgeç</button><div class="card" style="margin-top:6px"><label class="f" style="margin-top:0">Ders</label><select data-f="s">'+subjOpts(F.s,true)+'</select><label class="f">Başlık</label><input data-f="title" value="'+esc(F.title)+'" placeholder="Örn. Hücre zarı özeti"><label class="f">Açıklama</label><textarea data-f="desc" placeholder="İsteğe bağlı">'+esc(F.desc)+'</textarea>';
+  h+='<label class="f">Dosya <span class="muted" style="font-weight:500">· en fazla 3 MB (PDF, fotoğraf, Word, slayt)</span></label><label class="filebox"><input type="file" data-file="1"><span>'+(F.fileObj?"📄 "+esc(F.fileObj.name)+" · "+fsz(F.fileObj.size):"📎 Dosya seç")+'</span></label>'+(F.fileObj?'<button class="lnk" data-a="nofile" style="color:var(--red)">Dosyayı kaldır</button>':'');
+  h+='<label class="f">veya link</label><input data-f="link" value="'+esc(F.link)+'" placeholder="https://drive.google.com/..."><p class="muted">3 MB\'tan büyük dosyaları Google Drive\'a yükleyip linkini yapıştır.</p>';
+  h+='<label class="f">Kimler görsün?</label><div class="seg"><button class="'+(F.share==="all"?"on":"")+'" data-a="fshare" data-v="all">👥 Herkesle paylaş</button><button class="'+(F.share==="me"?"on":"")+'" data-a="fshare" data-v="me">🔒 Sadece ben</button></div><p class="muted" style="margin-top:6px">Sonradan değiştirebilirsin.</p></div>';
+  h+='<button class="btn dark full" style="margin-top:14px" data-a="savelib"'+(busy?" disabled":"")+'>'+(busy?esc(F.prog||"Yükleniyor…"):"Kaydet")+'</button>';
+  return h+(msg?'<div class="err">'+esc(msg)+'</div>':'');
+}
+function b64enc(u8){let s="";for(let i=0;i<u8.length;i+=0x8000)s+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000));return btoa(s)}
+function b64dec(b){const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u}
+function openBlob(url,name){const el=document.createElement("a");el.href=url;el.download=name;el.target="_blank";el.rel="noopener";document.body.appendChild(el);el.click();el.remove()}
+
+/* ---------- HAKKINDA ---------- */
+function aboutView(){
+  return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
+  +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
+}
+
 /* ============================================================ EVENTS */
 function go(v,extra){
   stack.push(route);route=Object.assign({v},extra||{});
@@ -901,6 +1163,8 @@ function setPath(o,path,val){const p=path.split(".");let x=o;for(let i=0;i<p.len
 async function doSet(p,d,mg,okMsg){try{await B.set(p,d,mg);if(okMsg)statusMsg=okMsg;return true}catch(e){msg=errText(e);render();return false}}
 
 document.addEventListener("click",async e=>{
+  const tl=e.target.closest("[data-tile]");
+  if(tl&&yk){if(lpFired){lpFired=false;return}const id2=tl.dataset.tile,c=yk.map[id2],n=c==null?"t":(c==="t"?"1":(c==="1"?"2":null));if(n)yk.map[id2]=n;else delete yk.map[id2];yk.dirty=true;msg="";return render()}
   const b=e.target.closest("[data-a]");if(!b)return;
   const a=b.dataset.a,id=b.dataset.id;
   if(a==="go")return go(b.dataset.v,id?{id}:null);
@@ -922,12 +1186,16 @@ document.addEventListener("click",async e=>{
   if(a==="pweek"){const v=+b.dataset.v;progWeek=v===0?0:progWeek+v;return render()}
   if(a==="pday"){progDay=+b.dataset.v;return render()}
   if(a==="ders")return go("ders",{s:b.dataset.v});
-  if(a==="newex"){form={s:b.dataset.s||C().order[0],kind:"kol",d:today(),t:"",yer:"",not:""};return go("exf")}
-  if(a==="editex"){const x=exams.find(y=>y.id===id);if(!x)return;form=Object.assign({t:"",yer:"",not:""},clone(x));return go("exf")}
-  if(a==="saveex"){const F=form;if(!F.d){msg="Tarih seç.";return render()}const d={s:F.s,kind:F.kind,d:F.d,t:F.t||"",yer:F.yer||"",not:F.not||"",at:Date.now()};try{if(F.id)await B.set("exams/"+F.id,d);else await B.add("exams",d);statusMsg="Sınav kaydedildi ✓";back()}catch(x){msg=errText(x);render()}return}
-  if(a==="delex"){if(!confirmTwice(b))return;try{await B.del("exams/"+id);back()}catch(x){msg=errText(x);render()}return}
+  if(a==="newex"){if(!can("sinav"))return;form={s:b.dataset.s||C().order[0],kind:"kol",d:today(),t:"",yer:"",not:"",scope:"all",uids:[]};return go("exf")}
+  if(a==="editex"){const x=exams.find(y=>y.id===id);if(!x)return;form=Object.assign({t:"",yer:"",not:"",uids:[]},clone(x),{scope:x._p?"some":"all"});return go("exf")}
+  if(a==="exscope"){form.scope=b.dataset.v;form.uids=form.uids||[];return render()}
+  if(a==="saveex"){const F=form;if(!F.d){msg="Tarih seç.";return render()}if(F.scope==="some"&&!(F.uids||[]).length){msg="En az bir kişi seç.";return render()}
+    const d={s:F.s,kind:F.kind,d:F.d,t:F.t||"",yer:F.yer||"",not:F.not||"",sem:F.sem||semId(),at:Date.now()};
+    const cn=F.scope==="some"?"pexams":"exams";if(cn==="pexams"){d.uids=F.uids.slice();d.names=F.uids.map(u2=>{const m=members.find(y=>y.id===u2);return m?m.name:"?"})}
+    try{if(F.id){const oc=F._p?"pexams":"exams";if(oc!==cn){await B.del(oc+"/"+F.id);await B.add(cn,d)}else await B.set(cn+"/"+F.id,d)}else await B.add(cn,d);statusMsg="Sınav kaydedildi ✓";back()}catch(x){msg=errText(x);render()}return}
+  if(a==="delex"){if(!confirmTwice(b))return;try{await B.del((form&&form._p?"pexams/":"exams/")+id);back()}catch(x){msg=errText(x);render()}return}
   if(a==="newch"){form={d:b.dataset.d,kind:"iptal",t:((C().sch[parse(b.dataset.d).getDay()]||[])[0]||{}).t||"",nt:"",not:"",s:C().order[0],k:"d"};return go("chf")}
-  if(a==="savech"){const F=form;if(F.kind!=="ekstra"&&!F.t){msg="Ders seç.";return render()}if((F.kind==="saat"||F.kind==="ekstra")&&!F.nt){msg="Saat yaz.";return render()}const d={d:F.d,kind:F.kind,t:F.kind==="ekstra"?"":F.t,nt:F.nt||"",not:F.not||"",s:F.kind==="ekstra"?F.s:"",k:F.k||"d",at:Date.now()};try{await B.add("changes",d);statusMsg="Değişiklik kaydedildi ✓";form.not="";form.nt="";render()}catch(x){msg=errText(x);render()}return}
+  if(a==="savech"){const F=form;if(F.kind!=="ekstra"&&!F.t){msg="Ders seç.";return render()}if((F.kind==="saat"||F.kind==="ekstra")&&!F.nt){msg="Saat yaz.";return render()}const d={d:F.d,kind:F.kind,t:F.kind==="ekstra"?"":F.t,nt:F.nt||"",not:F.not||"",s:F.kind==="ekstra"?F.s:"",k:F.k||"d",sem:semId(),at:Date.now()};try{await B.add("changes",d);statusMsg="Değişiklik kaydedildi ✓";form.not="";form.nt="";render()}catch(x){msg=errText(x);render()}return}
   if(a==="delch"){try{await B.del("changes/"+id)}catch(x){msg=errText(x);render()}return}
   // homework
   if(a==="ofilt"){odevFilter=b.dataset.v;return render()}
@@ -944,7 +1212,7 @@ document.addEventListener("click",async e=>{
   if(a==="addall"){const have=new Set(form.assign.map(x=>x.uid));form.assign=form.assign.filter(x=>x.uid);members.filter(m=>m.status==="approved"&&!have.has(m.id)).forEach(m=>form.assign.push({uid:m.id,konu:""}));return render()}
   if(a==="savehw"){const F=form;if(!F.title.trim()){msg="Başlık yaz.";return render()}
     const nm=id2=>{const m=members.find(y=>y.id===id2);return m?m.name:""};
-    const d={s:F.s,title:F.title.trim(),desc:F.desc||"",due:F.due||"",type:F.type,links:(F.links||[]).filter(l=>l.url&&l.url.trim()).map(l=>({ad:l.ad||"",url:/^https?:\/\//.test(l.url.trim())?l.url.trim():"https://"+l.url.trim()})),assign:F.type==="kisi"?F.assign.filter(x=>x.uid).map(x=>({uid:x.uid,name:nm(x.uid),konu:x.konu||""})):[],groups:F.type==="grup"?F.groups.map(g=>({ad:g.ad||"",konu:g.konu||"",uids:g.uids||[]})):[],by:myName(),at:F.at||Date.now(),upd:Date.now()};
+    const d={s:F.s,title:F.title.trim(),desc:F.desc||"",due:F.due||"",type:F.type,links:(F.links||[]).filter(l=>l.url&&l.url.trim()).map(l=>({ad:l.ad||"",url:/^https?:\/\//.test(l.url.trim())?l.url.trim():"https://"+l.url.trim()})),assign:F.type==="kisi"?F.assign.filter(x=>x.uid).map(x=>({uid:x.uid,name:nm(x.uid),konu:x.konu||""})):[],groups:F.type==="grup"?F.groups.map(g=>({ad:g.ad||"",konu:g.konu||"",uids:g.uids||[]})):[],by:myName(),sem:F.sem||semId(),at:F.at||Date.now(),upd:Date.now()};
     try{if(F.id)await B.set("homework/"+F.id,d);else await B.add("homework",d);statusMsg="Ödev kaydedildi ✓";form=null;stack=[{v:"odev"}];route={v:"odev"};render()}catch(x){msg=errText(x);render()}return}
   if(a==="delhw"){if(!confirmTwice(b))return;try{await B.del("homework/"+id);tab("odev")}catch(x){msg=errText(x);render()}return}
   if(a==="teslim"){const sid=id+"_"+me.uid;const has=subsList.some(y=>y.id===sid||(y.hw===id&&y.uid===me.uid));try{if(has)await B.del("submissions/"+sid);else await B.set("submissions/"+sid,{hw:id,uid:me.uid,name:myName(),at:Date.now()});statusMsg=has?"Teslim geri alındı":"Teslim edildi ✓";render()}catch(x){statusMsg=errText(x);render()}return}
@@ -954,22 +1222,70 @@ document.addEventListener("click",async e=>{
   if(a==="uye")return go("uye",{id});
   if(a==="approve"){await doSet("members/"+id,{status:"approved",by:myName(),dt:Date.now()},true,"Onaylandı ✓");render();return}
   if(a==="reject"){if(!confirmTwice(b))return;await doSet("members/"+id,{status:"rejected",by:myName(),dt:Date.now()},true,"Reddedildi");if(route.v==="uye")back();else render();return}
-  if(a==="permall"){const on=b.dataset.v==="1";const p={};if(on)PERMS.forEach(x=>p[x[0]]=true);try{if(on)await B.set("roles/"+id,{p,at:Date.now()});else await B.del("roles/"+id);statusMsg=on?"Başkan yetkileri verildi ✓":"Yetkiler kaldırıldı"}catch(x){statusMsg=errText(x)}render();return}
+  if(a==="permset"){const v=b.dataset.v,p={};if(v==="all")PERMS.forEach(x=>p[x[0]]=true);if(v==="baskan")BASKAN.forEach(x=>p[x]=true);try{if(v!=="none")await B.set("roles/"+id,{p,at:Date.now()});else await B.del("roles/"+id);statusMsg=v==="baskan"?"Başkan yetkileri verildi ✓":(v==="all"?"Bütün yetkiler verildi ✓":"Yetkiler kaldırıldı")}catch(x){statusMsg=errText(x)}render();return}
   // program edit
   if(a==="addsubj"){const k="s"+uid8().slice(0,6);draft.subjects[k]={n:"Yeni ders",c:PALETTE[draft.order.length%PALETTE.length][1],h:"",o:""};draft.order.push(k);return render()}
   if(a==="addslot"){const d=b.dataset.d;(draft.sch[d]=draft.sch[d]||[]).push({t:"",l:"",o:[[draft.order[0],"d"]]});return render()}
   if(a==="rmslot"){draft.sch[b.dataset.d].splice(+b.dataset.i,1);return render()}
   if(a==="saveprog"){const D=clone(draft);for(const d in D.sch){D.sch[d]=D.sch[d].filter(sl=>sl.o&&sl.o[0]&&sl.o[0][0]).map(sl=>({t:(sl.t||"").trim().replace(":","."),l:(sl.l||"").trim()||D.subjects[sl.o[0][0]].n,o:sl.o.filter(o=>o&&o[0]).map(o=>[o[0],o[1]||"d"])})).sort((x,y)=>tm(x.t)-tm(y.t))}
-    if(await doSet("class/main",D,false,"Program kaydedildi ✓")){draft=null;back()}return}
-  if(a==="savehak"){if(await doSet("class/haklar",{lim:hdraft.lim,done:hdraft.done,at:Date.now()},false,"Haklar kaydedildi ✓")){hdraft=null;back()}return}
+    if(await doSet(mainPath(semId()),D,false,"Program kaydedildi ✓")){draft=null;back()}return}
+  if(a==="savehak"){if(await doSet(hakPath(semId()),{lim:hdraft.lim,done:hdraft.done,at:Date.now()},false,"Haklar kaydedildi ✓")){hdraft=null;back()}return}
+  // abs tabs / jurnal
+  if(a==="abstab"){absTab=b.dataset.v;pend=null;return render()}
+  if(a==="absj"){absTab="j";return tab("abs")}
+  if(a==="jadd"||a==="jfix"){const j=myJ().find(x=>x.id===id);if(j)jApply([j]);return}
+  if(a==="jall"){jApply(compareJ().filter(c=>c.ty!=="extra").map(c=>c.j));return}
+  // yoklama
+  if(a==="openyk"){if(!can("jurnal"))return;yk=null;ykLoad(today(),b.dataset.v||null);return go("yok")}
+  if(a==="ykday"){const n=+b.dataset.v;let d;if(n===0)d=today();else{const x=parse(yk.d);do{x.setDate(x.getDate()+n)}while(x.getDay()===0||x.getDay()===6);d=iso(x)}msg="";ykLoad(d);return render()}
+  if(a==="yklesson"){msg="";ykLoad(yk.d,b.dataset.v);return render()}
+  if(a==="yksubj"){yk.s=b.dataset.s;yk.k=b.dataset.k;yk.dirty=true;msg="";return render()}
+  if(a==="ykcopy"){const ls=lessons(yk.d),i=ls.findIndex(x=>x.key===yk.key);const pv=i>0?jdoc(yk.d,ls[i-1].key):null;if(!pv){msg=i>0?"Önceki dersin yoklaması henüz girilmemiş.":"Bu günün ilk dersi, kopyalanacak ders yok.";return render()}yk.map=clone(pv.abs||{});yk.dirty=true;msg="";statusMsg="Önceki dersin listesi kopyalandı · kontrol edip kaydet";return render()}
+  if(a==="yksave"){const sl=lessons(yk.d).find(x=>x.key===yk.key);if(!sl)return;if(!yk.s){msg="Önce bu saatte hangi dersin işlendiğini seç.";return render()}b.disabled=true;b.textContent="Kaydediliyor…";
+    try{await jSave(yk.d,sl,yk.map,yk.s,yk.k);yk.dirty=false;msg="";statusMsg="Yoklama kaydedildi ✓ ("+Object.keys(yk.map).length+" kişi yok)"}catch(x){msg=errText(x)}render();return}
+  // dönem
+  if(a==="semview"){const v=b.dataset.v;vSem=(!v||v===semId())?null:v;semSubs();refilter();absTab="mine";return tab("home")}
+  // kütüphane
+  if(a==="kuttab"){kutTab=b.dataset.v;return render()}
+  if(a==="newlib"){form={s:b.dataset.s||kutS||"",title:"",desc:"",link:"",share:kutTab==="me"?"me":"all",fileObj:null};return go("kutf")}
+  if(a==="fshare"){form.share=b.dataset.v;return render()}
+  if(a==="nofile"){form.fileObj=null;return render()}
+  if(a==="savelib"){const F=form;if(busy)return;if(!F.title.trim()){msg="Başlık yaz.";return render()}if(!F.fileObj&&!(F.link||"").trim()){msg="Dosya seç ya da link yapıştır.";return render()}
+    busy=true;msg="";F.prog="Hazırlanıyor…";render();const nid="n"+uid8();let made=false;
+    try{const link=(F.link||"").trim();
+      const d={s:F.s||"",title:F.title.trim(),desc:F.desc||"",link:link?(/^https?:\/\//.test(link)?link:"https://"+link):"",file:null,up:!!F.fileObj,share:F.share,owner:me.uid,ownerName:myName(),at:Date.now()};
+      let parts=null,file=null;
+      if(F.fileObj){const buf=new Uint8Array(await F.fileObj.arrayBuffer());parts=[];for(let i=0;i<buf.length;i+=CHUNK)parts.push(b64enc(buf.subarray(i,i+CHUNK)));file={name:F.fileObj.name,type:F.fileObj.type||"application/octet-stream",size:buf.length,chunks:parts.length}}
+      await B.set("library/"+nid,d);made=true;
+      if(parts){for(let i=0;i<parts.length;i++){F.prog="Yükleniyor… %"+Math.round(i/parts.length*100);render();await B.set("files/"+nid+"/c/"+i,{b:parts[i]})}await B.set("library/"+nid,{file,up:false},true)}
+      busy=false;form=null;kutTab=d.share==="all"?"all":"me";statusMsg="Not kaydedildi ✓";stack=[];route={v:"kut"};render();
+    }catch(x){busy=false;msg="Yüklenemedi: "+errText(x);if(made){try{await B.del("library/"+nid)}catch(_){}}render()}return}
+  if(a==="libshare"){const x=libItems().find(y=>y.id===id);if(!x)return;const ns=x.share==="me"?"all":"me";try{await B.set("library/"+id,{share:ns},true);if(ns==="me")libShared=libShared.filter(y=>y.id!==id);statusMsg=ns==="all"?"Herkesle paylaşıldı ✓":"Artık sadece sen görüyorsun"}catch(e2){statusMsg=errText(e2)}render();return}
+  if(a==="libdel"){if(!confirmTwice(b))return;const x=libItems().find(y=>y.id===id);try{if(x&&x.file)for(let i=0;i<x.file.chunks;i++)await B.del("files/"+id+"/c/"+i);await B.del("library/"+id);libShared=libShared.filter(y=>y.id!==id);libMine=libMine.filter(y=>y.id!==id);statusMsg="Not silindi"}catch(e2){statusMsg=errText(e2)}render();return}
+  if(a==="libopen"){const x=libItems().find(y=>y.id===id);if(!x||!x.file||dlBusy)return;
+    if(blobCache[id])return openBlob(blobCache[id],x.file.name);
+    dlBusy=id;render();
+    try{const bufs=[];for(let i=0;i<x.file.chunks;i++){const c=await B.get("files/"+id+"/c/"+i);if(!c||!c.b)throw{code:"Dosyanın bir parçası eksik"};bufs.push(b64dec(c.b))}
+      const url=URL.createObjectURL(new Blob(bufs,{type:x.file.type}));blobCache[id]=url;dlBusy="";render();openBlob(url,x.file.name)}
+    catch(e2){dlBusy="";statusMsg="Açılamadı: "+errText(e2);render()}return}
 });
 function confirmTwice(b){if(b.dataset.sure)return true;b.dataset.sure="1";const t=b.textContent;b.textContent="Emin misin? Tekrar bas";setTimeout(()=>{if(b.isConnected){delete b.dataset.sure;b.textContent=t}},3000);return false}
 
 document.addEventListener("toggle",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.yid){if(t.open)yOpen.add(t.dataset.yid);else yOpen.delete(t.dataset.yid)}},true);
-document.addEventListener("input",e=>{const t=e.target;if(t.dataset.f&&form){setPath(form,t.dataset.f,t.value)}});
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.f&&form){setPath(form,t.dataset.f,t.value)}
+  if(t.dataset.ykq&&yk){yk.q=t.value;document.querySelectorAll("[data-tile]").forEach(el=>el.style.display=qm(yk.q,el.dataset.q)?"":"none")}
+  if(t.dataset.kutq){kutQ=t.value;document.querySelectorAll("[data-lq]").forEach(el=>el.style.display=qm(kutQ,el.dataset.lq)?"":"none")}});
+document.addEventListener("pointerdown",e=>{const t=e.target.closest("[data-tile]");if(!t)return;lpFired=false;lpXY=[e.clientX,e.clientY];clearTimeout(lpT);lpT=setTimeout(()=>{lpFired=true;try{navigator.vibrate&&navigator.vibrate(30)}catch(_){}ykAllDay(t.dataset.tile)},650)});
+document.addEventListener("pointermove",e=>{if(lpXY&&(Math.abs(e.clientX-lpXY[0])>10||Math.abs(e.clientY-lpXY[1])>10)){clearTimeout(lpT);lpXY=null}});
+["pointerup","pointercancel"].forEach(ev=>document.addEventListener(ev,()=>{clearTimeout(lpT);lpXY=null}));
+document.addEventListener("contextmenu",e=>{if(e.target.closest("[data-tile]"))e.preventDefault()});
 document.addEventListener("change",async e=>{
   const t=e.target;
   if(t.dataset.f&&form){setPath(form,t.dataset.f,t.value);if(t.dataset.rr)render();return}
+  if(t.dataset.exu&&form){form.uids=form.uids||[];if(t.checked){if(!form.uids.includes(t.value))form.uids.push(t.value)}else form.uids=form.uids.filter(x=>x!==t.value);return}
+  if(t.dataset.kuts){kutS=t.value;return render()}
+  if(t.dataset.file&&form){const fl=t.files&&t.files[0];if(fl&&fl.size>FILE_MAX){form.fileObj=null;msg="Dosya 3 MB'tan büyük ("+fsz(fl.size)+"). Drive'a yükleyip link olarak ekle.";}else{form.fileObj=fl||null;msg=""}return render()}
+  if(t.dataset.autoj){prof=prof||{};prof.autoJ=t.checked;prof.jSeen=[];if(t.checked)syncAutoJ(true);else saveProf();return}
   if(t.dataset.gm!=null&&form){const g=form.groups[+t.dataset.gm];g.uids=g.uids||[];if(t.checked){if(!g.uids.includes(t.value))g.uids.push(t.value)}else g.uids=g.uids.filter(x=>x!==t.value);return}
   if(t.dataset.e&&draft){setPath(draft,t.dataset.e,t.value);
     if(/\.o\.1\.0$/.test(t.dataset.e)){const p=t.dataset.e.split(".");const sl=draft.sch[p[1]][+p[2]];if(!t.value)sl.o=[sl.o[0]];else sl.o[1]=[t.value,(sl.o[1]&&sl.o[1][1])||"d"];render()}
@@ -986,6 +1302,10 @@ document.addEventListener("submit",async e=>{
       else await B.emailIn(v("e"),fm.elements.p.value)}catch(x){loginErr=errText(x)}
     busy=false;render();return}
   if(k==="ann"){const t=v("t");if(!t)return;try{await B.add("announcements",{text:t,by:myName(),at:Date.now()});msg="Duyuru paylaşıldı ✓";markSeen("ann")}catch(x){msg=errText(x)}render();return}
+  if(k==="semname"){const n=v("n");if(!n||!isDev)return;const sems=semList().map(x=>x.id===semId()?Object.assign({},x,{ad:n}):x);await doSet("config/app",{sem:semId(),sems},false,"Dönem adı kaydedildi ✓");render();return}
+  if(k==="newsem"){const n=v("n");if(!n||!isDev)return;const btn=fm.querySelector("button[type=submit]");if(!fm.dataset.sure){fm.dataset.sure="1";btn.textContent="Emin misin? Tekrar bas";btn.classList.add("red");setTimeout(()=>{if(fm.isConnected){delete fm.dataset.sure;btn.textContent="Yeni dönemi başlat";btn.classList.remove("red")}},4000);return}
+    const id="s"+Date.now().toString(36),copy=fm.elements.copy&&fm.elements.copy.checked;
+    try{const P=copy?clone(C()):{subjects:{},order:[],sch:{}};delete P.lim;delete P.done;await B.set(mainPath(id),P);await B.set("config/app",{sem:id,sems:semList().concat([{id,ad:n,at:Date.now()}])});vSem=null;statusMsg="Yeni dönem başladı: "+n+" ✓";tab("home")}catch(x){msg=errText(x);render()}return}
   if(k==="name"){const n=v("n");if(!n)return;prof=prof||{};prof.name=n;saveProf();if(member){try{await B.set("members/"+me.uid,{name:n},true)}catch(_){}}return}
   if(k==="import"){try{const j=JSON.parse(fm.elements.j.value);const list=Array.isArray(j)?j:(j.abs||[]);const have=new Set(abs().map(x=>x.d+"|"+x.t));const add=[];
       list.forEach(x=>{if(x&&x.d&&x.t&&x.s&&!have.has(x.d+"|"+x.t)){add.push({id:x.id||uid8(),d:x.d,t:x.t,s:x.s,k:x.k||"d",p:x.p||"t"});have.add(x.d+"|"+x.t)}});
@@ -993,27 +1313,32 @@ document.addEventListener("submit",async e=>{
 });
 
 /* ============================================================ START */
-function stopAll(){unsubAll.concat(unsubPerm).forEach(f=>{try{f&&f()}catch(_){}});unsubAll=[];unsubPerm=[];dataStarted=false}
+function stopAll(){unsubAll.concat(unsubPerm,unsubSem).forEach(f=>{try{f&&f()}catch(_){}});unsubAll=[];unsubPerm=[];unsubSem=[];dataStarted=false}
 function startData(){
   if(dataStarted)return;dataStarted=true;
   const W=(fn)=>unsubAll.push(fn);
-  W(B.watchDoc("class/main",d=>{cls=d;render()}));
-  W(B.watchDoc("class/haklar",d=>{hak=d;render()}));
+  semSubs();
+  W(B.watchDoc("config/app",d=>{const old=semId();cfg=d;if(semId()!==old){if(vSem===semId())vSem=null;if(!vSem)semSubs()}refilter();render()}));
   W(B.watchCol("announcements",d=>{anns=d.sort((a,b)=>b.at-a.at);render()}));
-  W(B.watchCol("exams",d=>{exams=d;render()}));
-  W(B.watchCol("changes",d=>{changes=d;render()}));
-  W(B.watchCol("homework",d=>{hws=d.sort((a,b)=>b.at-a.at);render()}));
+  W(B.watchCol("exams",d=>{exA=d;refilter();render()}));
+  W(B.watchCol("changes",d=>{changesAll=d;refilter();render()}));
+  W(B.watchCol("homework",d=>{hwsAll=d.sort((a,b)=>b.at-a.at);refilter();render()}));
   W(B.watchCol("members",d=>{members=d;render()}));
-  W(B.watchDoc("users/"+me.uid,d=>{if(!saveTimer){prof=d||{abs:[],kisisel:[]};render()}}));
+  W(B.watchCol("jentries",d=>{jentAll=d;syncAutoJ();render()},["uid",me.uid]));
+  W(B.watchCol("library",d=>{libShared=d;render()},["share","all"]));
+  W(B.watchCol("library",d=>{libMine=d;render()},["owner",me.uid]));
+  W(B.watchDoc("users/"+me.uid,d=>{if(!saveTimer){prof=d||{abs:[],kisisel:[]};syncAutoJ();render()}}));
   setTimeout(async()=>{if(!prof||!prof.email){try{await B.set("users/"+me.uid,{name:myName(),email:me.email,abs:(prof&&prof.abs)||[],kisisel:(prof&&prof.kisisel)||[],at:Date.now()},true)}catch(_){}}},1200);
   permSubs();
 }
 let lastPermKey="";
 function permSubs(){
-  const key=[can("odev"),can("sinif")].join();if(key===lastPermKey&&unsubPerm.length)return;lastPermKey=key;
+  const key=["odev","sinif","jurnal","sinav"].map(canRaw).join();if(key===lastPermKey&&unsubPerm.length)return;lastPermKey=key;
   unsubPerm.forEach(f=>{try{f()}catch(_){}});unsubPerm=[];
-  unsubPerm.push(can("odev")?B.watchCol("submissions",d=>{subsList=d;render()}):B.watchCol("submissions",d=>{subsList=d;render()},["uid",me.uid]));
-  if(can("sinif"))unsubPerm.push(B.watchCol("users",d=>{users=d;render()}));else users=[];
+  unsubPerm.push(canRaw("odev")?B.watchCol("submissions",d=>{subsAll=d;refilter();render()}):B.watchCol("submissions",d=>{subsAll=d;refilter();render()},["uid",me.uid]));
+  if(canRaw("sinif"))unsubPerm.push(B.watchCol("users",d=>{users=d;render()}));else users=[];
+  if(canRaw("jurnal")||canRaw("sinif"))unsubPerm.push(B.watchCol("jurnal",d=>{jurAll=d;if(yk&&!yk.dirty&&route.v==="yok")ykLoad(yk.d,yk.key);render()}));else jurAll=[];
+  unsubPerm.push(canRaw("sinav")?B.watchCol("pexams",d=>{exP=d;refilter();render()}):B.watchCol("pexams",d=>{exP=d;refilter();render()},["uids","array-contains",me.uid]));
 }
 async function start(){
   try{B=MOCK?mockBackend():await firebaseBackend()}catch(e){$app.innerHTML='<div class="center"><div class="em">📡</div><h1>Bağlanamadı</h1><p>İnternet bağlantını kontrol edip sayfayı yenile.</p></div>';return}
@@ -1021,6 +1346,7 @@ async function start(){
   B.onAuth(user=>{
     stopAll();lastPermKey="";
     me=user;member=null;roles={};cls=null;hak=null;anns=[];exams=[];changes=[];hws=[];subsList=[];members=[];users=[];prof=null;route={v:"home"};stack=[];statusMsg="";
+    cfg=null;vSem=null;jurAll=[];jentAll=[];jmeta=null;libShared=[];libMine=[];yk=null;exA=[];exP=[];examsAll=[];changesAll=[];hwsAll=[];subsAll=[];absTab="mine";kutTab="all";kutS="";kutQ="";
     if(!user){loginMode="in";loginErr="";loginOk="";render();return}
     isDev=MOCK?/^dev/.test(user.email):DEV_EMAILS.map(x=>x.toLowerCase()).includes(user.email);
     if(isDev)startData();
