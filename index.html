@@ -410,7 +410,7 @@ const DEV_EMAILS = ["aydinomurpro@gmail.com"];
 const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 
-const VERSION="2.2",VDATE="5 Kasım 2026";
+const VERSION="2.2.1",VDATE="5 Kasım 2026";
 const PERMS = [
   ["jurnal","Yoklama / jurnal girebilir"],
   ["sinav","Sınav tarihlerini girebilir"],
@@ -504,7 +504,7 @@ function mockBackend(){
 /* ============================================================ STATE */
 let B=null,me,member=null,isDev=false,roles={},cls=null,hak=null,anns=[],examsAll=[],changesAll=[],hwsAll=[],subsAll=[],members=[],users=[],prof=null;
 let cfg=null,vSem=null,jurAll=[],jmeta=null,libShared=[],libMine=[],yk=null,unsubSem=[],absTab="mine",kutTab="not",kutS="",kutQ="",dlBusy="";
-let isDevReal=false,progTab="w0",sheet=null,sfileObj=null,upProg="",toast="",toastT=null,usage=null,polls=[],votes=[],svotes=[],pollEdit=new Set(),pollSel={};
+let profLoaded=false,isDevReal=false,progTab="w0",sheet=null,sfileObj=null,upProg="",toast="",toastT=null,usage=null,polls=[],votes=[],svotes=[],pollEdit=new Set(),pollSel={};
 let exams=[],changes=[],hws=[],subsList=[],jentAll=[],exA=[],exP=[],lpT=null,lpFired=false,lpXY=null;const blobCache={};
 let route={v:"home"},stack=[],pend=null,statusMsg="",saveTimer=null,loginMode="in",loginErr="",loginOk="",busy=false,msg="";
 const yOpen=new Set();let form=null,draft=null,hdraft=null,odevFilter="all",absSel=null,progDay=null,progWeek=0,unsubAll=[],unsubPerm=[],dataStarted=false;
@@ -626,6 +626,7 @@ function weekDates(off){const d=new Date();const wd=d.getDay()||7;d.setDate(d.ge
 
 /* ---------- saving ---------- */
 function saveProf(){
+  if(!profLoaded){statusMsg="Kayıtların yükleniyor, birazdan tekrar dene";render();return}
   statusMsg="Kaydediliyor…";render();clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
     try{await B.set("users/"+me.uid,{abs:absAll(),kisisel:kisAll(),name:myName(),email:me.email,autoJ:!!(prof&&prof.autoJ),jSeen:(prof&&prof.jSeen)||[],at:Date.now()},true);statusMsg="Kaydedildi ✓"}
@@ -1658,8 +1659,13 @@ function startData(){
   W(B.watchCol("votes",d=>{votes=d;render()}));
   W(B.watchCol("svotes",d=>{svotes=d;render()},["uid",me.uid]));
   W(B.watchDoc("stats/usage",d=>{usage=d;render()}));
-  W(B.watchDoc("users/"+me.uid,d=>{if(!saveTimer){prof=d||{abs:[],kisisel:[]};syncAutoJ();render()}}));
-  setTimeout(async()=>{if(!prof||!prof.email){try{await B.set("users/"+me.uid,{name:myName(),email:me.email,abs:(prof&&prof.abs)||[],kisisel:(prof&&prof.kisisel)||[],at:Date.now()},true)}catch(_){}}},1200);
+  W(B.watchDoc("users/"+me.uid,async(d,err)=>{
+    if(err)return; // okunamadıysa hiçbir şeyi değiştirme
+    const first=!profLoaded;profLoaded=true;
+    if(!saveTimer){prof=d||{abs:[],kisisel:[]};syncAutoJ();render()}
+    // sadece belge gerçekten YOKSA veya e-postası eksikse oluştur; kayıtlara asla dokunma
+    if(first&&(!d||!d.email)){try{await B.set("users/"+me.uid,{name:myName(),email:me.email,at:Date.now()},true)}catch(_){}}
+  }));
   permSubs();
 }
 let lastPermKey="";
@@ -1677,7 +1683,7 @@ async function start(){
   B.onAuth(user=>{
     stopAll();lastPermKey="";
     me=user;member=null;roles={};cls=null;hak=null;anns=[];exams=[];changes=[];hws=[];subsList=[];members=[];users=[];prof=null;route={v:"home"};stack=[];statusMsg="";
-    cfg=null;vSem=null;jurAll=[];jentAll=[];jmeta=null;libShared=[];libMine=[];yk=null;exA=[];exP=[];examsAll=[];changesAll=[];hwsAll=[];subsAll=[];absTab="mine";kutTab="not";kutS="";kutQ="";sheet=null;polls=[];votes=[];svotes=[];usage=null;
+    profLoaded=false;cfg=null;vSem=null;jurAll=[];jentAll=[];jmeta=null;libShared=[];libMine=[];yk=null;exA=[];exP=[];examsAll=[];changesAll=[];hwsAll=[];subsAll=[];absTab="mine";kutTab="not";kutS="";kutQ="";sheet=null;polls=[];votes=[];svotes=[];usage=null;
     if(!user){loginMode="in";loginErr="";loginOk="";render();return}
     isDevReal=MOCK?/^dev/.test(user.email):DEV_EMAILS.map(x=>x.toLowerCase()).includes(user.email);applyAdmin();
     if(isDevReal)startData();
