@@ -388,6 +388,16 @@ details.hist>summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--m
   .toast{bottom:40px}
   .usage{margin-bottom:20px}
 }
+.sum3{display:flex;gap:8px;margin-top:12px}.sum3>div{flex:1;background:var(--card);border-radius:14px;padding:11px 6px;box-shadow:var(--sh);text-align:center}
+.sum3 b{display:block;font-size:21px}.sum3 small{font-size:10px;color:var(--mut2);font-weight:700;letter-spacing:.3px}
+.sc{background:var(--card);border-radius:16px;box-shadow:var(--sh);padding:14px;margin-top:10px;border-left:4px solid var(--a)}
+.sc .hd{display:flex;justify-content:space-between;align-items:center;gap:8px}.sc .hd b{font-size:15.5px}
+.bl{margin-top:10px}.bl .lb{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mut);font-weight:600}.bl .lb span:last-child{color:var(--tx)}
+.bb{height:8px;background:var(--soft);border-radius:4px;margin-top:5px;overflow:hidden}.bb i{display:block;height:100%;background:var(--a);border-radius:4px}
+.sc .info,.snote{margin-top:10px;background:var(--soft);border-radius:10px;padding:9px 10px;font-size:12.5px;line-height:1.5;color:var(--mut)}
+.sc .info b,.snote b{color:var(--tx)}
+.dts{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.dts span{font-size:11.5px;font-weight:600;background:var(--soft);border-radius:6px;padding:3px 7px;color:var(--mut)}
+.dts span.m{background:color-mix(in srgb,var(--acc) 12%,var(--card));color:var(--acc)}
 
 </style>
 </head><body>
@@ -410,7 +420,7 @@ const DEV_EMAILS = ["aydinomurpro@gmail.com"];
 const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 
-const VERSION="2.2.1",VDATE="5 Kasım 2026";
+const VERSION="2.2.2",VDATE="5 Kasım 2026";
 const PERMS = [
   ["jurnal","Yoklama / jurnal girebilir"],
   ["sinav","Sınav tarihlerini girebilir"],
@@ -591,21 +601,24 @@ function st(used,tot){
 const RANK={over:4,edge:3,warn:2,ok:1,none:0};
 function calc(s,list){
   let d=0,m=0;list.forEach(a=>{if(a.s!==s)return;if(a.k==="d")d+=u(a);else m+=u(a)});
-  const H=HAS()[s]||{d:true,m:false},Lm=L()[s]||{},done=!!DONE()[s];
-  const carry=(H.d&&H.m&&done&&Lm.m)?Math.max(0,Lm.m-m):0,rows=[];
-  if(H.d)rows.push({k:"d",used:d,tot:(Lm.d||0)+carry});
-  if(H.m&&!(H.d&&done))rows.push({k:"m",used:m,tot:Lm.m||0});
-  if(!rows.length)rows.push({k:"d",used:d,tot:Lm.d||0});
+  // Kural: muhazire hakkı derste kullanılabilir, ders hakkı muhazirede kullanılamaz (ortak havuz = kalan muhazire hakkı)
+  const H=HAS()[s]||{d:true,m:false},Lm=L()[s]||{},lD=H.d?(Lm.d||0):0,lM=H.m?(Lm.m||0):0,rows=[];
+  const ex=H.d&&H.m?Math.max(0,Math.min(d-lD,Math.max(0,lM-m))):0; // muhazire hakkından derse kullanılan
+  const exAll=H.d&&H.m?Math.max(0,d-lD):0;
+  if(H.d)rows.push({k:"d",used:d,tot:lD?(lD+(H.m?Math.max(0,lM-m):0)):(H.m&&lM?lM-m>0?lM-m:0:0),lim:lD});
+  if(H.m)rows.push({k:"m",used:m+exAll,tot:lM,own:m,lim:lM});
+  if(!rows.length)rows.push({k:"d",used:d,tot:Lm.d||0,lim:Lm.d||0});
   rows.forEach(r=>r.st=st(r.used,r.tot));
   const worst=rows.reduce((w,r)=>RANK[r.st.c]>RANK[w.st.c]?r:w,rows[0]);
-  return{s,n:d+m,rows,worst,carry};
+  const T=lD+lM||rows[0].tot,left=T?Math.max(0,lD-Math.min(d,lD))+(lM-m-exAll):null;
+  return{s,n:d+m,d,m,lD,lM,ex,exAll,rows,worst,carry:0,T,left};
 }
 function summary(list){
   const items=C().order.map(s=>calc(s,list));
   let used=0,tot=0,usedL=0;const cnt={over:0,edge:0,warn:0,ok:0,none:0};
-  items.forEach(c=>{used+=c.n;c.rows.forEach(r=>{if(r.tot){tot+=r.tot;usedL+=r.used}});cnt[c.worst.st.c]++});
+  let left=0;items.forEach(c=>{used+=c.n;if(c.T){tot+=c.T;usedL+=c.n;left+=Math.max(0,c.left)}cnt[c.worst.st.c]++});
   items.sort((a,b)=>{const r=RANK[b.worst.st.c]-RANK[a.worst.st.c];if(r)return r;const pa=a.worst.tot?a.worst.used/a.worst.tot:0,pb=b.worst.tot?b.worst.used/b.worst.tot:0;return pb-pa||b.n-a.n});
-  return{items,used,tot,usedL,cnt,worst:items.length?items[0].worst.st.c:"none"};
+  return{items,used,tot,usedL,left,cnt,worst:items.length?items[0].worst.st.c:"none"};
 }
 
 /* ---------- schedule with changes ---------- */
@@ -849,18 +862,44 @@ function absRow(c,own){
   if(w.c==="over")h+='<div class="msg over">Devamsızlık hakkı aşıldı</div>';
   return h+'</div>';
 }
-function summaryCard(list,own){return ringCard(list)+'<div class="sec"><span>Derslere göre</span><span>kalan hak</span></div>'+subjRows(list,own)}
+function summaryCard(list,own){return sum3(list)+'<div class="sec"><span>Derslere göre</span><span>en riskli üstte</span></div>'+detCards(list,own)}
+function sum3(list){const S=summary(list),dk=S.cnt.over+S.cnt.edge+S.cnt.warn;return'<div class="sum3"><div><b>'+f(S.used)+'</b><small>KAÇIRILAN DERS</small></div><div><b style="color:var(--grn)">'+(S.tot?f(S.left):"–")+'</b><small>KALAN HAK</small></div><div><b style="color:'+(S.cnt.over?"var(--dred)":(dk?"var(--org)":"var(--grn)"))+'">'+(S.cnt.over?S.cnt.over:dk)+'</b><small>'+(S.cnt.over?"KESİLDİ":"DİKKAT")+'</small></div></div>'+(S.tot?'':'<p class="muted" style="margin:8px 4px 0">Haklar henüz girilmedi.'+(can("hak")?' <button class="lnk" data-a="go" data-v="hakedit">Hakları gir ›</button>':'')+'</p>')}
+function detCards(list,own){
+  const S=summary(list),LB={over:"Kesildi",edge:"Limitte",warn:"Dikkat",ok:"Rahat",none:"Hak yok"};
+  const rest=S.items.filter(c=>!c.T&&!c.n);
+  return S.items.filter(c=>c.T||c.n).map(c=>{
+    const stc=c.worst.st.c,ent=list.filter(a=>a.s===c.s).sort((a,b)=>a.d<b.d?-1:1);
+    const bar=(lab,used,lim,op)=>'<div class="bl"><div class="lb"><span>'+lab+'</span><span>'+f(used)+(lim?' / '+f(lim):'')+' kullanıldı</span></div><div class="bb"><i style="width:'+(lim?Math.min(100,used/lim*100):(used?100:0))+'%;'+(op?"opacity:.55":"")+'"></i></div></div>';
+    let h='<div class="sc" style="'+col(c.s)+'"><div class="hd"><b>'+esc(sname(c.s))+'</b><span class="chip '+stc+'">'+LB[stc]+'</span></div>';
+    const H=HAS()[c.s]||{d:true,m:false};
+    if(H.d)h+=bar("Ders",c.d,c.lD);
+    if(H.m)h+=bar("Muhazire",c.m+(H.d?c.exAll:0),c.lM,true);
+    let info="";
+    if(!c.T)info=c.n?f(c.n)+" ders kaçırıldı · haklar girilmedi":"Haklar girilmedi";
+    else{
+      const r0=c.rows.find(r=>r.k==="d"),rm=c.rows.find(r=>r.k==="m");
+      if(H.d&&H.m&&c.exAll>0)info+=(own?"Ders hakkın bitti, ":"Ders hakkı bitti, ")+'<b>'+f(c.exAll)+' ders</b> muhazire hakkından kullanıldı.<br>';
+      if(stc==="over")info+=(rm&&rm.st.c==="over"&&c.m>c.lM?"Muhazire hakkı aşıldı":"Hak aşıldı")+' · <b>kesildi</b>';
+      else if(H.d&&H.m){const lm=Math.max(0,c.lM-c.m-c.exAll),ld=Math.max(0,c.lD-c.d)+lm;info+='Kalan: derse <b>'+f(ld)+'</b>'+(lm&&ld!==lm?' ('+f(ld-lm)+' ders + '+f(lm)+' muhazireden)':'')+' · muhazireye <b>'+f(lm)+'</b>'+(lm&&ld>0&&c.lD-c.d<=0?' (ikisi ortak)':'')}
+      else info+='Kalan: <b>'+f(Math.max(0,(r0||rm).tot-(r0||rm).used))+'</b> ders';
+      if(stc==="edge")info+='<br><b style="color:var(--red)">'+(own?"Bir daha kaçırırsan kesilirsin":"Bir daha kaçırırsa kesilir")+'</b>';
+    }
+    h+='<div class="info">'+info+'</div>';
+    if(ent.length)h+='<div class="dts">'+ent.map(a=>'<span class="'+(a.k==="m"?"m":"")+'">'+esc(parse(a.d).toLocaleDateString("tr-TR",{day:"numeric",month:"short"}))+' · '+(a.k==="m"?"M · ":"")+esc(pl(a))+'</span>').join("")+'</div>';
+    return h+'</div>';
+  }).join("")+(rest.length?'<div class="snote" style="margin-top:10px">Hakkı girilmemiş dersler: '+rest.map(c=>esc(sname(c.s))).join(", ")+'</div>':'')+'<div class="snote" style="margin-top:12px;background:color-mix(in srgb,var(--acc) 10%,var(--card))">ℹ️ Muhazire hakkı normal derste de kullanılabilir, ama ders hakkı muhazirede kullanılamaz.</div>';
+}
 function absView(){
   const nd=compareJ().filter(c=>c.ty!=="extra").length;
   const seg='<div class="seg" style="margin-top:6px"><button class="'+(absTab==="mine"?"on":"")+'" data-a="abstab" data-v="mine">Benim kaydım</button><button class="'+(absTab==="j"?"on":"")+'" data-a="abstab" data-v="j">Jurnal'+(nd?' · '+nd+' fark':'')+'</button></div>';
   if(absTab==="j")return seg+jurView();
   if(!absSel)absSel=today();
   const day=parse(absSel).getDay(),sl=(day>=1&&day<=5)?slotsFor(absSel):[],isT=absSel===today();
-  let h=seg+'<div class="cols2"><div>'+ringCard(abs());
+  let h=seg+'<div class="cols2"><div>'+sum3(abs());
   h+='<div class="sec"><span>'+(isT?"Bugün":esc(fmtS(absSel)))+(ro()?"":" · gelmediğin derse dokun")+'</span><span class="dnav"><button data-a="absday" data-v="-1">‹</button>'+(isT?'':'<button data-a="abstoday">Bugün</button>')+'<button data-a="absday" data-v="1">›</button></span></div><div class="list">';
   if(!sl.length)h+='<div class="empty">Bu gün ders yok.</div>';
   sl.forEach(x=>h+=absLine(x,absSel));
-  h+='</div></div><div><div class="sec"><span>Derslere göre</span><span>kalan hak</span></div>'+subjRows(abs(),true);
+  h+='</div></div><div><div class="sec"><span>Derslere göre</span><span>en riskli üstte</span></div>'+detCards(abs(),true);
   const n=abs().length;
   h+='<details class="hist"><summary>Geçmiş kayıtlar ('+n+')</summary>'+histList(abs(),!ro())+'</details></div></div>';
   return h;
@@ -1252,7 +1291,7 @@ function openBlob(url,name){const el=document.createElement("a");el.href=url;el.
 /* ---------- HAKKINDA ---------- */
 function aboutView(){
   return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
-  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
   +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Gizli anketlerde kimin neye oy verdiği görünmez; açık anketlerde oy verenlerin isimleri herkese görünür.</li><li>Serbest iş teslim dosyalarını sadece sen ve ödev yetkilisi görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
   +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
 }
