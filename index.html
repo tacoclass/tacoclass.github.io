@@ -444,7 +444,7 @@ const DEV_EMAILS = ["aydinomurpro@gmail.com"];
 const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 
-const VERSION="2.2.3",VDATE="5 Kasım 2026";
+const VERSION="2.2.4",VDATE="5 Kasım 2026";
 const PERMS = [
   ["jurnal","Yoklama / jurnal girebilir"],
   ["sinav","Sınav tarihlerini girebilir"],
@@ -529,8 +529,9 @@ function mockBackend(){
     watchDoc:(p,cb)=>{const s={doc:1,p,cb};subs.push(s);T(()=>cb(D.docs[p]?JSON.parse(JSON.stringify(D.docs[p])):null));return()=>{const i=subs.indexOf(s);if(i>=0)subs.splice(i,1)}},
     watchCol:(c,cb,w)=>{const s={p:c,cb,w};subs.push(s);T(()=>cb(colOf(c).filter(x=>mt(x,w))));return()=>{const i=subs.indexOf(s);if(i>=0)subs.splice(i,1)}},
     get:async p=>D.docs[p]?JSON.parse(JSON.stringify(D.docs[p])):null,
-    set:async(p,d,merge)=>{D.docs[p]=merge?deep(D.docs[p]||{},JSON.parse(JSON.stringify(d))):JSON.parse(JSON.stringify(d));save();T(fire)},
-    add:async(c,d)=>{const id="d"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);D.docs[c+"/"+id]=JSON.parse(JSON.stringify(d));save();T(fire);return{id}},
+    _chk:d=>{const bad=(x,inArr)=>Array.isArray(x)?(inArr||x.some(y=>bad(y,true))):(x&&typeof x==="object"?Object.values(x).some(y=>bad(y,false)):x===undefined);if(bad(d,false))throw{code:"invalid-argument"}},
+    set:async(p,d,merge)=>{B._chk&&B._chk(d);D.docs[p]=merge?deep(D.docs[p]||{},JSON.parse(JSON.stringify(d))):JSON.parse(JSON.stringify(d));save();T(fire)},
+    add:async(c,d)=>{B._chk&&B._chk(d);const id="d"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);D.docs[c+"/"+id]=JSON.parse(JSON.stringify(d));save();T(fire);return{id}},
     del:async p=>{delete D.docs[p];save();T(fire)},
     create:async(p,d)=>{if(D.docs[p])throw{code:"permission-denied"};D.docs[p]=JSON.parse(JSON.stringify(d));save();T(fire)},
     upd:async(p,ops)=>{const d=D.docs[p];if(!d)throw{code:"not-found"};for(const k in ops){const v=ops[k],ks=k.split(".");let x=d;for(let i=0;i<ks.length-1;i++){x=x[ks[i]]=x[ks[i]]||{}}const l=ks[ks.length-1];if(v&&v.$inc!=null)x[l]=(x[l]||0)+v.$inc;else if(v&&v.$add!==undefined){x[l]=x[l]||[];if(!x[l].includes(v.$add))x[l].push(v.$add)}else if(v&&v.$rm!==undefined)x[l]=(x[l]||[]).filter(y=>y!==v.$rm);else x[l]=v}save();T(fire)},
@@ -567,6 +568,9 @@ function pl(a){return a.p==="1"?"1. yarı":(a.p==="2"?"2. yarı":"Tamamı")}
 function tint(hex){return hex}
 function col(s){const S=C().subjects[s];return"--a:"+(S?S.c:"#6b7486")}
 function sname(s){const S=C().subjects[s];return S?S.n:"Genel"}
+// Firestore iç içe dizi (array of arrays) kabul etmez: o:[[s,k]] -> o:[{s,k}] olarak saklanır
+function encClass(D){const X=clone(D);for(const d in (X.sch||{}))X.sch[d]=(X.sch[d]||[]).map(sl=>Object.assign({},sl,{o:(sl.o||[]).map(o=>Array.isArray(o)?{s:o[0],k:o[1]||"d"}:o)}));return X}
+function decClass(D){if(!D)return D;for(const d in (D.sch||{}))D.sch[d]=(D.sch[d]||[]).map(sl=>Object.assign({},sl,{o:(sl.o||[]).map(o=>Array.isArray(o)?o:[o.s,o.k||"d"])}));return D}
 function C(){return cls||(vSem==="s1"||!vSem?DEFAULT_CLASS:{subjects:{},order:[],sch:{}})}
 function semId(){return(cfg&&cfg.sem)||"s1"}
 function VS(){return vSem||semId()}
@@ -844,6 +848,7 @@ function progView(){
     if(past.length)h+='<details style="margin-top:8px"><summary class="muted" style="cursor:pointer">Geçmiş sınavlar ('+past.length+')</summary>'+past.reverse().map(x=>examRow(x,true)).join("")+'</details>';
     return h+'</div>';
   }
+  if(can("prog"))h+='<button class="btn line full" style="margin-top:10px" data-a="go" data-v="progedit">✏️ Programı düzenle</button>';
   const wk=weekDates(progTab==="w1"?1:0);
   if(!progDay){const w=new Date().getDay();progDay=(w>=1&&w<=5)?w:1}
   h+='<div class="phoneonly"><div class="days">';
@@ -1271,7 +1276,7 @@ function donemView(){
 function semSubs(){
   unsubSem.forEach(f=>{try{f()}catch(_){}});unsubSem=[];cls=null;hak=null;jmeta=null;
   const v=VS();
-  unsubSem.push(B.watchDoc(mainPath(v),d=>{cls=d;render()}));
+  unsubSem.push(B.watchDoc(mainPath(v),d=>{cls=decClass(d);render()}));
   unsubSem.push(B.watchDoc(hakPath(v),d=>{hak=d;render()}));
   unsubSem.push(B.watchDoc("jmeta/"+v,d=>{jmeta=d;render()}));
 }
@@ -1317,7 +1322,7 @@ function openBlob(url,name){const el=document.createElement("a");el.href=url;el.
 /* ---------- HAKKINDA ---------- */
 function aboutView(){
   return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
-  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.4</b><ul><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
   +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Gizli anketlerde kimin neye oy verdiği görünmez; açık anketlerde oy verenlerin isimleri herkese görünür.</li><li>Serbest iş teslim dosyalarını sadece sen ve ödev yetkilisi görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
   +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
 }
@@ -1797,7 +1802,7 @@ document.addEventListener("click",async e=>{
   if(a==="addslot"){const d=b.dataset.d;(draft.sch[d]=draft.sch[d]||[]).push({t:"",l:"",o:[[draft.order[0],"d"]]});return render()}
   if(a==="rmslot"){draft.sch[b.dataset.d].splice(+b.dataset.i,1);return render()}
   if(a==="saveprog"){const D=clone(draft);for(const d in D.sch){D.sch[d]=D.sch[d].filter(sl=>sl.o&&sl.o[0]&&sl.o[0][0]).map(sl=>({t:(sl.t||"").trim().replace(":","."),l:(sl.l||"").trim()||D.subjects[sl.o[0][0]].n,o:sl.o.filter(o=>o&&o[0]).map(o=>[o[0],o[1]||"d"])})).sort((x,y)=>tm(x.t)-tm(y.t))}
-    if(await doSet(mainPath(semId()),D,false,"Program kaydedildi ✓")){draft=null;back()}return}
+    if(await doSet(mainPath(semId()),encClass(D),false,"Program kaydedildi ✓")){draft=null;back()}return}
   if(a==="savehak"){if(await doSet(hakPath(semId()),{lim:hdraft.lim,done:hdraft.done,at:Date.now()},false,"Haklar kaydedildi ✓")){hdraft=null;back()}return}
   // abs tabs / jurnal
   if(a==="abstab"){absTab=b.dataset.v;pend=null;return render()}
@@ -1878,7 +1883,7 @@ document.addEventListener("submit",async e=>{
   if(k==="semname"){const n=v("n");if(!n||!isDev)return;const sems=semList().map(x=>x.id===semId()?Object.assign({},x,{ad:n}):x);await doSet("config/app",{sem:semId(),sems},false,"Dönem adı kaydedildi ✓");render();return}
   if(k==="newsem"){const n=v("n");if(!n||!isDev)return;const btn=fm.querySelector("button[type=submit]");if(!fm.dataset.sure){fm.dataset.sure="1";btn.textContent="Emin misin? Tekrar bas";btn.classList.add("red");setTimeout(()=>{if(fm.isConnected){delete fm.dataset.sure;btn.textContent="Yeni dönemi başlat";btn.classList.remove("red")}},4000);return}
     const id="s"+Date.now().toString(36),copy=fm.elements.copy&&fm.elements.copy.checked;
-    try{const P=copy?clone(C()):{subjects:{},order:[],sch:{}};delete P.lim;delete P.done;await B.set(mainPath(id),P);await B.set("config/app",{sem:id,sems:semList().concat([{id,ad:n,at:Date.now()}])});vSem=null;statusMsg="Yeni dönem başladı: "+n+" ✓";tab("home")}catch(x){msg=errText(x);render()}return}
+    try{const P=copy?clone(C()):{subjects:{},order:[],sch:{}};delete P.lim;delete P.done;await B.set(mainPath(id),encClass(P));await B.set("config/app",{sem:id,sems:semList().concat([{id,ad:n,at:Date.now()}])});vSem=null;statusMsg="Yeni dönem başladı: "+n+" ✓";tab("home")}catch(x){msg=errText(x);render()}return}
   if(k==="name"){const n=v("n");if(!n)return;prof=prof||{};prof.name=n;saveProf();if(member){try{await B.set("members/"+me.uid,{name:n},true)}catch(_){}}return}
   if(k==="import"){try{const j=JSON.parse(fm.elements.j.value);const list=Array.isArray(j)?j:(j.abs||[]);const have=new Set(abs().map(x=>x.d+"|"+x.t));const add=[];
       list.forEach(x=>{if(x&&x.d&&x.t&&x.s&&!have.has(x.d+"|"+x.t)){add.push({id:x.id||uid8(),d:x.d,t:x.t,s:x.s,k:x.k||"d",p:x.p||"t"});have.add(x.d+"|"+x.t)}});
