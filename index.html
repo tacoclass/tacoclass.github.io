@@ -422,6 +422,7 @@ details.hist>summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--m
 .sum3>button{flex:1;background:var(--card);border-radius:14px;padding:11px 6px;box-shadow:var(--sh);text-align:center;border:0;color:var(--tx);cursor:pointer;font:inherit}
 .sum3>button:active{transform:scale(.97)}
 .sc.flash{box-shadow:0 0 0 3px var(--a)}
+.offbar{background:color-mix(in srgb,var(--org) 18%,var(--card));color:color-mix(in srgb,var(--org) 70%,var(--tx));border-radius:12px;padding:9px 12px;font-size:13px;font-weight:600;margin:6px 0 4px;text-align:center}
 
 </style>
 </head><body>
@@ -444,7 +445,7 @@ const DEV_EMAILS = ["aydinomurpro@gmail.com"];
 const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 
-const VERSION="2.2.4",VDATE="5 Kasım 2026";
+const VERSION="2.2.5",VDATE="5 Kasım 2026";
 const PERMS = [
   ["jurnal","Yoklama / jurnal girebilir"],
   ["sinav","Sınav tarihlerini girebilir"],
@@ -487,7 +488,10 @@ const LESSON_MIN=90;
 async function firebaseBackend(){
   const base=`https://www.gstatic.com/firebasejs/${FB_VER}/`;
   const A=await import(base+"firebase-app.js"),Au=await import(base+"firebase-auth.js"),F=await import(base+"firebase-firestore.js");
-  const app=A.initializeApp(firebaseConfig),auth=Au.getAuth(app),db=F.getFirestore(app);
+  const app=A.initializeApp(firebaseConfig),auth=Au.getAuth(app);
+  let db;try{db=F.initializeFirestore(app,{localCache:F.persistentLocalCache({tabManager:F.persistentMultipleTabManager()})})}catch(e){console.warn("offline cache yok",e);db=F.getFirestore(app)}
+  // internet yokken yazma sözünü bekleme: Firestore yazıyı sıraya alır, internet gelince gönderir
+  const W=pr=>{if(navigator.onLine)return pr;pr.catch(e=>console.warn("bekleyen yazma",e));return Promise.resolve()};
   const ref=p=>F.doc(db,...p.split("/")),col=c=>F.collection(db,c);
   const map=u=>u&&{uid:u.uid,email:(u.email||"").toLowerCase(),name:u.displayName||"",verified:u.emailVerified};
   return{
@@ -497,15 +501,16 @@ async function firebaseBackend(){
     emailUp:async(e,p,n)=>{const c=await Au.createUserWithEmailAndPassword(auth,e,p);await Au.updateProfile(c.user,{displayName:n});try{await Au.sendEmailVerification(c.user)}catch(_){}return c},
     reset:e=>Au.sendPasswordResetEmail(auth,e),
     out:()=>Au.signOut(auth),
-    watchDoc:(p,cb)=>F.onSnapshot(ref(p),s=>cb(s.exists()?s.data():null),e=>{console.warn(p,e.code);cb(null,e)}),
+    watchDoc:(p,cb)=>F.onSnapshot(ref(p),s=>cb(s.exists()?s.data():null,null,{fromCache:s.metadata.fromCache}),e=>{console.warn(p,e.code);cb(null,e)}),
     watchCol:(c,cb,w)=>F.onSnapshot(w?F.query(col(c),F.where(w[0],w.length>2?w[1]:"==",w.length>2?w[2]:w[1])):col(c),s=>cb(s.docs.map(d=>({id:d.id,...d.data()}))),e=>{console.warn(c,e.code);cb([],e)}),
     get:async p=>{const s=await F.getDoc(ref(p));return s.exists()?s.data():null},
-    set:(p,d,merge)=>F.setDoc(ref(p),d,merge?{merge:true}:{}),
-    add:(c,d)=>F.addDoc(col(c),d),
-    del:p=>F.deleteDoc(ref(p)),
-    create:(p,d)=>F.setDoc(ref(p),d),
-    upd:(p,ops)=>{const o={};for(const k in ops){const v=ops[k];o[k]=(v&&v.$inc!=null)?F.increment(v.$inc):((v&&v.$add!==undefined)?F.arrayUnion(v.$add):((v&&v.$rm!==undefined)?F.arrayRemove(v.$rm):v))}return F.updateDoc(ref(p),o)},
-    inc:(p,fl,n)=>F.setDoc(ref(p),{[fl]:F.increment(n)},{merge:true})
+    list:async c=>{const s=await F.getDocs(col(c));return s.docs.map(d=>({id:d.id,...d.data()}))},
+    set:(p,d,merge)=>W(F.setDoc(ref(p),d,merge?{merge:true}:{})),
+    add:(c,d)=>{if(navigator.onLine)return F.addDoc(col(c),d);const r=F.doc(col(c));W(F.setDoc(r,d));return Promise.resolve({id:r.id})},
+    del:p=>W(F.deleteDoc(ref(p))),
+    create:(p,d)=>W(F.setDoc(ref(p),d)),
+    upd:(p,ops)=>{const o={};for(const k in ops){const v=ops[k];o[k]=(v&&v.$inc!=null)?F.increment(v.$inc):((v&&v.$add!==undefined)?F.arrayUnion(v.$add):((v&&v.$rm!==undefined)?F.arrayRemove(v.$rm):v))}return W(F.updateDoc(ref(p),o))},
+    inc:(p,fl,n)=>W(F.setDoc(ref(p),{[fl]:F.increment(n)},{merge:true}))
   };
 }
 /* Test modu (?mock): e-postası "dev" ile başlayan geliştirici olur. Veriler sadece bu tarayıcıda. */
@@ -513,7 +518,7 @@ function mockBackend(){
   const K="mock2";let D;try{D=JSON.parse(localStorage.getItem(K))}catch(_){}D=D||{docs:{},acc:{},cur:null};
   const subs=[],auths=[];const save=()=>{try{localStorage.setItem(K,JSON.stringify(D))}catch(_){}};
   const who=()=>D.cur&&D.acc[D.cur];const U=()=>{const w=who();return w&&{uid:w.uid,email:w.email,name:w.name,verified:true}};
-  const colOf=c=>Object.keys(D.docs).filter(k=>k.startsWith(c+"/")&&k.split("/").length===2).map(k=>({id:k.split("/")[1],...JSON.parse(JSON.stringify(D.docs[k]))}));
+  const colOf=c=>Object.keys(D.docs).filter(k=>k.startsWith(c+"/")&&k.split("/").length===c.split("/").length+1).map(k=>({id:k.split("/").pop(),...JSON.parse(JSON.stringify(D.docs[k]))}));
   const mt=(x,w)=>{if(!w)return true;if(w.length>2&&w[1]==="array-contains")return(x[w[0]]||[]).includes(w[2]);return x[w[0]]===(w.length>2?w[2]:w[1])};
   const deep=(a,b)=>{Object.keys(b).forEach(k=>{if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k])&&a[k]&&typeof a[k]==="object"&&!Array.isArray(a[k]))deep(a[k],b[k]);else a[k]=b[k]});return a};
   const fire=()=>subs.forEach(s=>{if(s.doc)s.cb(D.docs[s.p]?JSON.parse(JSON.stringify(D.docs[s.p])):null);else s.cb(colOf(s.p).filter(x=>mt(x,s.w)))});
@@ -529,6 +534,7 @@ function mockBackend(){
     watchDoc:(p,cb)=>{const s={doc:1,p,cb};subs.push(s);T(()=>cb(D.docs[p]?JSON.parse(JSON.stringify(D.docs[p])):null));return()=>{const i=subs.indexOf(s);if(i>=0)subs.splice(i,1)}},
     watchCol:(c,cb,w)=>{const s={p:c,cb,w};subs.push(s);T(()=>cb(colOf(c).filter(x=>mt(x,w))));return()=>{const i=subs.indexOf(s);if(i>=0)subs.splice(i,1)}},
     get:async p=>D.docs[p]?JSON.parse(JSON.stringify(D.docs[p])):null,
+    list:async c=>colOf(c),
     _chk:d=>{const bad=(x,inArr)=>Array.isArray(x)?(inArr||x.some(y=>bad(y,true))):(x&&typeof x==="object"?Object.values(x).some(y=>bad(y,false)):x===undefined);if(bad(d,false))throw{code:"invalid-argument"}},
     set:async(p,d,merge)=>{B._chk&&B._chk(d);D.docs[p]=merge?deep(D.docs[p]||{},JSON.parse(JSON.stringify(d))):JSON.parse(JSON.stringify(d));save();T(fire)},
     add:async(c,d)=>{B._chk&&B._chk(d);const id="d"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);D.docs[c+"/"+id]=JSON.parse(JSON.stringify(d));save();T(fire);return{id}},
@@ -542,7 +548,7 @@ function mockBackend(){
 /* ============================================================ STATE */
 let B=null,me,member=null,isDev=false,roles={},cls=null,hak=null,anns=[],examsAll=[],changesAll=[],hwsAll=[],subsAll=[],members=[],users=[],prof=null;
 let cfg=null,vSem=null,jurAll=[],jmeta=null,libShared=[],libMine=[],yk=null,unsubSem=[],absTab="mine",kutTab="not",kutS="",kutQ="",dlBusy="";
-let topics=[],claims=[],profLoaded=false,isDevReal=false,progTab="w0",sheet=null,sfileObj=null,upProg="",toast="",toastT=null,usage=null,polls=[],votes=[],svotes=[],pollEdit=new Set(),pollSel={};
+let topics=[],claims=[],profLoaded=false,profSrv=null,bakList=null,bakFor="",isDevReal=false,progTab="w0",sheet=null,sfileObj=null,upProg="",toast="",toastT=null,usage=null,polls=[],votes=[],svotes=[],pollEdit=new Set(),pollSel={};
 let exams=[],changes=[],hws=[],subsList=[],jentAll=[],exA=[],exP=[],lpT=null,lpFired=false,lpXY=null;const blobCache={};
 let route={v:"home"},stack=[],pend=null,statusMsg="",saveTimer=null,loginMode="in",loginErr="",loginOk="",busy=false,msg="";
 const yOpen=new Set();let form=null,draft=null,hdraft=null,odevFilter="all",absSel=null,progDay=null,progWeek=0,unsubAll=[],unsubPerm=[],dataStarted=false;
@@ -681,7 +687,8 @@ function saveProf(){
   if(!profLoaded){statusMsg="Kayıtların yükleniyor, birazdan tekrar dene";render();return}
   statusMsg="Kaydediliyor…";render();clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
-    try{await B.set("users/"+me.uid,{abs:absAll(),kisisel:kisAll(),name:myName(),email:me.email,autoJ:!!(prof&&prof.autoJ),jSeen:(prof&&prof.jSeen)||[],at:Date.now()},true);statusMsg="Kaydedildi ✓"}
+    try{await autoBackup();}catch(e){console.warn("yedek",e)}
+    try{await B.set("users/"+me.uid,{bakDay:(prof&&prof.bakDay)||"",abs:absAll(),kisisel:kisAll(),name:myName(),email:me.email,autoJ:!!(prof&&prof.autoJ),jSeen:(prof&&prof.jSeen)||[],at:Date.now()},true);statusMsg="Kaydedildi ✓"}
     catch(e){statusMsg="Kaydedilemedi: "+errText(e)}
     saveTimer=null;render();
   },400);
@@ -748,6 +755,7 @@ function render(){
   const pendN=canRaw("onay")?members.filter(m=>m.status==="pending").length:0;
   const yonDot=pendN||(can("jurnal")&&missingJ());
   let h='<div class="wrap"><div class="top"><div style="min-width:0"><h1>'+esc(titles[v]||"Taco")+'</h1><div class="st"><span class="sem">'+esc(semName(VS()))+'</span>'+(statusMsg?' · '+esc(statusMsg):'')+'</div></div><div class="tr2"><button class="bell" data-a="tab" data-v="ann" aria-label="Duyurular">'+I.bell+(newAnn&&v!=="ann"?'<span class="dot"></span>':'')+'</button><button class="pbtn" data-a="go" data-v="profil"><span class="av">'+esc(initials(myName()))+'</span><span>Profilim</span></button></div></div>';
+  if(!navigator.onLine)h+='<div class="offbar">📴 Çevrimdışı · girdiklerin internet gelince kaydedilecek</div>';
   if(ro())h+='<div class="robar"><span>📁 <b>'+esc(semName(VS()))+'</b> · geçmiş dönem, sadece görüntüleme</span><button class="btn sm dark" data-a="semview" data-v="">Güncel döneme dön</button></div>';
   h+=body+'</div>';
   const tabs=[["home","Ana Sayfa"],["prog","Program"],["abs","Devamsızlık"],["odev","Ödevler"],["kut","Kütüphane"],["ann","Duyurular",1]];
@@ -1081,6 +1089,7 @@ function uyeView(){
   if(isDev&&m.id!==me.uid)h+='<button class="btn line full" style="margin-top:10px" data-a="go" data-v="yetki" data-id="'+m.id+'">🔑 Yetkilerini düzenle</button>';
   if(can("onay")&&m.id!==me.uid)h+='<button class="btn red full" style="margin-top:8px" data-a="reject" data-id="'+m.id+'">Sınıftan çıkar</button>';
   if(canRaw("sinif")||canRaw("jurnal")){const J=myJ(m.id);h+='<h2>Jurnale göre</h2>'+summaryCard(J,false).replace('<h2>Derslere göre kalan hak <span>· ders cinsinden</span></h2>','')+'<h2>Jurnal kayıtları</h2>'+histList(J,false)}
+  if(isDev)h+=bakSection(m);
   if(canRaw("sinif")){const own=((x&&x.abs)||[]).filter(a=>semOf(a)===VS());h+='<h2>Kendi girdiği devamsızlık</h2>'+summaryCard(own,false).replace('<h2>Derslere göre kalan hak <span>· ders cinsinden</span></h2>','')+'<h2>Geçmiş</h2>'+histList(own,false)}
   return h;
 }
@@ -1327,7 +1336,7 @@ function openBlob(url,name){const el=document.createElement("a");el.href=url;el.
 /* ---------- HAKKINDA ---------- */
 function aboutView(){
   return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
-  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
   +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Gizli anketlerde kimin neye oy verdiği görünmez; açık anketlerde oy verenlerin isimleri herkese görünür.</li><li>Serbest iş teslim dosyalarını sadece sen ve ödev yetkilisi görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
   +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
 }
@@ -1516,10 +1525,12 @@ function makeIcs(kind){
 function showToast(t){toast=t;render();clearTimeout(toastT);toastT=setTimeout(()=>{toast="";render()},3800)}
 async function openChunks(prefix,file,key){
   if(blobCache[key])return openBlob(blobCache[key],file.name);
+  if(!navigator.onLine)throw{code:"İnternet bağlantısı gerekiyor"};
   const bufs=[];for(let i=0;i<file.chunks;i++){const c=await B.get(prefix+"/c/"+i);if(!c||!c.b)throw{code:"Dosyanın bir parçası eksik"};bufs.push(b64dec(c.b))}
   const url=URL.createObjectURL(new Blob(bufs,{type:file.type}));blobCache[key]=url;openBlob(url,file.name);
 }
 async function upChunks(prefix,fileObj,onp){
+  if(!navigator.onLine)throw{code:"Dosya yüklemek için internet bağlantısı gerekiyor"};
   const buf=new Uint8Array(await fileObj.arrayBuffer()),parts=[];for(let i=0;i<buf.length;i+=CHUNK)parts.push(b64enc(buf.subarray(i,i+CHUNK)));
   for(let i=0;i<parts.length;i++){if(onp)onp(Math.round(i/parts.length*100));await B.set(prefix+"/c/"+i,{b:parts[i]})}
   try{await B.inc("stats/usage","bytes",buf.length)}catch(_){}
@@ -1667,6 +1678,30 @@ function absSumSheet(kind,list){
   return h.replace(/^<h2>/,'<h2 style="margin-bottom:10px">').replace(/(<\/h2>)/,'$1<div class="list">')+'</div>';
 }
 
+
+/* ============ 2.2.5 yedek + çevrimdışı ============ */
+async function autoBackup(){
+  const src=profSrv;if(!src||!prof)return;const old=src.abs||[],now=absAll(),day=today();let reason="";
+  if(old.length>=3&&now.length<old.length*0.5)reason="shrink";
+  else if((prof.bakDay||src.bakDay||"")!==day&&(old.length||(src.kisisel||[]).length))reason="daily";
+  if(!reason)return;
+  await B.set("backups/"+me.uid+"/b/"+reason[0]+Date.now(),{at:Date.now(),day,reason,abs:old,kisisel:src.kisisel||[],n:old.length});
+  if(reason==="daily"){prof.bakDay=day;cleanBackups()}
+}
+async function cleanBackups(){if(!navigator.onLine)return;try{const l=await B.list("backups/"+me.uid+"/b");const lim=Date.now()-14*864e5;for(const x of l)if(x.at<lim)await B.del("backups/"+me.uid+"/b/"+x.id)}catch(_){}}
+function bakSection(m){
+  let h='<h2>Yedekler</h2><div class="card">';
+  if(bakFor!==m.id)return h+'<p class="muted">Kayıtların günlük yedekleri, son 14 gün. Sadece sen görürsün.</p><button class="btn line full" style="margin-top:8px" data-a="bakload" data-id="'+m.id+'">Yedekleri göster</button></div>';
+  if(!bakList)return h+'<div class="empty">Yükleniyor…</div></div>';
+  if(!bakList.length)return h+'<div class="empty">Henüz yedek yok. Kişi bir şey kaydettiğinde ilk yedek alınır.</div></div>';
+  const RL={daily:"Günlük",shrink:"⚠️ Kayıtlar birden azaldı",restore:"Geri yüklemeden önceki hal"};
+  h+='<p class="muted" style="margin-bottom:6px">Geri yüklemeden önce şimdiki hal de yedeklenir.</p><div class="list" style="box-shadow:none">';
+  bakList.forEach(x=>h+='<div class="r2"><span class="w"><b>'+esc(new Date(x.at).toLocaleString("tr-TR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}))+'</b><small>'+esc(RL[x.reason]||x.reason)+' · '+(x.n||0)+' devamsızlık · '+((x.kisisel||[]).length)+' kişisel iş</small></span><button class="act" data-a="bakrestore" data-id="'+x.id+'" data-u="'+m.id+'">Geri yükle</button></div>');
+  return h+'</div></div>';
+}
+window.addEventListener("online",()=>{try{render()}catch(_){}});
+window.addEventListener("offline",()=>{try{render()}catch(_){}});
+if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))navigator.serviceWorker.register("sw.js").catch(e=>console.warn("sw",e));
 /* ============================================================ EVENTS */
 function go(v,extra){
   stack.push(route);route=Object.assign({v},extra||{});
@@ -1695,6 +1730,12 @@ document.addEventListener("click",async e=>{
   if(a==="absmine"){absTab="mine";return tab("abs")}
   if(a==="ptab"){progTab=b.dataset.v;return render()}
   if(a==="odtab"){odevTab=b.dataset.v;return render()}
+  if(a==="bakload"){if(!navigator.onLine)return showToast("Yedekleri görmek için internet gerekiyor");bakFor=id;bakList=null;render();try{const l=await B.list("backups/"+id+"/b");bakList=l.sort((p,q)=>q.at-p.at)}catch(x){bakList=[];showToast(errText(x))}return render()}
+  if(a==="bakrestore"){if(!isDev)return;const uid=b.dataset.u,bk=(bakList||[]).find(y=>y.id===id);if(!bk)return;if(!confirmTwice(b))return;
+    try{const cur=users.find(y=>y.id===uid)||(uid===me.uid?profSrv:null)||{};await B.set("backups/"+uid+"/b/r"+Date.now(),{at:Date.now(),day:today(),reason:"restore",abs:cur.abs||[],kisisel:cur.kisisel||[],n:(cur.abs||[]).length,by:myName()});
+      await B.set("users/"+uid,{abs:bk.abs||[],kisisel:bk.kisisel||[],restoredAt:Date.now()},true);
+      if(uid===me.uid){prof=Object.assign(prof||{},{abs:bk.abs||[],kisisel:bk.kisisel||[]})}
+      bakList=null;bakFor="";showToast("Yedek geri yüklendi ✓ ("+(bk.abs||[]).length+" kayıt)")}catch(x){showToast(errText(x))}return}
   if(a==="tmore"){if(tpOpen.has(id))tpOpen.delete(id);else tpOpen.add(id);return render()}
   if(a==="abssum"){sheet={k:"abs",v:b.dataset.v,src:b.dataset.src};return render()}
   if(a==="absjump"){const v=b.dataset.v;sheet=null;render();const el=document.getElementById("sc_"+v);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1400)}return}
@@ -1916,8 +1957,10 @@ function startData(){
   W(B.watchDoc("stats/usage",d=>{usage=d;render()}));
   W(B.watchCol("topics",d=>{topics=d;render()}));
   W(B.watchCol("claims",d=>{claims=d;render()}));
-  W(B.watchDoc("users/"+me.uid,async(d,err)=>{
+  W(B.watchDoc("users/"+me.uid,async(d,err,meta)=>{
     if(err)return; // okunamadıysa hiçbir şeyi değiştirme
+    if(!d&&meta&&meta.fromCache)return; // internetsiz ilk açılış: telefonda kopya yoksa sunucuyu bekle, boş kayıt yazma
+    if(d)profSrv=clone(d);
     const first=!profLoaded;profLoaded=true;
     if(!saveTimer){prof=d||{abs:[],kisisel:[]};syncAutoJ();render()}
     // sadece belge gerçekten YOKSA veya e-postası eksikse oluştur; kayıtlara asla dokunma
@@ -1940,7 +1983,7 @@ async function start(){
   B.onAuth(user=>{
     stopAll();lastPermKey="";
     me=user;member=null;roles={};cls=null;hak=null;anns=[];exams=[];changes=[];hws=[];subsList=[];members=[];users=[];prof=null;route={v:"home"};stack=[];statusMsg="";
-    profLoaded=false;cfg=null;vSem=null;jurAll=[];jentAll=[];jmeta=null;libShared=[];libMine=[];yk=null;exA=[];exP=[];examsAll=[];changesAll=[];hwsAll=[];subsAll=[];absTab="mine";kutTab="not";kutS="";kutQ="";sheet=null;polls=[];votes=[];svotes=[];usage=null;topics=[];claims=[];odevTab="konu";tpOpen=new Set();
+    profLoaded=false;profSrv=null;bakList=null;bakFor="";cfg=null;vSem=null;jurAll=[];jentAll=[];jmeta=null;libShared=[];libMine=[];yk=null;exA=[];exP=[];examsAll=[];changesAll=[];hwsAll=[];subsAll=[];absTab="mine";kutTab="not";kutS="";kutQ="";sheet=null;polls=[];votes=[];svotes=[];usage=null;topics=[];claims=[];odevTab="konu";tpOpen=new Set();
     if(!user){loginMode="in";loginErr="";loginOk="";render();return}
     isDevReal=MOCK?/^dev/.test(user.email):DEV_EMAILS.map(x=>x.toLowerCase()).includes(user.email);applyAdmin();
     if(isDevReal)startData();
