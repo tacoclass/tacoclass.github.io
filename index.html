@@ -516,6 +516,23 @@ mark{background:color-mix(in srgb,#ffd24a 55%,transparent);color:inherit;border-
 .lhd .st{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}.lhd .st span{background:color-mix(in srgb,var(--card) 55%,transparent);font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:10px}.lhd .st:empty{display:none}
 .fchips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}.fchips::-webkit-scrollbar{display:none}
 .fchips button{flex-shrink:0;border:0;cursor:pointer;font:inherit;font-size:13px;font-weight:650;color:var(--tx);background:var(--card);box-shadow:var(--sh),inset 3px 0 0 var(--fc);border-radius:12px;padding:9px 12px;display:flex;gap:6px;align-items:center}.fchips small{color:var(--mut2);font-weight:500}
+/* 2.2.8 yaklaşanlar */
+.ykbox{margin-top:16px;border-radius:22px;padding:1.5px;background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 65%,transparent),color-mix(in srgb,#8b5cf6 45%,transparent) 40%,color-mix(in srgb,var(--tx) 7%,transparent) 75%);box-shadow:0 10px 28px rgba(0,0,0,.16),0 0 22px color-mix(in srgb,var(--acc) 8%,transparent)}
+[data-theme=dark] .ykbox{box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 24px rgba(122,140,255,.08)}
+.ykin{border-radius:20.5px;background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 88%,var(--bg)));padding:12px 0 12px 12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;position:relative}
+.ykin .sec{margin:0 14px 10px 2px}
+.ykin::after{content:"";position:absolute;right:0;top:40px;bottom:0;width:38px;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--card) 92%,var(--bg)))}
+.ykhs{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity;padding-right:8px}.ykhs::-webkit-scrollbar{display:none}
+.ykend{flex:0 0 24px}
+.ykc{flex:0 0 126px;scroll-snap-align:start;border:0;cursor:pointer;font:inherit;text-align:left;color:var(--tx);border-radius:14px;padding:9px 11px;background:color-mix(in srgb,var(--c) 18%,var(--card));display:flex;flex-direction:column;height:94px}
+[data-theme=dark] .ykc{background:color-mix(in srgb,var(--c) 24%,var(--card))}
+.ykc .k{font-size:9.5px;font-weight:800;color:color-mix(in srgb,var(--c) 80%,var(--tx));letter-spacing:.4px;text-transform:uppercase}
+[data-theme=dark] .ykc .k{color:color-mix(in srgb,var(--c) 70%,#fff)}
+.ykc b{font-size:13px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.ykc .dd{font-size:11px;color:var(--mut);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ykc .n{margin-top:auto;font-size:21px;font-weight:850;line-height:1}.ykc .n span{font-size:11px;font-weight:700;color:var(--mut);margin-left:3px}
+.ykc .n.org{color:#e8812f}[data-theme=dark] .ykc .n.org{color:#ffa060}.ykc .n.red{color:#e5484d}[data-theme=dark] .ykc .n.red{color:#ff6b6b}
+@media(min-width:900px){.ykc{flex-basis:140px}}
 
 </style>
 </head><body>
@@ -538,7 +555,7 @@ const DEV_EMAILS = ["aydinomurpro@gmail.com"];
 const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 
-const VERSION="2.2.7",VDATE="7 Kasım 2026";
+const VERSION="2.2.8",VDATE="8 Kasım 2026";
 const PERMS = [
   ["jurnal","Yoklama / jurnal girebilir"],
   ["sinav","Sınav tarihlerini girebilir"],
@@ -951,11 +968,8 @@ function homeView(){
   if(H){const b=changeBand(H.d,H.mode==="today"?"Bugün":(daysTo(H.d)===1?"Yarın":DAYS[parse(H.d).getDay()]));if(b)h+=b}
   h+=heroCard(H);
   if(can("jurnal"))h+=ykLine();
-  const up=upcomingAll().slice(0,5);
-  h+='<div class="sec"><span>Yaklaşanlar</span><button class="lnk" data-a="tab" data-v="odev">Tümü ›</button></div><div class="list">';
-  if(!up.length)h+='<div class="empty">Yaklaşan sınav ya da iş yok 🎉</div>';
-  up.forEach(o=>h+=upRow(o));
-  h+='</div></div><div>';
+  h+=ykStrip();
+  h+='</div><div>';
   const S=summary(abs()),J=summary(myJ()),nd=compareJ().filter(c=>c.ty!=="extra").length;
   const bx=(lab,X,act)=>'<button class="box" data-a="'+act+'"><small>'+lab+'</small><b>'+f(X.used)+'</b>'+(X.tot&&X.used?'<span class="chip '+X.worst+'">'+(X.worst==="ok"?"Rahat":(X.cnt.over?X.cnt.over+" derste kesildi":(X.cnt.edge?X.cnt.edge+" derste limitte":(X.cnt.warn?X.cnt.warn+" derste dikkat":WL[X.worst]))))+'</span>':'<span class="chip">'+(X.tot?"Rahat":"ders kaçırıldı")+'</span>')+'</button>';
   h+='<div class="sec"><span>Devamsızlık</span><button class="lnk" data-a="tab" data-v="abs">Detay ›</button></div><div class="two">'+bx("BENİM KAYDIM",S,"absmine")+bx("JURNALE GÖRE"+(nd?" · "+nd+" FARK":""),J,"absj")+'</div>';
@@ -1439,7 +1453,7 @@ function openBlob(url,name){const el=document.createElement("a");el.href=url;el.
 /* ---------- HAKKINDA ---------- */
 function aboutView(){
   return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
-  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.7</b><ul><li>Kütüphane yenilendi: dersler kart olarak, her dersin kendi sayfası, yeni eklenenler şeridi</li><li>Notlarda ilk sayfanın küçük önizlemesi</li><li>Dosya indirilirken kartın titremesi düzeltildi</li></ul><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.8</b><ul><li>Ana sayfada Yaklaşanlar yenilendi: kaydırmalı kartlar, kaç gün kaldığı büyük yazıyla</li></ul><b>2.2.7</b><ul><li>Kütüphane yenilendi: dersler kart olarak, her dersin kendi sayfası, yeni eklenenler şeridi</li><li>Notlarda ilk sayfanın küçük önizlemesi</li><li>Dosya indirilirken kartın titremesi düzeltildi</li></ul><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
   +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Uygulamada geçirilen süre (ne zaman, kaç dakika, hangi bölüm) geliştirici tarafından görülebilir.</li><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Gizli anketlerde kimin neye oy verdiği görünmez; açık anketlerde oy verenlerin isimleri herkese görünür.</li><li>Serbest iş teslim dosyalarını sadece sen ve ödev yetkilisi görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
   +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
 }
@@ -1827,6 +1841,27 @@ function ykLine(){
 }
 function dueShort(d){if(!d)return{t:"Tarihsiz",c:""};const n=daysTo(d);if(n<0)return{t:(-n)+" gün geçti",c:"red"};if(n===0)return{t:"Bugün",c:"red"};if(n===1)return{t:"Yarın",c:"org"};if(n<=3)return{t:n+" gün",c:"org"};if(n<7)return{t:DAYS[parse(d).getDay()]||fmtS(d),c:""};return{t:parse(d).toLocaleDateString("tr-TR",{day:"numeric",month:"short"}),c:""}}
 function upcomingAll(){const a=[];myClaims().filter(o=>!o.c.done&&(!o.t.due||daysTo(o.t.due)>=-1)).forEach(o=>a.push({k:"t",o,d:o.t.due}));exams.filter(x=>daysTo(x.d)>=0).forEach(x=>a.push({k:"e",x,d:x.d}));upcomingHw().forEach(o=>a.push({k:o.k,x:o.x,d:o.x.due}));return a.sort((p,q)=>(p.d||"9999")<(q.d||"9999")?-1:1)}
+const GA=["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"],AYK=["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
+function ykCard(o){
+  let kind,title,s,d=o.d,act;
+  if(o.k==="e"){kind=EXK[o.x.kind]||o.x.kind||"Sınav";title=sname(o.x.s);s=o.x.s;act='data-a="ders" data-v="'+esc(o.x.s)+'"'}
+  else if(o.k==="t"){kind="Serbest iş";title=o.it.t||o.t.title||"Konu";s=o.t.s;act='data-a="ykmine"'}
+  else{kind=o.k==="p"?"Kişisel iş":"Ödev";title=o.x.title||"İş";s=o.x.s;act='data-a="'+(o.k==="c"?"hwsheet":"openkis")+'" data-id="'+o.x.id+'"'}
+  const S=C().subjects[s]||{},c=S.c||"#7c8394";
+  let num,unit,cls="";
+  if(!d){num="—";unit="tarihsiz"}
+  else{const n=daysTo(d);if(n<0){num=-n;unit="gün geçti";cls="red"}else if(n===0){num="Bugün";unit="";cls="red"}else{num=n;unit="gün";cls=n<=1?"red":(n<=3?"org":"")}}
+  const dt=d?GA[parse(d).getDay()]+" · "+parse(d).getDate()+" "+AYK[parse(d).getMonth()]:(s?sname(s):"Genel");
+  const sub=o.k==="e"?dt:(s?sname(s)+(d?" · "+parse(d).getDate()+" "+AYK[parse(d).getMonth()]:""):dt);
+  return'<button class="ykc" '+act+' style="--c:'+c+'"><span class="k">'+esc(kind)+'</span><b>'+esc(title)+'</b><span class="dd">'+esc(sub)+'</span><span class="n '+cls+'">'+num+(unit?'<span>'+unit+'</span>':'')+'</span></button>';
+}
+function ykStrip(){
+  const up=upcomingAll().slice(0,12);
+  let h='<div class="ykbox"><div class="ykin"><div class="sec"><span>Yaklaşanlar</span><button class="lnk" data-a="tab" data-v="odev">Tümü ›</button></div>';
+  if(!up.length)h+='<div class="empty" style="padding:14px 10px 8px">Yaklaşan sınav ya da iş yok 🎉</div>';
+  else h+='<div class="ykhs">'+up.map(ykCard).join("")+'<span class="ykend"></span></div>';
+  return h+'</div></div>';
+}
 function upRow(o){
   if(o.k==="t")return mineRow({k:"t",o:o.o},false).replace(/<div class="mk2">[\s\S]*$/,"");
   const x=o.x,du=dueShort(o.d);
@@ -2228,6 +2263,7 @@ document.addEventListener("click",async e=>{
   if(a==="absmine"){absTab="mine";return tab("abs")}
   if(a==="ptab"){progTab=b.dataset.v;return render()}
   if(a==="odtab"){odevTab=b.dataset.v;return render()}
+  if(a==="ykmine"){odevTab="mine";return tab("odev")}
   if(a==="bakload"){if(!navigator.onLine)return showToast("Yedekleri görmek için internet gerekiyor");bakFor=id;bakList=null;render();try{const l=await B.list("backups/"+id+"/b");bakList=l.sort((p,q)=>q.at-p.at)}catch(x){bakList=[];showToast(errText(x))}return render()}
   if(a==="bakrestore"){if(!isDev)return;const uid=b.dataset.u,bk=(bakList||[]).find(y=>y.id===id);if(!bk)return;if(!confirmTwice(b))return;
     try{const cur=users.find(y=>y.id===uid)||(uid===me.uid?profSrv:null)||{};await B.set("backups/"+uid+"/b/r"+Date.now(),{at:Date.now(),day:today(),reason:"restore",abs:cur.abs||[],kisisel:cur.kisisel||[],n:(cur.abs||[]).length,by:myName()});
