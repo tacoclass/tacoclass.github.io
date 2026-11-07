@@ -485,6 +485,37 @@ mark{background:color-mix(in srgb,#ffd24a 55%,transparent);color:inherit;border-
 .kdays.m{gap:2px}
 .flash{animation:fl 1.6s}@keyframes fl{0%,60%{background:color-mix(in srgb,var(--acc) 18%,transparent)}}
 .ptitle{font-size:24px;font-weight:800;letter-spacing:-.4px;margin-top:8px;line-height:1.2}
+/* 2.2.7 */
+.sheet.na,.dim.na{animation:none}
+.lsg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(min-width:700px){.lsg{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.lsg{grid-template-columns:repeat(4,1fr)}}
+.lsc{border:0;cursor:pointer;font:inherit;text-align:left;color:var(--tx);border-radius:16px;padding:12px;background:color-mix(in srgb,var(--c) 16%,var(--card));box-shadow:var(--sh);display:flex;flex-direction:column;gap:2px;min-height:76px;position:relative;overflow:hidden}
+.lsc .dt{width:10px;height:10px;border-radius:50%;background:var(--c);margin-bottom:6px}
+.lsc b{font-size:14.5px;font-weight:750;line-height:1.25}.lsc small{font-size:11.5px;color:var(--mut)}
+.lsc .nw{position:absolute;top:10px;right:10px;font-size:10.5px;font-weight:800;background:var(--c);color:#fff;border-radius:8px;padding:2px 7px}
+.mecard{margin-top:10px;width:100%;display:flex;align-items:center;gap:12px;background:var(--card);box-shadow:var(--sh);border-radius:14px;padding:12px 14px;border:0;font:inherit;color:var(--tx);cursor:pointer;text-align:left;font-size:20px}
+.mecard span{flex:1;display:flex;flex-direction:column}.mecard b{font-size:14.5px}.mecard small{font-size:12px;color:var(--mut2)}.mecard .ar{flex:0;color:var(--mut2);font-size:20px}
+.nstrip{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 2px 8px;scrollbar-width:none}.nstrip::-webkit-scrollbar{display:none}
+.ncard{flex:0 0 108px;border:0;background:none;padding:0;font:inherit;color:var(--tx);text-align:left;cursor:pointer}
+.ncard b{display:block;font-size:12.5px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ncard small{font-size:11px;color:var(--mut2)}
+.thb{position:relative;flex-shrink:0;width:36px;height:46px;border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.06);display:block}
+.thb.big{width:108px;height:138px;border-radius:10px}
+.thb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.thb .tg{position:absolute;left:3px;bottom:3px;font-size:7px;font-weight:800;color:#fff;padding:1px 3px;border-radius:3px;letter-spacing:.2px}
+.thb.big .tg{left:6px;bottom:6px;font-size:9px;padding:2px 5px;border-radius:5px}
+.thb.pg em{position:absolute;left:5px;top:6px;width:45%;height:3px;border-radius:2px;background:var(--c)}
+.thb.pg i{position:absolute;left:5px;right:5px;height:2px;border-radius:1px;background:#d4d7dd}
+.thb.pg i:nth-of-type(1){top:13px}.thb.pg i:nth-of-type(2){top:18px}.thb.pg i:nth-of-type(3){top:23px}.thb.pg i:nth-of-type(4){top:28px;right:12px}.thb.pg i:nth-of-type(5){top:33px}
+.thb.big.pg em{left:10px;top:12px;height:6px}.thb.big.pg i{left:10px;right:10px;height:3px}
+.thb.big.pg i:nth-of-type(1){top:28px}.thb.big.pg i:nth-of-type(2){top:38px}.thb.big.pg i:nth-of-type(3){top:48px}.thb.big.pg i:nth-of-type(4){top:58px;right:34px}.thb.big.pg i:nth-of-type(5){top:68px}
+.thb.link{background:color-mix(in srgb,var(--c) 20%,var(--card));color:var(--c);display:flex;align-items:center;justify-content:center;box-shadow:var(--sh)}.thb.link svg{width:20px;height:20px}.thb.big.link svg{width:36px;height:36px}
+.lkb{position:absolute;right:6px;bottom:6px;font-size:10px;font-weight:800;color:#e5484d;background:#fff;border-radius:6px;padding:1px 5px;box-shadow:0 0 0 1px #eee}
+.lhd{border-radius:18px;padding:16px;margin-top:10px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 50%,var(--card)),color-mix(in srgb,var(--c) 16%,var(--card)));box-shadow:var(--sh)}
+.lhd b{font-size:22px;font-weight:800;display:block}.lhd small{font-size:12.5px;color:var(--tx);opacity:.8}
+.lhd .st{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}.lhd .st span{background:color-mix(in srgb,var(--card) 55%,transparent);font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:10px}.lhd .st:empty{display:none}
+.fchips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}.fchips::-webkit-scrollbar{display:none}
+.fchips button{flex-shrink:0;border:0;cursor:pointer;font:inherit;font-size:13px;font-weight:650;color:var(--tx);background:var(--card);box-shadow:var(--sh),inset 3px 0 0 var(--fc);border-radius:12px;padding:9px 12px;display:flex;gap:6px;align-items:center}.fchips small{color:var(--mut2);font-weight:500}
 
 </style>
 </head><body>
@@ -507,7 +538,7 @@ const DEV_EMAILS = ["aydinomurpro@gmail.com"];
 const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 
-const VERSION="2.2.6",VDATE="7 Kasım 2026";
+const VERSION="2.2.7",VDATE="7 Kasım 2026";
 const PERMS = [
   ["jurnal","Yoklama / jurnal girebilir"],
   ["sinav","Sınav tarihlerini girebilir"],
@@ -827,12 +858,15 @@ function render(){
     else if(v==="pollf")body=pollForm();
     else if(v==="topicf")body=topicForm();
     else if(v==="kutd")body=kutFolderView();
+    else if(v==="kuts")body=kutSubView();
+    else if(v==="kutme")body=kutMeView();
+    else if(v==="kutall")body=kutAllView();
     else if(v==="kul")body=kulView();
     else if(v==="kulu")body=kulUser();
     else if(v==="kulb")body=kulBol();
     else body=homeView();
   }catch(e){console.error(e);body='<div class="card err">Bir hata oluştu: '+esc(e.message)+'</div>'}
-  const titles={home:"🌮 Taco",prog:"Program",ders:sname(route.s),abs:"Devamsızlık",odev:"Serbest İşler",odevd:"Serbest iş",odevf:"Ödev",kisf:"Kişisel ödev",ann:"Duyurular",sinif:"Sınıf",uye:"Üye",profil:"Profilim",yetki:"Yetkiler",progedit:"Programı düzenle",hakedit:"Devamsızlık hakları",exf:"Sınav",chf:"Ders değişikliği",yok:"Yoklama",yon:"Yönetim",kut:"Kütüphane",kutf:"Not ekle",donem:"Dönemler",pollf:"Anket aç",topicf:"Konu listesi",kisf:"Serbest iş ekle",kutd:"Kütüphane",kul:"📊 Kullanım",kulu:"Kullanım",kulb:"Bölümler"};
+  const titles={home:"🌮 Taco",prog:"Program",ders:sname(route.s),abs:"Devamsızlık",odev:"Serbest İşler",odevd:"Serbest iş",odevf:"Ödev",kisf:"Kişisel ödev",ann:"Duyurular",sinif:"Sınıf",uye:"Üye",profil:"Profilim",yetki:"Yetkiler",progedit:"Programı düzenle",hakedit:"Devamsızlık hakları",exf:"Sınav",chf:"Ders değişikliği",yok:"Yoklama",yon:"Yönetim",kut:"Kütüphane",kutf:"Not ekle",donem:"Dönemler",pollf:"Anket aç",topicf:"Konu listesi",kisf:"Serbest iş ekle",kutd:"Kütüphane",kuts:"Kütüphane",kutme:"Kütüphane",kutall:"Kütüphane",kul:"📊 Kullanım",kulu:"Kullanım",kulb:"Bölümler"};
   const newAnn=(anns.length&&anns[0].at>seen("ann"))||polls.some(p=>p.at>seen("ann")&&!myVote(p));
   const newHw=hws.some(x=>x.at>seen("odev"))||claims.some(c=>c.uid===me.uid&&isNewC(c));
   const pendN=canRaw("onay")?members.filter(m=>m.status==="pending").length:0;
@@ -843,11 +877,13 @@ function render(){
   h+=body+'</div>';
   const tabs=[["home","Ana Sayfa"],["prog","Program"],["abs","Devamsızlık"],["odev","Ödevler"],["kut","Kütüphane"],["ann","Duyurular",1]];
   if(anyPerm())tabs.push(["yon","Yönetim"]);
-  const act={ders:"prog",topicf:"odev",odevd:"odev",odevf:"odev",kisf:"odev",kutf:"kut",kutd:"kut",kul:"yon",kulu:"yon",kulb:"yon",pollf:"ann",uye:"yon",sinif:"yon",yok:"yon",yetki:"yon",donem:"yon",progedit:"yon",hakedit:"yon",exf:"yon",chf:"prog"}[v]||v;
+  const act={ders:"prog",topicf:"odev",odevd:"odev",odevf:"odev",kisf:"odev",kutf:"kut",kutd:"kut",kuts:"kut",kutme:"kut",kutall:"kut",kul:"yon",kulu:"yon",kulb:"yon",pollf:"ann",uye:"yon",sinif:"yon",yok:"yon",yetki:"yon",donem:"yon",progedit:"yon",hakedit:"yon",exf:"yon",chf:"prog"}[v]||v;
   h+='<nav><div class="in"><div class="brand"><img src="'+ICON_SRC+'" alt="">Taco</div>'+tabs.map(t=>'<button data-a="tab" data-v="'+t[0]+'" class="'+(act===t[0]?"on":"")+(t[2]?" tabonly":"")+'">'+I[t[0]]+'<span>'+t[1]+'</span>'+((t[0]==="ann"&&newAnn&&v!=="ann")||(t[0]==="odev"&&newHw&&act!=="odev")||(t[0]==="yon"&&yonDot)?'<span class="dot"></span>':'')+'</button>').join("")+'</div></nav>';
   h+=sheetHtml();
   if(toast)h+='<div class="toast">'+toast+'</div>';
+  const osh=document.querySelector(".sheet"),shs=osh?osh.scrollTop:0;
   $app.innerHTML=h;
+  if(shs){const nsh=document.querySelector(".sheet.na");if(nsh)nsh.scrollTop=shs}
   document.body.classList.toggle("noscroll",!!sheet||!!vwr||(!!srch&&!srch.el.classList.contains("wide")));
   window.scrollTo(0,sy);
   if(srch)srchRefresh();
@@ -1385,36 +1421,6 @@ function semSubs(){
 function libItems(){const m=new Map();libShared.concat(libMine).forEach(x=>m.set(x.id,x));return[...m.values()].sort((a,b)=>b.at-a.at)}
 function fsz(n){return n>=1048576?(n/1048576).toFixed(1).replace(".",",")+" MB":Math.max(1,Math.round(n/1024))+" KB"}
 function libCard(x,q){return'<div class="list" style="margin-top:8px">'+libRow(x,q)+'</div>'}
-function kutView(){
-  let h='<input data-kutq="1" placeholder="🔍 Not, soru veya kişi ara" value="'+esc(kutQ)+'" style="margin-top:6px">';
-  h+='<div class="seg" style="margin-top:10px">'+[["not","📄 Notlar"],["soru","❓ Sorular"],["me","🗂️ Benim"]].map(t=>'<button class="'+(kutTab===t[0]?"on":"")+'" data-a="kuttab" data-v="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>';
-  h+='<div class="chips scroll"><button class="chip2'+(!kutS?" on":"")+'" data-a="kutsubj" data-v="">Tümü</button>'+C().order.map(k=>'<button class="chip2'+(kutS===k?" on":"")+'" style="'+col(k)+'" data-a="kutsubj" data-v="'+k+'"><i></i>'+esc(C().subjects[k].n)+'</button>').join("")+'</div>';
-  let L2=libItems().filter(x=>kutTab==="me"?x.owner===me.uid:(x.share==="all"&&(kutTab==="soru"?x.kind==="soru":x.kind!=="soru")));
-  if(kutS)L2=L2.filter(x=>x.s===kutS);
-  const lk=x=>(x.likes||[]).length;
-  const sAll='<div id="kutSrch"'+(kutQ?'':' style="display:none"')+'><div class="sec"><span>Arama</span></div><div class="list">'+L2.map(x=>libRow(x,kutQ)).join("")+'</div></div>';
-  let nm='';
-  // klasörler: ders seçiliyken sınıf klasörleri, "Benim"de kişisel klasörler
-  let FL=[],inF=()=>false,newA="";
-  if(kutTab==="me"){FL=myFolders();inF=x=>!!fById(x.pf);if(!ro())newA='data-a="fnew" data-sh="0"'}
-  else if(kutS){FL=sharedFolders(kutS,kutTab==="soru"?"soru":"not");inF=x=>{const f=fById(x.folder);return!!(f&&f.shared&&f.s===kutS)};if(canRaw("klasor")&&!ro())newA='data-a="fnew" data-sh="1" data-s="'+kutS+'" data-k="'+(kutTab==="soru"?"soru":"not")+'"'}
-  nm+=folderGrid(FL,newA);
-  const loose=L2.filter(x=>!inF(x));
-  if(!L2.length&&!FL.length)nm+='<div class="card" style="margin-top:14px"><div class="empty">'+(kutTab==="me"?"Henüz bir şey eklemedin.":(kutTab==="soru"?"Henüz soru dosyası yok.":"Henüz paylaşılan not yok."))+'<br>Sağ alttaki <b>+ Ekle</b> ile ilk sen ekle!</div></div>';
-  else if(FL.length){if(loose.length)nm+='<div class="sec"><span>Klasörsüz '+(kutTab==="soru"?"sorular":"notlar")+'</span><span>'+loose.length+'</span></div><div class="list">'+loose.map(x=>libRow(x,"")).join("")+'</div>'}
-  else if(kutTab==="not"){
-    const top=L2.filter(x=>lk(x)>0).sort((a,b)=>lk(b)-lk(a)).slice(0,3),ids=new Set(top.map(x=>x.id));
-    if(top.length)nm+='<div class="sec"><span>En faydalı</span><span>'+L2.length+' not</span></div><div class="list">'+top.map(x=>libRow(x,"")).join("")+'</div>';
-    const rest=L2.filter(x=>!ids.has(x.id));
-    if(rest.length)nm+='<div class="sec"><span>Son eklenenler</span>'+(top.length?'':'<span>'+L2.length+' not</span>')+'</div><div class="list">'+rest.map(x=>libRow(x,"")).join("")+'</div>';
-  }else if(L2.length)nm+='<div class="sec"><span>'+(kutTab==="soru"?"Soru dosyaları":"Eklediklerim")+'</span><span>'+L2.length+'</span></div><div class="list">'+L2.map(x=>libRow(x,"")).join("")+'</div>';
-  if(!kutS&&kutTab!=="me"&&!ro()&&(foldShared.length||canRaw("klasor")))nm+='<p class="muted" style="margin:12px 4px 0;font-size:12.5px">📁 Klasörleri görmek için yukarıdan bir ders seç.</p>';
-  h+='<div id="kutNorm"'+(kutQ?' style="display:none"':'')+'>'+nm+'</div>'+sAll;
-  const ub=(usage&&usage.bytes)||0,pc=Math.min(100,ub/STORE_MAX*100);
-  h+='<div class="usage">Kullanılan alan: '+fsz(Math.max(0,ub))+' / 1 GB<div class="ubar"><i style="width:'+pc+'%"></i></div></div>';
-  h+='<button class="fab" data-a="newlib">+ Ekle</button>';
-  return h+(msg?'<div class="err">'+esc(msg)+'</div>':'');
-}
 function kutForm(){
   const F=form;
   let h='<button class="back" data-a="back">‹ Vazgeç</button><div class="card" style="margin-top:6px"><label class="f" style="margin-top:0">Ne ekliyorsun?</label><div class="seg"><button class="'+(F.kind!=="soru"?"on":"")+'" data-a="fkind" data-v="not">📄 Ders notu</button><button class="'+(F.kind==="soru"?"on":"")+'" data-a="fkind" data-v="soru">❓ Soru</button></div>';
@@ -1433,11 +1439,108 @@ function openBlob(url,name){const el=document.createElement("a");el.href=url;el.
 /* ---------- HAKKINDA ---------- */
 function aboutView(){
   return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
-  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.7</b><ul><li>Kütüphane yenilendi: dersler kart olarak, her dersin kendi sayfası, yeni eklenenler şeridi</li><li>Notlarda ilk sayfanın küçük önizlemesi</li><li>Dosya indirilirken kartın titremesi düzeltildi</li></ul><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
   +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Uygulamada geçirilen süre (ne zaman, kaç dakika, hangi bölüm) geliştirici tarafından görülebilir.</li><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Gizli anketlerde kimin neye oy verdiği görünmez; açık anketlerde oy verenlerin isimleri herkese görünür.</li><li>Serbest iş teslim dosyalarını sadece sen ve ödev yetkilisi görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
   +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
 }
 
+
+const LINKSVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l2.6-2.6a4 4 0 0 0-5.7-5.7L11.4 7"/><path d="M14 10a4 4 0 0 0-5.7 0l-2.6 2.6a4 4 0 0 0 5.7 5.7l1.2-1.2"/></svg>';
+
+/* ============ 2.2.7: kütüphane yeni görünüm + önizleme ============ */
+function libVis(){return libItems().filter(x=>x.share==="all"||x.owner===me.uid)}
+function subjOfLib(){const ord=C().order.slice();const extra=[...new Set(libVis().map(x=>x.s||""))].filter(s=>s&&!ord.includes(s));return ord.concat(extra)}
+function libStats(list){return{not:list.filter(x=>x.kind!=="soru").length,soru:list.filter(x=>x.kind==="soru").length,lk:list.reduce((n,x)=>n+(x.likes||[]).length,0),last:list.reduce((m,x)=>Math.max(m,x.at||0),0)}}
+function newCnt(s,list){const t=+lsGet("seen_kut_"+(s||"_"),0);return list.filter(x=>x.owner!==me.uid&&x.share==="all"&&(x.at||0)>t).length}
+function subjCard(s,list){
+  const st=libStats(list),n=newCnt(s,list),cc=s?(C().subjects[s]?C().subjects[s].c:"#6b7486"):"#6b7486";
+  return'<button class="lsc" data-a="kutsub" data-v="'+esc(s)+'" style="--c:'+cc+'"><span class="dt"></span><b>'+esc(s?sname(s):"Genel")+'</b><small>'+(list.length?st.not+' not · '+st.soru+' soru':'Henüz dosya yok')+'</small>'+(n?'<span class="nw">'+n+' yeni</span>':'')+'</button>';
+}
+function thumbHtml(x,big){
+  const ft=ftype(x),c=x.s&&C().subjects[x.s]?C().subjects[x.s].c:"#6b7486";
+  if(!x.file&&x.link)return'<span class="thb link'+(big?" big":"")+'" style="--c:'+c+'">'+LINKSVG+'</span>';
+  if(x.th)return'<span class="thb img'+(big?" big":"")+'"><img src="'+x.th+'" alt="" loading="lazy"><span class="tg" style="background:'+ft[1]+'">'+ft[0]+'</span></span>';
+  return'<span class="thb pg'+(big?" big":"")+'" style="--c:'+c+'"><em></em><i></i><i></i><i></i><i class="s"></i><i></i><span class="tg" style="background:'+ft[1]+'">'+ft[0]+'</span></span>';
+}
+function newCard(x){const lk=(x.likes||[]).length;return'<button class="ncard" data-a="libsheet" data-id="'+x.id+'">'+thumbHtml(x,true).replace('</span></span>','</span>'+(lk?'<span class="lkb">♥ '+lk+'</span>':'')+'</span>')+'<b>'+esc(x.title)+'</b><small>'+esc(x.s?sname(x.s):"Genel")+'</small></button>'}
+function kutSearchBlock(list){
+  return'<div id="kutSrch"'+(kutQ?'':' style="display:none"')+'><div class="sec"><span>Arama sonuçları</span></div><div class="list">'+list.map(x=>libRow(x,kutQ)).join("")+'</div></div>';
+}
+function kutView(){
+  const V=libVis(),shared=V.filter(x=>x.share==="all");
+  let h='<input data-kutq="1" placeholder="🔍 Not, soru veya kişi ara" value="'+esc(kutQ)+'" style="margin-top:6px">';
+  let nm='<div class="sec"><span>Dersler</span><span>'+shared.length+' dosya</span></div><div class="lsg">';
+  subjOfLib().forEach(s=>nm+=subjCard(s,V.filter(x=>(x.s||"")===s)));
+  const gen=V.filter(x=>!x.s);if(gen.length)nm+=subjCard("",gen);
+  nm+='</div>';
+  const mine=libItems().filter(x=>x.owner===me.uid),mf=myFolders();
+  nm+='<button class="it mecard" data-a="go" data-v="kutme">🗂️ <span><b>Benim</b><small>'+mine.length+' eklediğim'+(mf.length?' · '+mf.length+' kişisel klasör':'')+'</small></span><span class="ar">›</span></button>';
+  const nw=shared.slice().sort((a,b)=>b.at-a.at).slice(0,10);
+  if(nw.length)nm+='<div class="sec"><span>Yeni eklenenler</span><button class="lnk" data-a="go" data-v="kutall">Tümü ›</button></div><div class="nstrip">'+nw.map(newCard).join("")+'</div>';
+  else nm+='<div class="card" style="margin-top:14px"><div class="empty">Henüz paylaşılan not yok.<br>Sağ alttaki <b>+ Ekle</b> ile ilk sen ekle!</div></div>';
+  h+='<div id="kutNorm"'+(kutQ?' style="display:none"':'')+'>'+nm+'</div>'+kutSearchBlock(V);
+  const ub=(usage&&usage.bytes)||0,pc=Math.min(100,ub/STORE_MAX*100);
+  h+='<div class="usage">Kullanılan alan: '+fsz(Math.max(0,ub))+' / 1 GB<div class="ubar"><i style="width:'+pc+'%"></i></div></div>';
+  if(!ro())h+='<button class="fab" data-a="newlib" data-s="">+ Ekle</button>';
+  return h+(msg?'<div class="err">'+esc(msg)+'</div>':'');
+}
+function sortLib(L){const lk=x=>(x.likes||[]).length;if(kutSort==="lk")L.sort((a,b)=>lk(b)-lk(a)||b.at-a.at);else if(kutSort==="az")L.sort((a,b)=>(a.title||"").localeCompare(b.title||"","tr"));else L.sort((a,b)=>b.at-a.at);return L}
+function sortChips(){return'<div class="chips scroll" style="margin-top:0">'+[["lk","En faydalı"],["new","En yeni"],["az","Ada göre"]].map(t=>'<button class="chip2'+(kutSort===t[0]?" on":"")+'" data-a="ksort" data-v="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>'}
+function fChips(list,newAttrs){
+  if(!list.length&&!newAttrs)return'';
+  return'<div class="sec"><span>Klasörler</span>'+(newAttrs?'<button class="lnk" '+newAttrs+'>+ Yeni</button>':'')+'</div>'+(list.length?'<div class="fchips">'+list.map(f=>'<button data-a="fopen" data-id="'+f.id+'" style="--fc:'+(f.color||FCOL[0])+'">'+(f.pin?'📌':'📁')+' '+esc(f.name)+' <small>'+inFolder(f).length+'</small></button>').join("")+'</div>':'<p class="muted" style="margin:0 4px;font-size:12.5px">Henüz klasör yok.</p>');
+}
+function kutSubView(){
+  const s=route.s||"",cc=s&&C().subjects[s]?C().subjects[s].c:"#6b7486";lsSet("seen_kut_"+(s||"_"),String(Date.now()));
+  const V=libVis().filter(x=>(x.s||"")===s),st=libStats(V.filter(x=>x.share==="all"));
+  const kind=kutTab==="soru"?"soru":"not";
+  let h='<button class="back" data-a="back">‹ Kütüphane</button>';
+  const FLs=sharedFolders(s,"not").length+sharedFolders(s,"soru").length;
+  h+='<div class="lhd" style="--c:'+cc+'"><b>'+esc(s?sname(s):"Genel")+'</b><small>'+st.not+' not · '+st.soru+' soru'+(st.last?' · son ekleme '+esc(agoDay(st.last)):'')+'</small><div class="st">'+(st.lk?'<span>♥ '+st.lk+' beğeni</span>':'')+(FLs?'<span>📁 '+FLs+' klasör</span>':'')+'</div></div>';
+  const mineN=V.filter(x=>x.owner===me.uid).length;
+  h+='<div class="seg" style="margin-top:12px">'+[["not","📄 Notlar · "+st.not],["soru","❓ Sorular · "+st.soru],["me","🗂️ Benim · "+mineN]].map(t=>'<button class="'+(kutTab===t[0]?"on":"")+'" data-a="kuttab" data-v="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>';
+  let L;
+  if(kutTab==="me"){L=V.filter(x=>x.owner===me.uid);h+=fChips(myFolders(),!ro()?'data-a="fnew" data-sh="0"':"")}
+  else{L=V.filter(x=>x.share==="all"&&(kind==="soru"?x.kind==="soru":x.kind!=="soru"));h+=fChips(sharedFolders(s,kind),canRaw("klasor")&&!ro()?'data-a="fnew" data-sh="1" data-s="'+esc(s)+'" data-k="'+kind+'"':"")}
+  h+='<div class="sec"><span>'+(kutTab==="me"?"Eklediklerim":(kind==="soru"?"Tüm sorular":"Tüm notlar"))+'</span><span>'+L.length+'</span></div>';
+  if(L.length)h+=sortChips()+'<div class="list" style="margin-top:8px">'+sortLib(L).map(x=>libRow(x,"")).join("")+'</div>';
+  else h+='<div class="card"><div class="empty">'+(kutTab==="me"?"Bu derse henüz bir şey eklemedin.":(kind==="soru"?"Bu derste henüz soru yok.":"Bu derste henüz not yok."))+'<br>Sağ alttaki <b>+ Ekle</b> ile ekle.</div></div>';
+  if(!ro())h+='<button class="fab" data-a="newlib" data-s="'+esc(s)+'">+ Ekle</button>';
+  return h;
+}
+function kutMeView(){
+  const L=libItems().filter(x=>x.owner===me.uid),M=myFolders();
+  let h='<button class="back" data-a="back">‹ Kütüphane</button><div class="ptitle">🗂️ Benim</div><div class="muted" style="margin-top:2px">Eklediklerin ve sadece senin gördüğün klasörler</div>';
+  h+=fChips(M,!ro()?'data-a="fnew" data-sh="0"':"");
+  h+='<div class="sec"><span>Eklediklerim</span><span>'+L.length+'</span></div>';
+  h+=L.length?sortChips()+'<div class="list" style="margin-top:8px">'+sortLib(L).map(x=>libRow(x,"")).join("")+'</div>':'<div class="card"><div class="empty">Henüz bir şey eklemedin.</div></div>';
+  if(!ro())h+='<button class="fab" data-a="newlib" data-s="" data-me="1">+ Ekle</button>';
+  return h;
+}
+function kutAllView(){
+  const kind=kutTab==="soru"?"soru":"not";const L=libVis().filter(x=>x.share==="all"&&(kind==="soru"?x.kind==="soru":x.kind!=="soru"));
+  let h='<button class="back" data-a="back">‹ Kütüphane</button><div class="ptitle">Tüm paylaşılanlar</div>';
+  h+='<div class="seg" style="margin-top:12px">'+[["not","📄 Notlar"],["soru","❓ Sorular"]].map(t=>'<button class="'+(kind===t[0]?"on":"")+'" data-a="kuttab" data-v="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>';
+  h+='<div class="sec"><span>'+L.length+' dosya</span></div>'+(L.length?sortChips()+'<div class="list" style="margin-top:8px">'+sortLib(L).map(x=>libRow(x,"")).join("")+'</div>':'<div class="card"><div class="empty">Henüz yok.</div></div>');
+  return h;
+}
+function agoDay(t){const d=Math.round((parse(today())-parse(iso(new Date(t))))/864e5);return d<=0?"bugün":(d===1?"dün":d+" gün önce")}
+
+/* önizleme resmi üretme */
+async function makeThumb(bl,type){
+  const W=200;
+  try{
+    let src;
+    if(/^image\//.test(type||bl.type)){src=await new Promise((ok,no)=>{const u=URL.createObjectURL(bl),im=new Image();im.onload=()=>{ok({im,u})};im.onerror=()=>{URL.revokeObjectURL(u);no()};im.src=u});
+      const r=src.im.naturalHeight/src.im.naturalWidth,c=document.createElement("canvas");c.width=W;c.height=Math.min(Math.round(W*r),Math.round(W*1.5));const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.drawImage(src.im,0,0,W,Math.round(W*r));URL.revokeObjectURL(src.u);return c.toDataURL("image/jpeg",.72)}
+    if(!/pdf/i.test(type||bl.type))return"";
+    const lib=await pdfjs();const doc=await lib.getDocument({data:new Uint8Array(await bl.arrayBuffer())}).promise;const pg=await doc.getPage(1);
+    const v0=pg.getViewport({scale:1}),vp=pg.getViewport({scale:W/v0.width});const c=document.createElement("canvas");c.width=Math.round(vp.width);c.height=Math.min(Math.round(vp.height),Math.round(W*1.5));
+    const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);await pg.render({canvasContext:g,viewport:vp}).promise;try{doc.destroy()}catch(_){}
+    const u=c.toDataURL("image/jpeg",.7);return u.length<60000?u:c.toDataURL("image/jpeg",.45);
+  }catch(e){console.warn("önizleme",e);return""}
+}
+async function ensureThumb(x){if(!x||x.th||!x.file||ro())return;const bl=blobCache[x.id];if(!bl)return;const th=await makeThumb(bl,x.file.type);if(th&&th.length<60000){try{await B.set("library/"+x.id,{th},true)}catch(e){console.warn("önizleme kaydı",e&&e.code)}}}
 
 /* ============ 2.2.6 ============ */
 /* ---------- bekleyen (gönderilmemiş) kayıtlar ---------- */
@@ -1613,7 +1716,7 @@ document.addEventListener("keydown",e=>{
 });
 
 /* ---------- kullanım takibi ---------- */
-const SEC={home:"Ana sayfa",prog:"Program",ders:"Program",chf:"Program",abs:"Devamsızlık",odev:"Serbest İşler",odevd:"Serbest İşler",odevf:"Serbest İşler",kisf:"Serbest İşler",topicf:"Serbest İşler",kut:"Kütüphane",kutf:"Kütüphane",kutd:"Kütüphane",ann:"Duyurular",pollf:"Duyurular",profil:"Profil"};
+const SEC={home:"Ana sayfa",prog:"Program",ders:"Program",chf:"Program",abs:"Devamsızlık",odev:"Serbest İşler",odevd:"Serbest İşler",odevf:"Serbest İşler",kisf:"Serbest İşler",topicf:"Serbest İşler",kut:"Kütüphane",kutf:"Kütüphane",kutd:"Kütüphane",kuts:"Kütüphane",kutme:"Kütüphane",kutall:"Kütüphane",ann:"Duyurular",pollf:"Duyurular",profil:"Profil"};
 const SECI={"Ana sayfa":"🏠",Program:"📅",Devamsızlık:"✅","Serbest İşler":"📝",Kütüphane:"📚",Duyurular:"📢",Profil:"👤",Yönetim:"⚙️"};
 function secOf(v){return SEC[v]||"Yönetim"}
 function devName(){const u=navigator.userAgent||"";if(/iPad/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return"iPad";if(/iPhone/.test(u))return"iPhone";if(/Android/.test(u))return/Mobile/.test(u)?"Android":"Android tablet";return"Bilgisayar"}
@@ -1770,8 +1873,9 @@ function absLine(sl,d){
   return h+'</div>';
 }
 /* sheets */
+let lastSheetK="";
 function sheetHtml(){
-  if(!sheet)return"";
+  if(!sheet){lastSheetK="";return""}
   let body="";
   if(sheet.k==="hw"){const x=hws.find(y=>y.id===sheet.id);if(!x){sheet=null;return""}body=hwSheet(x)}
   else if(sheet.k==="lib"){const x=libItems().find(y=>y.id===sheet.id);if(!x){sheet=null;return""}body=libSheet(x)}
@@ -1784,7 +1888,8 @@ function sheetHtml(){
   else if(sheet.k==="fmenu"){const f=fById(sheet.id);if(!f){sheet=null;return""}body=fmenuSheet(f)}
   else if(sheet.k==="logout")body=logoutWarnSheet();
   else if(sheet.k==="add")body='<h2 style="margin-top:4px">Ne eklemek istiyorsun?</h2><button class="btn dark full" style="margin-top:14px" data-a="newhw">👥 Sınıfa serbest iş</button><button class="btn line full" style="margin-top:8px" data-a="newkis">🔒 Kişisel iş (sadece ben)</button>';
-  return'<div class="dim" data-a="closesheet"></div><div class="sheet"><div class="grab" data-a="closesheet"></div>'+body+'</div>';
+  const sk=sheet.k+"|"+(sheet.id||""),again=sk===lastSheetK;lastSheetK=sk;
+  return'<div class="dim'+(again?" na":"")+'" data-a="closesheet"></div><div class="sheet'+(again?" na":"")+'"><div class="grab" data-a="closesheet"></div>'+body+'</div>';
 }
 function hwSheet(x){
   const done=subsList.find(y=>y.hw===x.id&&y.uid===me.uid),mine=hwMine(x);
@@ -1804,15 +1909,15 @@ function ftype(x){if(!x.file)return["🔗","#3f6fd8"];const e=(x.file.name.split
 function libRow(x,q){
   const own=x.owner===me.uid,ft=ftype(x),lk=(x.likes||[]).length,ml=(x.likes||[]).includes(me.uid),txt=(x.title+" "+(x.desc||"")+" "+(x.ownerName||"")+" "+sname(x.s)+" "+(x.file?x.file.name:"")+" "+(SQK[x.et]||"")).toLocaleLowerCase("tr");
   const who=own?"Sen":(x.ownerName||"").split(" ").map((w,i)=>i?w[0]+".":w).join(" ");
-  return'<button class="lr" data-a="libsheet" data-id="'+x.id+'" data-lq="'+esc(txt)+'"'+(qm(q,txt)?'':' style="display:none"')+'><span class="ft" style="background:'+ft[1]+'">'+ft[0]+'</span><span class="w"><b>'+esc(x.title)+(x.kind==="soru"&&x.et?tagH(SQK[x.et]||"","acc"):"")+(x.share==="me"?" 🔒":"")+'</b><small>'+esc([x.s?sname(x.s):"Genel",who,new Date(x.at).toLocaleDateString("tr-TR",{day:"numeric",month:"short"}),x.file?fsz(x.file.size):(x.up?"yükleniyor…":"link")].join(" · "))+(route.v!=="kutd"&&fLabel(x)?' · 📁 '+esc(fLabel(x)):'')+'</small></span><span class="lk'+(ml?" on":"")+'">'+(lk||ml?"♥ "+lk:"♡")+'</span></button>';
+  return'<button class="lr" data-a="libsheet" data-id="'+x.id+'" data-lq="'+esc(txt)+'"'+(qm(q,txt)?'':' style="display:none"')+'>'+thumbHtml(x)+'<span class="w"><b>'+esc(x.title)+(x.kind==="soru"&&x.et?tagH(SQK[x.et]||"","acc"):"")+(x.share==="me"?" 🔒":"")+'</b><small>'+esc([x.s?sname(x.s):"Genel",who,new Date(x.at).toLocaleDateString("tr-TR",{day:"numeric",month:"short"}),x.file?fsz(x.file.size):(x.up?"yükleniyor…":"link")].join(" · "))+(route.v!=="kutd"&&fLabel(x)?' · 📁 '+esc(fLabel(x)):'')+'</small></span><span class="lk'+(ml?" on":"")+'">'+(lk||ml?"♥ "+lk:"♡")+'</span></button>';
 }
 function libSheet(x){
   const own=x.owner===me.uid,canDel=own||isDev||canRaw("kut"),ft=ftype(x),lk=(x.likes||[]).length,ml=(x.likes||[]).includes(me.uid);
-  let h='<div class="row2" style="gap:12px;align-items:center"><span class="ft big" style="background:'+ft[1]+'">'+ft[0]+'</span><div style="min-width:0"><div class="slab">'+esc((x.s?sname(x.s):"Genel").toLocaleUpperCase("tr"))+' · '+(x.kind==="soru"?esc((SQK[x.et]||"Soru").toLocaleUpperCase("tr"))+" SORULARI":"DERS NOTU")+'</div><h2 style="margin-top:2px">'+esc(x.title)+'</h2></div></div>';
+  let h='<div class="row2" style="gap:12px;align-items:center">'+thumbHtml(x)+'<div style="min-width:0"><div class="slab">'+esc((x.s?sname(x.s):"Genel").toLocaleUpperCase("tr"))+' · '+(x.kind==="soru"?esc((SQK[x.et]||"Soru").toLocaleUpperCase("tr"))+" SORULARI":"DERS NOTU")+'</div><h2 style="margin-top:2px">'+esc(x.title)+'</h2></div></div>';
   h+='<div class="muted" style="margin-top:8px">'+esc(x.ownerName||"")+' · '+esc(new Date(x.at).toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"}))+(x.file?" · "+fsz(x.file.size):"")+' · '+(x.share==="me"?"🔒 Sadece "+(own?"sen":"sahibi"):"👥 Herkese açık")+'</div>';
   if(x.desc)h+='<p class="sd">'+esc(x.desc)+'</p>';
   if(!ro()&&(canMoveShared(x)||own)){const fl=fLabel(x);h+='<button class="sbox fbtn" data-a="fmovesheet" data-id="'+x.id+'">📁 Klasör: <b>'+esc(fl||"Klasörsüz")+'</b><span>Taşı ›</span></button>'}
-  if(x.file)h+='<button class="btn dark full" style="margin-top:14px" data-a="libopen" data-id="'+x.id+'">'+(dlBusy===x.id?dlLabel(x.id,""):"📄 Dosyayı aç")+'</button>';
+  if(x.file)h+='<button class="btn dark full" style="margin-top:14px" data-a="libopen" data-id="'+x.id+'" data-dl="'+x.id+'">'+(dlBusy===x.id?dlLabel(x.id,""):"📄 Dosyayı aç")+'</button>';
   else if(x.up)h+='<div class="sbox">Dosya yükleniyor…</div>';
   if(x.link)h+='<a class="btn '+(x.file?"line":"dark")+' full" style="margin-top:8px;display:block;text-align:center;text-decoration:none" href="'+esc(x.link)+'" target="_blank" rel="noopener">🔗 Linki aç</a>';
   h+='<div class="srow"><button class="'+(ml?"liked":"")+'" data-a="like" data-id="'+x.id+'">'+(ml?"♥":"♡")+' Faydalı · '+lk+'</button>'+(own?'<button data-a="libshare" data-id="'+x.id+'">'+(x.share==="me"?"👥 Herkesle paylaş":"🔒 Sadece ben")+'</button>':'')+(canDel?'<button class="red" data-a="libdel" data-id="'+x.id+'">🗑 Sil</button>':'')+'</div>';
@@ -1883,7 +1988,7 @@ async function loadFileBlob(prefix,file,key,onp){
 }
 async function openChunks(prefix,file,key,title){
   if(dlBusy===key)return;dlBusy=key;dlProg[key]=0;render();
-  try{const bl=await loadFileBlob(prefix,file,key,p=>{dlProg[key]=p;render()});dlBusy="";render();openViewer(bl,file.name,file.type,title)}
+  try{const bl=await loadFileBlob(prefix,file,key,p=>{dlProg[key]=p;document.querySelectorAll('[data-dl="'+key+'"]').forEach(el=>el.textContent=dlLabel(key,""))});dlBusy="";render();openViewer(bl,file.name,file.type,title)}
   catch(e){dlBusy="";render();throw e}
 }
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&vwr)closeViewer()});
@@ -2261,6 +2366,7 @@ document.addEventListener("click",async e=>{
   if(a==="semview"){const v=b.dataset.v;vSem=(!v||v===semId())?null:v;semSubs();refilter();absTab="mine";return tab("home")}
   // kütüphane
   if(a==="kuttab"){kutTab=b.dataset.v;return render()}
+  if(a==="kutsub"){kutTab="not";return go("kuts",{s:b.dataset.v||""})}
   if(a==="search"){return openSearch()}
   if(a==="fopen"){return go("kutd",{f:id})}
   if(a==="ksort"){kutSort=b.dataset.v;return render()}
@@ -2281,7 +2387,7 @@ document.addEventListener("click",async e=>{
   if(a==="fdel"){if(!confirmTwice(b))return;try{await B.del("folders/"+id);sheet=null;foldShared=foldShared.filter(f=>f.id!==id);foldMine=foldMine.filter(f=>f.id!==id);if(route.v==="kutd"&&route.f===id)back();showToast("Klasör silindi · notlar duruyor")}catch(e2){showToast(errText(e2))}return render()}
   if(a==="kult"){kulT=b.dataset.v;kulStart();return render()}
   if(a==="kulu"){return go("kulu",{id})}
-  if(a==="newlib"){const fo=fById(b.dataset.f);form={s:fo&&fo.shared?(fo.s||""):(b.dataset.s||kutS||""),title:"",desc:"",link:"",share:fo?(fo.shared?"all":"me"):(kutTab==="me"?"me":"all"),kind:fo&&fo.shared?(fo.kind||"not"):(kutTab==="soru"?"soru":"not"),et:"imt",fileObj:null,folder:fo?(fo.shared?"f:":"p:")+fo.id:""};return go("kutf")}
+  if(a==="newlib"){const fo=fById(b.dataset.f);form={s:fo&&fo.shared?(fo.s||""):(b.dataset.s||kutS||""),title:"",desc:"",link:"",share:fo?(fo.shared?"all":"me"):((b.dataset.me||(route.v==="kuts"&&kutTab==="me"))?"me":"all"),kind:fo&&fo.shared?(fo.kind||"not"):(kutTab==="soru"?"soru":"not"),et:"imt",fileObj:null,folder:fo?(fo.shared?"f:":"p:")+fo.id:""};return go("kutf")}
   if(a==="fshare"){form.share=b.dataset.v;return render()}
   if(a==="nofile"){form.fileObj=null;return render()}
   if(a==="savelib"){const F=form;if(busy)return;if(!F.title.trim()){msg="Başlık yaz.";return render()}if(!F.fileObj&&!(F.link||"").trim()){msg="Dosya seç ya da link yapıştır.";return render()}
@@ -2289,13 +2395,14 @@ document.addEventListener("click",async e=>{
     try{const link=(F.link||"").trim();
       const d={kind:F.kind==="soru"?"soru":"not",et:F.kind==="soru"?(F.et||"dig"):"",likes:[],s:F.s||"",title:F.title.trim(),desc:F.desc||"",link:link?(/^https?:\/\//.test(link)?link:"https://"+link):"",file:null,up:!!F.fileObj,share:F.share,owner:me.uid,ownerName:myName(),at:Date.now()};
       const fv=F.folder||"",fo=fById(fv.slice(2));if(fo&&fv[0]==="f"&&F.share==="all"&&(fo.s||"")===d.s&&(fo.kind||"not")===d.kind)d.folder=fo.id;if(fo&&fv[0]==="p")d.pf=fo.id;
+      if(F.fileObj){F.prog="Önizleme hazırlanıyor…";render();const th=await Promise.race([makeThumb(F.fileObj,F.fileObj.type),new Promise(r=>setTimeout(()=>r(""),8000))]);if(th&&th.length<60000)d.th=th}
       await B.set("library/"+nid,d);made=true;
       if(F.fileObj){const file=await upChunks("files/"+nid,F.fileObj,p=>{F.prog="Yükleniyor… %"+p;render()});await B.set("library/"+nid,{file,up:false},true)}
-      busy=false;form=null;kutTab=d.share==="all"?(d.kind==="soru"?"soru":"not"):"me";statusMsg="Not kaydedildi ✓";const back2=stack.length&&stack[stack.length-1].v==="kutd"?stack[stack.length-1]:null;stack=back2?[{v:"kut"}]:[];route=back2||{v:"kut"};render();
+      busy=false;form=null;kutTab=d.share==="all"?(d.kind==="soru"?"soru":"not"):"me";statusMsg="Not kaydedildi ✓";const back2=stack.length&&/^kut(d|s|me|all)$/.test(stack[stack.length-1].v)?stack.pop():null;if(!back2)stack=[];route=back2||{v:"kut"};render();window.scrollTo(0,0);
     }catch(x){busy=false;msg="Yüklenemedi: "+errText(x);if(made){try{await B.del("library/"+nid)}catch(_){}}render()}return}
   if(a==="libshare"){const x=libItems().find(y=>y.id===id);if(!x)return;const ns=x.share==="me"?"all":"me";try{await B.set("library/"+id,{share:ns},true);if(ns==="me")libShared=libShared.filter(y=>y.id!==id);statusMsg=ns==="all"?"Herkesle paylaşıldı ✓":"Artık sadece sen görüyorsun"}catch(e2){statusMsg=errText(e2)}render();return}
   if(a==="libdel"){if(!confirmTwice(b))return;const x=libItems().find(y=>y.id===id);try{if(x&&x.file)await delChunks("files/"+id,x.file);await B.del("library/"+id);sheet=null;libShared=libShared.filter(y=>y.id!==id);libMine=libMine.filter(y=>y.id!==id);statusMsg="Not silindi"}catch(e2){statusMsg=errText(e2)}render();return}
-  if(a==="libopen"){const x=libItems().find(y=>y.id===id);if(!x||!x.file)return;try{await openChunks("files/"+id,x.file,id,x.title)}catch(e2){showToast("Açılamadı: "+errText(e2))}return}
+  if(a==="libopen"){const x=libItems().find(y=>y.id===id);if(!x||!x.file)return;try{await openChunks("files/"+id,x.file,id,x.title);setTimeout(()=>ensureThumb(x),1500)}catch(e2){showToast("Açılamadı: "+errText(e2))}return}
 });
 function confirmTwice(b){if(b.dataset.sure)return true;b.dataset.sure="1";const t=b.textContent;b.textContent="Emin misin? Tekrar bas";setTimeout(()=>{if(b.isConnected){delete b.dataset.sure;b.textContent=t}},3000);return false}
 
