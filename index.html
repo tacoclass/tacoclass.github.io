@@ -678,10 +678,10 @@ button.tpo{cursor:pointer}
 .atog>span:first-child{text-align:left}
 .tfb.pt{background:color-mix(in srgb,#e8a23a 16%,transparent);color:#b0700f}[data-theme=dark] .tfb.pt{color:#f0b860}
 /* şekilli sorular */
-.qimg{position:relative;margin-top:10px;background:#fff;border-radius:14px;overflow:hidden;display:flex;justify-content:center;cursor:zoom-in;box-shadow:var(--sh)}
+.qimg{position:relative;margin-top:10px;background:#fff;border-radius:14px;overflow:hidden;display:flex;justify-content:center;box-shadow:var(--sh)}
 .qimg img{display:block;max-width:100%;max-height:300px;object-fit:contain}
 .qimg .zm,.aimg .zm{position:absolute;right:7px;bottom:7px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:3px 7px;border-radius:8px;pointer-events:none}
-.atu .aimg{position:relative;background:#fff;border:1px solid #cfd8dc;margin:8px 0 6px;display:flex;justify-content:center;cursor:zoom-in}
+.atu .aimg{position:relative;background:#fff;border:1px solid #cfd8dc;margin:8px 0 6px;display:flex;justify-content:center}
 .atu .aimg img{display:block;max-width:100%;max-height:320px;object-fit:contain}
 .card.fneed{box-shadow:inset 0 0 0 2px #e8a23a,var(--sh)}
 .fstep{display:flex;align-items:center;gap:14px}.fstep b{font-size:17px;min-width:60px;text-align:center}.fstep .btn{width:44px;padding:8px 0;font-size:18px}
@@ -2004,7 +2004,7 @@ function oPrev(q,i,edit){
 
 
 /* ---------- şekilli sorular ---------- */
-function qImg(q,atu){return q&&q.img?'<div class="'+(atu?"aimg":"qimg")+'" data-a="zoom"><img src="'+q.img+'" alt=""><span class="zm">🔍</span></div>':''}
+function qImg(q,atu){return q&&q.img?'<div class="'+(atu?"aimg":"qimg")+'"><img src="'+q.img+'" alt=""></div>':''}
 let zoomZ=1;
 function openZoom(src){closeZoom();zoomZ=1;const d=document.createElement("div");d.id="zov";d.innerHTML='<div class="zsc"><img src="'+src+'" alt=""></div><div class="zbt"><button data-z="-1">−</button><button data-z="0">✕</button><button data-z="1">＋</button></div><div class="zh">İki parmakla büyüt · kaydır</div>';document.body.appendChild(d);
   const sc=d.querySelector(".zsc"),im=d.querySelector("img");const set=z=>{zoomZ=Math.max(1,Math.min(6,z));im.style.width=(zoomZ*100)+"%"};
@@ -3091,7 +3091,6 @@ document.addEventListener("click",async e=>{
     if(tBusy)return;try{tBusy="İndiriliyor…";render();const bl=await loadFileBlob("files/"+id,x.file,id,p=>{tBusy="İndiriliyor… %"+p;const el=document.querySelector(".sbox");if(el)el.textContent="⏳ "+tBusy});await tProcess(bl,{title:x.title,s:x.s||"",lib:id})}catch(e2){tBusy="";showToast("Açılamadı: "+errText(e2));render()}return}
   if(a==="tshare"){if(!tNew)return;if(b.dataset.v==="all"&&!canRaw("test"))return;tNew.share=b.dataset.v;return render()}
   if(a==="tqset"){if(!tNew)return;const q=tNew.res.qs[+b.dataset.i];if(q){q.a=+b.dataset.k;q.u=false}return render()}
-  if(a==="zoom"){const im=b.querySelector("img");if(im)openZoom(im.src);return}
   if(a==="fedit"){return fEditOpen(+b.dataset.i)}
   if(fEd&&sheet&&sheet.k==="fedit"){const e=fEd;
     if(a==="fedk"){e.k=b.dataset.v;return render()}
