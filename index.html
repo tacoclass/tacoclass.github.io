@@ -677,6 +677,25 @@ button.tpo{cursor:pointer}
 .atu .ares span{color:#4c5a63}.atu .ares .big b{font-size:16px}
 .atog>span:first-child{text-align:left}
 .tfb.pt{background:color-mix(in srgb,#e8a23a 16%,transparent);color:#b0700f}[data-theme=dark] .tfb.pt{color:#f0b860}
+/* şekilli sorular */
+.qimg{position:relative;margin-top:10px;background:#fff;border-radius:14px;overflow:hidden;display:flex;justify-content:center;cursor:zoom-in;box-shadow:var(--sh)}
+.qimg img{display:block;max-width:100%;max-height:300px;object-fit:contain}
+.qimg .zm,.aimg .zm{position:absolute;right:7px;bottom:7px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:3px 7px;border-radius:8px;pointer-events:none}
+.atu .aimg{position:relative;background:#fff;border:1px solid #cfd8dc;margin:8px 0 6px;display:flex;justify-content:center;cursor:zoom-in}
+.atu .aimg img{display:block;max-width:100%;max-height:320px;object-fit:contain}
+.card.fneed{box-shadow:inset 0 0 0 2px #e8a23a,var(--sh)}
+.fstep{display:flex;align-items:center;gap:14px}.fstep b{font-size:17px;min-width:60px;text-align:center}.fstep .btn{width:44px;padding:8px 0;font-size:18px}
+.frow{display:flex;gap:8px;align-items:center;margin-top:8px}.frow input{flex:1;min-width:0}.frow select{width:76px;flex:none}
+.fnums{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.fnums button,.fnums span{width:44px;height:44px;border-radius:12px;background:var(--soft);border:2px solid transparent;font:inherit;font-weight:800;font-size:16px;color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.fnums .on{border-color:#2fbf71;background:color-mix(in srgb,#2fbf71 18%,var(--card));color:#1f9e5a}[data-theme=dark] .fnums .on{color:#6fe0a0}
+.fnums.sm span{width:34px;height:34px;font-size:14px;border-radius:10px;cursor:default}
+#zov{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column}
+#zov .zsc{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;align-items:center;touch-action:pan-x pan-y}
+#zov .zsc img{width:100%;max-width:none;margin:auto;display:block;background:#fff}
+#zov .zbt{position:absolute;top:calc(env(safe-area-inset-top) + 12px);right:12px;display:flex;gap:8px}
+#zov .zbt button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:20px;font-weight:700;cursor:pointer}
+#zov .zh{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 14px);left:0;right:0;text-align:center;color:#bbb;font-size:12.5px;pointer-events:none}
 
 </style>
 </head><body>
@@ -1616,7 +1635,7 @@ function openBlob(url,name){const el=document.createElement("a");el.href=url;el.
 /* ---------- HAKKINDA ---------- */
 function aboutView(){
   return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
-  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.9</b><ul><li>🧪 Test: açık sorular — eşleştirme, boşluk doldurma ([[1]]) ve doğru cümleleri işaretleme. Sarıyla vurgulu cevaplar PDF\'ten otomatik okunur.</li><li>🎓 ATU style: okulun sınav sistemi gibi görünüm ve puanlama (Vize, Final, Bütün suallar).</li></ul><b>2.2.8</b><ul><li>🧪 Test: cevaplı PDF\'ten (telefondan ya da kütüphaneden) test oluştur, soruları tek tek çöz; cevabı hemen ya da sınav bitince gör</li><li>Yeni duyuru ana sayfada renkli dönen çerçeveyle görünür, "Okudum" ile söner</li><li>Duyurular menüsü sadece duyuru/anket yetkisi olanlarda</li><li>Açılış animasyonu</li><li>Yoklama: takvimden tarih seçme (eksik günler işaretli), programda olmayan derse "＋ Ders ekle", iki dersli saatlerde ders seçme penceresi</li><li>Ana sayfada Yaklaşanlar yenilendi: kaydırmalı kartlar, kaç gün kaldığı büyük yazıyla</li></ul><b>2.2.7</b><ul><li>Kütüphane yenilendi: dersler kart olarak, her dersin kendi sayfası, yeni eklenenler şeridi</li><li>Notlarda ilk sayfanın küçük önizlemesi</li><li>Dosya indirilirken kartın titremesi düzeltildi</li></ul><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.2.9</b><ul><li>🧪 Test: açık sorular — eşleştirme, boşluk doldurma ([[1]]) ve doğru cümleleri işaretleme. Sarıyla vurgulu cevaplar PDF\'ten otomatik okunur.</li><li>🎓 ATU style: okulun sınav sistemi gibi görünüm ve puanlama (Vize, Final, Bütün suallar).</li><li>📷 Şekilli sorular: şekiller PDF\'ten otomatik kesilir; şıklı ve numara seçmeli şekil soruları, büyütme, düzenleme. Sarıyla işaretli kapalı sorular da okunur.</li></ul><b>2.2.8</b><ul><li>🧪 Test: cevaplı PDF\'ten (telefondan ya da kütüphaneden) test oluştur, soruları tek tek çöz; cevabı hemen ya da sınav bitince gör</li><li>Yeni duyuru ana sayfada renkli dönen çerçeveyle görünür, "Okudum" ile söner</li><li>Duyurular menüsü sadece duyuru/anket yetkisi olanlarda</li><li>Açılış animasyonu</li><li>Yoklama: takvimden tarih seçme (eksik günler işaretli), programda olmayan derse "＋ Ders ekle", iki dersli saatlerde ders seçme penceresi</li><li>Ana sayfada Yaklaşanlar yenilendi: kaydırmalı kartlar, kaç gün kaldığı büyük yazıyla</li></ul><b>2.2.7</b><ul><li>Kütüphane yenilendi: dersler kart olarak, her dersin kendi sayfası, yeni eklenenler şeridi</li><li>Notlarda ilk sayfanın küçük önizlemesi</li><li>Dosya indirilirken kartın titremesi düzeltildi</li></ul><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
   +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Uygulamada geçirilen süre (ne zaman, kaç dakika, hangi bölüm) geliştirici tarafından görülebilir.</li><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Gizli anketlerde kimin neye oy verdiği görünmez; açık anketlerde oy verenlerin isimleri herkese görünür.</li><li>Serbest iş teslim dosyalarını sadece sen ve ödev yetkilisi görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
   +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
 }
@@ -1654,19 +1673,22 @@ function annCard(){
 /* ---------- test: PDF'ten soru ayıklama ---------- */
 function parseTest(txt){
   const L=txt.replace(/\r/g,"").replace(/[—–-]\s*kitap s\.[^—–\n]*[—–]/gi,"\n").split("\n").map(x=>x.replace(/\s+/g," ").trim()).filter(Boolean);
-  const secs=[],qs=[];let cur=null,sec=-1,bad=0,noAns=0;
+  const secs=[],qs=[];let cur=null,sec=-1,bad=0,noAns=0,pend=null;
   const isHead=l=>l.length>=10&&!/^\d/.test(l)&&/[A-ZƏÜÖĞŞÇİ]/.test(l)&&!/[a-zəüöğışç]/.test(l)&&!/^[A-F][.)]/.test(l);
   const fin=()=>{if(!cur)return;const k=cur.o.length,okN=cur.o.filter(o=>o.ok).length,ai=cur.o.findIndex(o=>o.ok);
-    if(k>=2&&okN===1)qs.push({n:cur.n,q:cur.q.trim(),st:cur.st,o:cur.o.map(o=>o.t.trim()),a:ai,u:!!cur.o[ai].u,sec:Math.max(0,sec)});
+    if(k>=2&&okN===1){const x={n:cur.n,q:cur.q.trim(),st:cur.st,o:cur.o.map(o=>o.t.trim()),a:ai,u:!!cur.o[ai].u,sec:Math.max(0,sec)};if(cur.img!=null)x.img=cur.img;qs.push(x)}
     else if(k>=2&&okN===0)noAns++;else bad++;cur=null};
   for(const l of L){
+    const im=l.match(/^⟦IMG(\d+)⟧$/);if(im){if(cur&&!cur.o.length&&cur.img==null)cur.img=+im[1];else pend=+im[1];continue}
     if(/^\d{1,4}$/.test(l))continue;
     if(/^—.*—$/.test(l)||/^(Seçim|Uyğunluq|Açıq|Ardıcıllıq)$/i.test(l))continue;
     if(isHead(l)){fin();secs.push(l.replace(/\s*[.]\s*$/,""));sec=secs.length-1;continue}
-    let m=l.match(/^([A-F])[.)]\s*(.*)$/);
+    let m=l.match(/^([A-F])\s*[.)]\s*(.*)$/);
+    if(!m&&cur&&cur.o.length&&cur.o.length<6){const z=l.match(/^([A-F])\s+(\S.*)$/);if(z&&z[1]==="ABCDEF"[cur.o.length])m=z}
     if(m&&cur&&(cur.o.length||cur.q)){let t=m[2];const ok=/[✓✔]/.test(t),u=/\(\?\)/.test(t);t=t.replace(/[✓✔]/g,"").replace(/\(\?\)/g,"").trim();cur.o.push({t,ok,u});continue}
-    m=l.match(/^(\d{1,4})[.)]\s+(.*)$/);
-    if(m){const n=+m[1];if(cur&&!cur.o.length&&cur.q&&n===cur.stn+1&&n<=12){cur.st.push(m[2]);cur.stn=n;continue}fin();cur={n,q:m[2],st:[],stn:0,o:[]};continue}
+    m=l.match(/^(\d{1,4})[.)]\s+(.*)$/)||l.match(/^(\d{1,4})[.)]([^\d\s.,].*)$/);
+    if(!m&&cur&&cur.o.length>=2){const z=l.match(/^(\d{1,4})\s+(\S.*)$/);if(z&&+z[1]===cur.n+1)m=z}
+    if(m){const n=+m[1];if(cur&&!cur.o.length&&cur.q&&n===cur.stn+1&&n<=12){cur.st.push(m[2]);cur.stn=n;continue}fin();cur={n,q:m[2],st:[],stn:0,o:[]};if(pend!=null){cur.img=pend;pend=null}continue}
     m=l.match(/^([a-h])\)\s*(.*)$/);
     if(m&&cur&&!cur.o.length){cur.st.push(m[1]+") "+m[2]);continue}
     if(!cur||/^Not:/i.test(l))continue;
@@ -1682,7 +1704,7 @@ async function pdfText(blob,onp){
 }
 
 /* ---------- test: veri ---------- */
-let testsShared=[],testsMine=[],tData={},tNew=null,tRun=null,tCfg={sec:-1,cnt:50,mode:"now",mix:true,atu:lsGet("tatu","0")==="1",am:lsGet("tatum","v")},tBusy="";
+let testsShared=[],testsMine=[],tData={},tNew=null,tRun=null,tCfg={sec:-1,cnt:50,mode:"now",mix:true,atu:lsGet("tatu","0")==="1",am:lsGet("tatum","v"),ash:lsGet("tatush","0")==="1"},tBusy="";
 function testsAll(){const m=new Map();testsShared.concat(testsMine).forEach(t=>m.set(t.id,t));return[...m.values()].sort((a,b)=>b.at-a.at)}
 function testById(id){return testsAll().find(t=>t.id===id)}
 function testOfLib(lid){return testsAll().find(t=>t.lib===lid&&(t.share==="all"||t.owner===me.uid))}
@@ -1730,6 +1752,7 @@ function testChkView(){
   if(!R.qs.length)return h+'<div class="card" style="margin-top:12px"><div class="empty">Bu PDF\'te soru bulunamadı.<br><br>Kapalı sorularda şıklar "A." gibi harfli ve doğru şık ✓ ile işaretli olmalı. Açık sorularda doğru cümleler sarıyla vurgulu, eşleştirmeler "• terim- cevap", boşluklar [[1]] şeklinde olmalı. Taranmış (fotoğraf) PDF\'ler okunamaz.</div></div>';
   h+='<div class="tsum"><div><b class="g">'+R.qs.length+'</b><small>soru bulundu</small></div>'+(R.open?'<div><b>'+R.open+'</b><small>açık soru</small></div>':'<div><b>'+(R.secs.length||1)+'</b><small>bölüm</small></div>')+'<div><b'+(unc?' style="color:#e8812f"':'')+'>'+unc+'</b><small>emin olunmayan</small></div></div>';
   if(R.bad||R.noAns||R.obad)h+='<div class="sbox" style="margin-top:10px">⚠️ '+(R.noAns?R.noAns+' sorunun doğru cevabı işaretli değil, ':'')+((R.bad||0)+(R.obad||0)?((R.bad||0)+(R.obad||0))+' soru okunamadı, ':'')+'bunlar teste alınmadı.</div>';
+  {const fg=R.qs.filter(q=>q.img).length,fx=R.qs.filter(q=>q.k==="x").length;if(fg)h+='<div class="sbox" style="margin-top:10px">📷 '+fg+' şekilli soru'+(fx?' · <b>'+fx+' tanesinin cevabı yok</b>, "Soruları gözden geçir"den düzenle (düzenlenmezse teste alınmaz)':'')+'</div>'}
   if(R.secs.length)h+='<div class="list" style="margin-top:10px">'+R.secs.map((s,i)=>'<div class="lr" style="cursor:default"><span class="w"><b style="font-size:13.5px">'+esc(s)+'</b></span><span class="rr">'+(by[i]||0)+' soru</span></div>').join("")+'</div>';
   h+='<label class="f">Test adı</label><input id="tname" maxlength="60" value="'+esc(N.title||"")+'">';
   h+='<label class="f">Ders</label><select data-tsub="1">'+subjOpts(N.s||"",true)+'</select>';
@@ -1740,12 +1763,12 @@ function testChkView(){
   h+='<button class="btn dark full" style="margin-top:14px" data-a="tsave">'+(tBusy?esc(tBusy):"Kaydet")+'</button>';
   return h;
 }
-function qPreview(q,i){if(q.k)return oPrev(q,i,false);return'<div class="card" style="margin-top:8px"><div class="muted" style="font-size:12px;font-weight:700">'+(i+1)+'. soru'+(q.u?' · ⚠️ emin olunmayan':'')+'</div><p style="font-weight:650;margin-top:4px;line-height:1.4">'+esc(q.q)+'</p>'+(q.st.length?'<div class="tst">'+q.st.map((s,k)=>/^[a-h]\)/.test(s)?esc(s):(k+1)+'. '+esc(s)).join("<br>")+'</div>':'')+q.o.map((o,k)=>'<div class="tpo'+(k===q.a?" ok":"")+'"><b>'+"ABCDEF"[k]+'</b>'+esc(o)+'</div>').join("")+'</div>'}
+function qPreview(q,i){if(q.k)return oPrev(q,i,false);return'<div class="card" style="margin-top:8px"><div class="muted" style="font-size:12px;font-weight:700">'+(i+1)+'. soru'+(q.u?' · ⚠️ emin olunmayan':'')+'</div><p style="font-weight:650;margin-top:4px;line-height:1.4">'+esc(q.q)+'</p>'+qImg(q)+(q.st.length?'<div class="tst">'+q.st.map((s,k)=>/^[a-h]\)/.test(s)?esc(s):(k+1)+'. '+esc(s)).join("<br>")+'</div>':'')+q.o.map((o,k)=>'<div class="tpo'+(k===q.a?" ok":"")+'"><b>'+"ABCDEF"[k]+'</b>'+esc(o)+'</div>').join("")+'</div>'}
 function testEditView(){
   const N=tNew;if(!N)return'<button class="back" data-a="back">‹ Geri</button>';
   let h='<button class="back" data-a="back">‹ Kontrol</button><div class="ptitle">Soruları gözden geçir</div><div class="muted" style="margin-top:2px">Doğru cevabı değiştirmek için dokun · '+N.res.qs.length+' soru</div>';
   h+='<input data-tedq="1" placeholder="🔍 Soru ara" style="margin-top:10px">';
-  h+=N.res.qs.map((q,i)=>q.k?oPrev(q,i,true):'<div class="card tedc" data-tq="'+esc(q.q.toLocaleLowerCase("tr"))+'" style="margin-top:8px"><div class="row2" style="justify-content:space-between"><span class="muted" style="font-size:12px;font-weight:700">'+(i+1)+'. soru'+(q.u?' · ⚠️':'')+'</span><button class="lnk" style="color:var(--red)" data-a="tqdel" data-i="'+i+'">Sil</button></div><p style="font-weight:650;margin-top:4px;line-height:1.4">'+esc(q.q)+'</p>'+q.o.map((o,k)=>'<button class="tpo'+(k===q.a?" ok":"")+'" data-a="tqset" data-i="'+i+'" data-k="'+k+'"><b>'+"ABCDEF"[k]+'</b>'+esc(o)+'</button>').join("")+'</div>').join("");
+  h+=N.res.qs.map((q,i)=>q.k?oPrev(q,i,true):'<div class="card tedc" data-tq="'+esc(q.q.toLocaleLowerCase("tr"))+'" style="margin-top:8px"><div class="row2" style="justify-content:space-between"><span class="muted" style="font-size:12px;font-weight:700">'+(i+1)+'. soru'+(q.u?' · ⚠️':'')+'</span><button class="lnk" style="color:var(--red)" data-a="tqdel" data-i="'+i+'">Sil</button></div><p style="font-weight:650;margin-top:4px;line-height:1.4">'+esc(q.q)+'</p>'+qImg(q)+(q.st&&q.st.length?'<div class="tst">'+q.st.map((x,k)=>/^[a-h]\)/.test(x)?esc(x):(k+1)+'. '+esc(x)).join("<br>")+'</div>':'')+q.o.map((o,k)=>'<button class="tpo'+(k===q.a?" ok":"")+'" data-a="tqset" data-i="'+i+'" data-k="'+k+'"><b>'+"ABCDEF"[k]+'</b>'+esc(o)+'</button>').join("")+'</div>').join("");
   return h;
 }
 function testDView(){
@@ -1774,7 +1797,7 @@ function testQView(){
   const showNow=r.mode==="now"&&judged(r,k);
   const J=r.ids.filter(x=>judged(r,x)),ok=J.filter(x=>qOk(d.qs[x],r.ans[x])).length,wr=J.length-ok;
   let h='<div class="tqtop"><button class="lnk" data-a="tquit">✕ Çık</button><span>'+(i+1)+' / '+r.ids.length+'</span><span>'+(r.mode==="now"?'<b class="g">✓ '+ok+'</b> · <b style="color:var(--red)">✗ '+wr+'</b>':'')+'</span></div><div class="tbar"><i style="width:'+Math.round((i+(hasAns(q,my)?1:0))/r.ids.length*100)+'%"></i></div>';
-  h+='<div class="tq">'+qText(q)+'</div>';
+  h+='<div class="tq">'+qText(q)+'</div>'+qImg(q);
   if(q.k){
     h+='<div class="oq">'+openBody(r,k,q,showNow,showNow,false)+'</div>';
     if(r.mode==="now"&&!showNow)h+='<button class="btn line full" style="margin-top:12px" data-a="tchk"'+(hasAns(q,my)?'':' disabled')+'>Kontrol et</button>';
@@ -1800,8 +1823,8 @@ function testRView(){
   const W=r.ids.filter(k=>!qOk(Q(k),r.ans[k]));
   if(W.length){h+='<button class="btn dark full" style="margin-top:14px" data-a="tretry">🔁 Yanlışları tekrar çöz ('+W.length+')</button>';
     h+='<div class="sec"><span>Yanlışların</span><span>'+W.length+'</span></div>'+W.map(k=>{const q=Q(k),m=r.ans[k];
-      if(q.k){const s=oScore(q,m);return'<details class="twr"><summary><span class="w"><b>'+esc(q.q.length>90?q.q.slice(0,90)+"…":q.q)+'</b><small>'+(hasAns(q,m)?(s===1?'<em>Kısmen doğru</em>':'<em>Yanlış</em>'):'<em>boş</em>')+' · '+(q.k==="m"?"eşleştirme":q.k==="f"?"boşluk doldurma":"doğruları işaretle")+'</small></span></summary><div class="oq">'+openBody(r,k,q,true,true,false)+'</div></details>'}
-      return'<details class="twr"><summary><span class="w"><b>'+esc(q.q.length>90?q.q.slice(0,90)+"…":q.q)+'</b><small>Senin: <em>'+(m==null?"boş":"ABCDEF"[m])+'</em> · Doğru: <i>'+"ABCDEF"[q.a]+'</i>'+(q.u?' · ⚠️':'')+'</small></span></summary>'+(q.st.length?'<div class="tst">'+q.st.map((s,j)=>/^[a-h]\)/.test(s)?esc(s):(j+1)+'. '+esc(s)).join("<br>")+'</div>':'')+q.o.map((o,j)=>'<div class="tpo'+(j===q.a?" ok":(j===m?" no":""))+'"><b>'+"ABCDEF"[j]+'</b>'+esc(o)+'</div>').join("")+'</details>'}).join("")}
+      if(q.k){const s=oScore(q,m);return'<details class="twr"><summary><span class="w"><b>'+esc(q.q.length>90?q.q.slice(0,90)+"…":q.q)+'</b><small>'+(hasAns(q,m)?(s===1?'<em>Kısmen doğru</em>':'<em>Yanlış</em>'):'<em>boş</em>')+' · '+(q.k==="m"?"eşleştirme":q.k==="f"?"boşluk doldurma":"doğruları işaretle")+'</small></span></summary>'+qImg(q)+'<div class="oq">'+openBody(r,k,q,true,true,false)+'</div></details>'}
+      return'<details class="twr"><summary><span class="w"><b>'+esc(q.q.length>90?q.q.slice(0,90)+"…":q.q)+'</b><small>Senin: <em>'+(m==null?"boş":"ABCDEF"[m])+'</em> · Doğru: <i>'+"ABCDEF"[q.a]+'</i>'+(q.u?' · ⚠️':'')+'</small></span></summary>'+qImg(q)+(q.st.length?'<div class="tst">'+q.st.map((s,j)=>/^[a-h]\)/.test(s)?esc(s):(j+1)+'. '+esc(s)).join("<br>")+'</div>':'')+q.o.map((o,j)=>'<div class="tpo'+(j===q.a?" ok":(j===m?" no":""))+'"><b>'+"ABCDEF"[j]+'</b>'+esc(o)+'</div>').join("")+'</details>'}).join("")}
   else h+='<div class="sbox" style="margin-top:14px;text-align:center">🎉 Hepsi doğru!</div>';
   const mk=(r.marked||[]).filter(k=>r.ids.includes(k));
   if(mk.length)h+='<button class="btn line full" style="margin-top:10px" data-a="tretrym">🔖 İşaretlediklerini çöz ('+mk.length+')</button>';
@@ -1810,50 +1833,83 @@ function testRView(){
 }
 /* ============ 2.2.9: açık sorular (eşleştirme, boşluk, doğruları işaretle) ============ */
 function isYel(r,g,b){return r>190&&g>180&&b<140}
+function mmul(m,n){return[m[0]*n[0]+m[1]*n[2],m[0]*n[1]+m[1]*n[3],m[2]*n[0]+m[3]*n[2],m[2]*n[1]+m[3]*n[3],m[4]*n[0]+m[5]*n[2]+n[4],m[4]*n[1]+m[5]*n[3]+n[5]]}
+async function pageImgs(lib,pg){
+  const out=[];let ol;try{ol=await pg.getOperatorList()}catch(_){return out}
+  const O=lib.OPS,P=new Set([O.paintImageXObject,O.paintInlineImageXObject,O.paintJpegXObject].filter(x=>x!=null));
+  let ctm=[1,0,0,1,0,0];const st=[];
+  for(let i=0;i<ol.fnArray.length;i++){const f=ol.fnArray[i],a=ol.argsArray[i];
+    if(f===O.save)st.push(ctm);else if(f===O.restore)ctm=st.pop()||[1,0,0,1,0,0];
+    else if(f===O.transform&&a)ctm=mmul(a,ctm);
+    else if(f===O.paintFormXObjectBegin){st.push(ctm);const m=a&&a[0];if(Array.isArray(m)&&m.length===6)ctm=mmul(m,ctm)}
+    else if(f===O.paintFormXObjectEnd)ctm=st.pop()||[1,0,0,1,0,0];
+    else if(P.has(f)){const pts=[[0,0],[1,0],[0,1],[1,1]].map(([x,y])=>[x*ctm[0]+y*ctm[2]+ctm[4],x*ctm[1]+y*ctm[3]+ctm[5]]);
+      const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);out.push({x0:Math.min(...xs),x1:Math.max(...xs),y0:Math.min(...ys),y1:Math.max(...ys)})}}
+  return out;
+}
 async function pdfRead(blob,onp){
-  const lib=await pdfjs();const doc=await lib.getDocument({data:new Uint8Array(await blob.arrayBuffer())}).promise;let txt="";const lines=[];
+  const lib=await pdfjs();const doc=await lib.getDocument({data:new Uint8Array(await blob.arrayBuffer())}).promise;let txt="";const lines=[],imgs=[];
   for(let p=1;p<=doc.numPages;p++){
-    if(onp&&p%5===1)onp("Sorular okunuyor… "+p+" / "+doc.numPages);
+    if(onp&&p%3===1)onp("Sorular okunuyor… "+p+" / "+doc.numPages);
     const pg=await doc.getPage(p);const tc=await pg.getTextContent();
     tc.items.forEach(it=>{txt+=it.str+(it.hasEOL?"\n":"")});txt+="\n";
-    // satırları y'ye göre grupla (alt indisler aynı satıra)
     const its=tc.items.filter(it=>it.str&&it.str.trim()&&it.transform);
-    const vp=pg.getViewport({scale:1});
+    const vp1=pg.getViewport({scale:1}),pw=vp1.viewBox[2]-vp1.viewBox[0],ph=vp1.viewBox[3]-vp1.viewBox[1];
     const L=[];
     its.forEach(it=>{const y=it.transform[5],h=Math.abs(it.height||it.transform[3]||10)||10;let ln=L.find(l=>Math.abs(l.y-y)<=Math.max(l.h,h)*0.55);if(!ln){ln={y,h,it:[]};L.push(ln)}else if(h>ln.h){ln.h=h;ln.y=y}ln.it.push(it)});
     L.sort((a,b)=>b.y-a.y);
     const pageTxt=L.map(l=>l.it.map(x=>x.str).join("")).join("\n");
-    const needHl=!/[✓✔]/.test(pageTxt)&&/^\s*\d{1,3}\s*[.)]/m.test(pageTxt)&&!/^\s*[A-F][.)]\s/m.test(pageTxt);
-    let px=null,W=0,H=0;
-    if(needHl){try{const sc=1.5,v2=pg.getViewport({scale:sc}),c=document.createElement("canvas");c.width=Math.ceil(v2.width);c.height=Math.ceil(v2.height);const g=c.getContext("2d",{willReadFrequently:true});g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);await pg.render({canvasContext:g,viewport:v2}).promise;px=g.getImageData(0,0,c.width,c.height).data;W=c.width;H=c.height;
-      var toPx=(x,y)=>{const q=v2.convertToViewportPoint(x,y);return[q[0],q[1]]},sc2=sc}catch(e){px=null}}
+    // şekiller: sayfayı kaplamayan, çok küçük olmayan resimler
+    const IM=(await pageImgs(lib,pg)).filter(b=>{const w=b.x1-b.x0,h=b.y1-b.y0;return w>=40&&h>=30&&w*h<pw*ph*0.6});
+    const needHl=pageTxt.trim()&&!/[✓✔]/.test(pageTxt);
+    let px=null,W=0,H=0,cv=null,v2=null;
+    if(needHl||IM.length){try{const sc=2;v2=pg.getViewport({scale:sc});cv=document.createElement("canvas");cv.width=Math.ceil(v2.width);cv.height=Math.ceil(v2.height);const g=cv.getContext("2d",{willReadFrequently:true});g.fillStyle="#fff";g.fillRect(0,0,cv.width,cv.height);await pg.render({canvasContext:g,viewport:v2}).promise;W=cv.width;H=cv.height;if(needHl)px=g.getImageData(0,0,W,H).data}catch(e){px=null;cv=null}}
+    const toPx=(x,y)=>v2.convertToViewportPoint(x,y);
     const yel=it=>{if(!px)return 0;const x0=it.transform[4],y0=it.transform[5],w=it.width||0,h=Math.abs(it.height||it.transform[3]||10);if(w<=0)return 0;
       let ye=0,wh=0;for(let i=0;i<14;i++)for(let j=0;j<3;j++){const[xx,yy]=toPx(x0+w*(i+.5)/14,y0+h*(0.15+0.3*j));const X=Math.round(xx),Y=Math.round(yy);if(X<0||Y<0||X>=W||Y>=H)continue;const o=(Y*W+X)*4,r=px[o],g=px[o+1],b=px[o+2];if(isYel(r,g,b))ye++;else if(r>200&&g>200&&b>200)wh++}
       return ye+wh?ye/(ye+wh):0};
+    const pl=[];
     L.forEach(l=>{l.it.sort((a,b)=>a.transform[4]-b.transform[4]);let t="",prevEnd=null;
       l.it.forEach(x=>{const gap=prevEnd==null?0:x.transform[4]-prevEnd;if(t&&gap>1.5&&!/\s$/.test(t)&&!/^\s/.test(x.str))t+=" ";t+=x.str;prevEnd=x.transform[4]+(x.width||0)});
       t=t.replace(/\s+/g," ").trim();if(!t)return;
       let tw=0,yw=0;l.it.forEach(x=>{if(/^\s*(\d{1,3}\s*[.)-]?|•)\s*$/.test(x.str))return;const w=(x.width||0)*(x.str.trim().length?1:0);if(!w)return;tw+=w;yw+=w*yel(x)});
-      lines.push({t,hl:tw?yw/tw>=0.5:false,p})});
+      pl.push({t,hl:tw?yw/tw>=0.5:false,p,y:l.y})});
+    if(cv)IM.forEach(b=>{try{const a=toPx(b.x0,b.y1),c=toPx(b.x1,b.y0);const X=Math.max(0,Math.floor(Math.min(a[0],c[0]))),Y=Math.max(0,Math.floor(Math.min(a[1],c[1]))),w=Math.min(W-X,Math.ceil(Math.abs(c[0]-a[0]))),h=Math.min(H-Y,Math.ceil(Math.abs(c[1]-a[1])));if(w<20||h<20)return;
+      const k=Math.min(1,1100/Math.max(w,h)),o=document.createElement("canvas");o.width=Math.round(w*k);o.height=Math.round(h*k);const g=o.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,o.width,o.height);g.drawImage(cv,X,Y,w,h,0,0,o.width,o.height);
+      imgs.push(o.toDataURL("image/jpeg",0.82));pl.push({img:imgs.length-1,p,y:b.y1-0.01})}catch(_){}});
+    pl.sort((a,b)=>b.y-a.y);pl.forEach(x=>lines.push(x));
   }
-  try{doc.destroy()}catch(_){}return{txt,lines};
+  try{doc.destroy()}catch(_){}return{txt,lines,imgs};
 }
+function linesTxt(lines){return lines.map(l=>l.img!=null?"⟦IMG"+l.img+"⟧":(l.hl&&/^[A-F]\s*([.)]\s*|\s+)\S/.test(l.t)&&!/[✓✔]/.test(l.t)?l.t+" ✓":l.t)).join("\n")}
 const BL_RE=/\[\[(\d+)\]\]/g;
 function splitMatch(s){const m=s.match(/^(.+?\S)\s*[-–—]\s+(.+)$/)||s.match(/^(.+?)\s*[→:]\s*(.+)$/);return m?{t:m[1].trim(),a:m[2].trim()}:null}
 function parseOpen(lines){
-  const qs=[];let cur=null,lastQ=0,bad=0,noAns=0,bulletNext=false;
+  const qs=[];let cur=null,lastQ=0,bad=0,noAns=0,bulletNext=false,pendI=null;
+  const numList=N=>Array.from({length:N},(_,i)=>String(i+1));
   const isFill=c=>c&&/\[\[\d+\]\]/.test(c.q);
   const nBl=c=>{const s=new Set();(c.q.match(BL_RE)||[]).forEach(x=>s.add(+x.replace(/\D/g,"")));return s.size};
   const fin=()=>{if(!cur)return;const c=cur;cur=null;const q=c.q.replace(/\s+/g," ").trim();
+    const P=o=>{if(c.img!=null&&o.img==null)o.img=c.img;qs.push(o)};
+    if(c.opt){if(c.optL&&c.optL.length===1&&c.optL[0]&&!c.st.length)P({k:"f",n:c.n,q:q+" [[1]]",bl:[c.optL[0]],sec:0});return}
+    if(c.cav!=null&&!isFill(c)&&!c.mi.length&&c.st.length<2){const cv=c.cav.replace(/\s+/g," ").trim();
+      const nums=/^\d{1,2}(\s*(,|;|və|\s)\s*\d{1,2})*$/.test(cv)?cv.split(/\D+/).filter(Boolean).map(Number).filter(x=>x>0):null;
+      if(c.img!=null&&nums&&nums.length){const N=Math.max(5,...nums);if(nums.length===1)P({k:"m",n:c.n,q,nums:N,it:[{t:"Cavab",a:String(nums[0])}],sec:0});else P({k:"c",n:c.n,q,nums:N,st:numList(N),ok:[...new Set(nums)].map(x=>x-1).sort((a,b)=>a-b),sec:0});return}
+      if(cv){P({k:"f",n:c.n,q:q+" [[1]]",bl:[cv],sec:0});return}}
+    if(c.img!=null&&!isFill(c)&&!c.mi.length&&c.st.length<2){P({k:"x",n:c.n,q,sec:0});return}
     if(isFill(c)){const nums=[...new Set((q.match(BL_RE)||[]).map(x=>+x.replace(/\D/g,"")))].sort((a,b)=>a-b);const bl=nums.map(n=>(c.fa[n]||"").trim());
-      if(bl.length&&bl.every(Boolean))qs.push({k:"f",n:c.n,q,bl,sec:0});else noAns++;return}
-    if(c.mi.length){const it=c.mi.filter(Boolean);if(it.length>=1&&it.length===c.mi.length)qs.push({k:"m",n:c.n,q,it,sec:0});else bad++;return}
-    if(c.st.length>=2){const ok=c.st.map((s,i)=>s.h?i:-1).filter(i=>i>=0);if(ok.length)qs.push({k:"c",n:c.n,q,st:c.st.map(s=>s.t.replace(/\s+/g," ").trim()),ok,sec:0});else noAns++;return}
+      if(bl.length&&bl.every(Boolean))P({k:"f",n:c.n,q,bl,sec:0});else noAns++;return}
+    if(c.mi.length){const it=c.mi.filter(Boolean);if(it.length>=1&&it.length===c.mi.length)P({k:"m",n:c.n,q,it,sec:0});else bad++;return}
+    if(c.st.length>=2){const ok=c.st.map((s,i)=>s.h?i:-1).filter(i=>i>=0);if(ok.length)P({k:"c",n:c.n,q,st:c.st.map(s=>s.t.replace(/\s+/g," ").trim()),ok,sec:0});else noAns++;return}
     if(q)bad++};
   const numbered=l=>{const m=l.t.match(/^(\d{1,3})\s*[.)]\s*(.*)$/);return m?{n:+m[1],r:m[2]}:null};
-  for(let i=0;i<lines.length;i++){const l=lines[i],t=l.t;
+  for(let i=0;i<lines.length;i++){const l=lines[i];
+    if(l.img!=null){if(cur&&cur.img==null&&!cur.st.length&&!cur.mi.length&&cur.cav==null&&!cur.opt)cur.img=l.img;else pendI=l.img;continue}
+    const t=l.t;
     if(/^\d{1,4}$/.test(t))continue;
+    const cvm=t.match(/^Cavab\s*[:：]\s*(.*)$/i);if(cvm&&cur&&!cur.opt&&!isFill(cur)){cur.cav=cvm[1];continue}
     if(/^•\s*$/.test(t)){bulletNext=true;continue}
+    if(cur&&(/^[A-F]\s*[.)]/.test(t)&&(!cur.st.length||/^[A-F]\s*[.)]\s*\S/.test(t)&&!cur.st.some(x=>x.h))||cur.opt&&/^[A-F]\s+\S/.test(t))&&!cur.mi.length&&!isFill(cur)){cur.opt=1;(cur.optL=cur.optL||[]).push(t.replace(/^[A-F]\s*[.)]?\s*/,"").replace(/[✓✔]/g,"").trim());continue}
     const bul=bulletNext||/^[•●▪◦]\s*/.test(t);
     if(bul){bulletNext=false;if(!cur)continue;const s=t.replace(/^[•●▪◦]\s*/,"");if(cur.st.length){cur.st[cur.st.length-1].t+=" "+s;continue}cur.mi.push(splitMatch(s));continue}
     // boşluk cevabı: "1- cevap" / "1. cevap"
@@ -1864,14 +1920,15 @@ function parseOpen(lines){
       let isQ;
       if(/\[\[\d+\]\]/.test(t))isQ=true;
       else if(!cur)isQ=true;
-      else if(isFill(cur)||cur.mi.length)isQ=true;
-      else if(!cur.st.length)isQ=false;
+      else if(isFill(cur)||cur.mi.length||cur.opt||cur.cav!=null)isQ=true;
+      else if(!cur.st.length)isQ=nm.n===cur.n+1&&nm.n>1;
       else{const ls=cur.st[cur.st.length-1].n,canS=nm.n===ls+1,canQ=nm.n===cur.n+1;
         if(canS&&canQ){if(l.hl)isQ=false;else if(/[:?]\s*$/.test(nm.r))isQ=true;else{let nx=null;for(let j=i+1;j<lines.length&&j<i+12;j++){const z=numbered(lines[j]);if(z){nx=z.n;break}if(/^[•●]/.test(lines[j].t))break}isQ=!(nx===nm.n+1||nx===nm.n)}}
         else if(canQ)isQ=true;else isQ=false}
-      if(isQ){fin();cur={n:nm.n,q:nm.r,st:[],mi:[],fa:{}};lastQ=nm.n;continue}
+      if(isQ){fin();cur={n:nm.n,q:nm.r,st:[],mi:[],fa:{}};if(pendI!=null){cur.img=pendI;pendI=null}lastQ=nm.n;continue}
       cur.st.push({n:nm.n,t:nm.r,h:l.hl||/[✓✔]/.test(nm.r)});cur.st[cur.st.length-1].t=cur.st[cur.st.length-1].t.replace(/[✓✔]/g,"").trim();continue}
     if(!cur)continue;
+    if(cur.cav!=null){cur.cav+=" "+t;continue}
     if(cur.mi.length){const m=cur.mi[cur.mi.length-1];if(m)m.a+=" "+t;continue}
     if(cur.st.length){cur.st[cur.st.length-1].t+=" "+t;continue}
     cur.q+=" "+t;
@@ -1879,12 +1936,13 @@ function parseOpen(lines){
   fin();return{qs,bad,noAns};
 }
 function parseAll(R){
-  const C1=parseTest(R.txt),O=parseOpen(R.lines);
+  const C1=parseTest(R.lines?linesTxt(R.lines):R.txt),O=parseOpen(R.lines||[]),I=R.imgs||[];
+  const mapI=q=>{if(typeof q.img==="number"){if(I[q.img])q.img=I[q.img];else delete q.img}};C1.qs.forEach(mapI);O.qs.forEach(mapI);
   if(!O.qs.length)return C1;
   const secs=C1.qs.length?C1.secs.slice():[];let osec=0;
   if(C1.qs.length){if(!secs.length){secs.push("Qapalı suallar");C1.qs.forEach(q=>q.sec=0)}secs.push("Açıq suallar");osec=secs.length-1}
   O.qs.forEach(q=>q.sec=osec);
-  return{secs,qs:C1.qs.concat(O.qs),bad:C1.qs.length?C1.bad:0,noAns:(C1.qs.length?C1.noAns:0)+O.noAns,obad:O.bad,open:O.qs.length};
+  return{secs,qs:C1.qs.concat(O.qs),bad:0,noAns:(C1.qs.length?C1.noAns:0)+O.noAns,obad:O.bad,open:O.qs.length};
 }
 
 /* ---------- açık sorular: çalışma zamanı ---------- */
@@ -1894,6 +1952,7 @@ function tPool(tid,k){const d=tData[tid];if(!d)return[];const P=d._pool||(d._poo
   d.qs.forEach(q=>{if(q.k==="m"&&k==="m")q.it.forEach(x=>out.push({t:x.t,a:x.a}));if(q.k==="f"&&k==="f")q.bl.forEach(a=>out.push({t:"",a}))});return P[k]=out}
 function qAns(q){return q.k==="m"?q.it.map(x=>x.a):q.k==="f"?q.bl:[]}
 function makeOpts(q,tid){
+  if(q.nums)return Array.from({length:q.nums},(_,j)=>String(j+1));
   const A=[];qAns(q).forEach(a=>{if(!A.some(x=>tnorm(x)===tnorm(a)))A.push(a)});
   const terms=q.k==="m"?q.it.map(x=>tnorm(x.t)):[],want=Math.max(5,A.length+3)-A.length,pick=[];
   const tryAdd=list=>{shuffle(list.slice()).forEach(c=>{if(pick.length>=want)return;if(terms.includes(tnorm(c.t)))return;if(A.some(a=>tsim(a,c.a))||pick.some(a=>tsim(a,c.a)))return;if(c.a.length>120)return;pick.push(c.a)})};
@@ -1920,7 +1979,7 @@ function openBody(r,k,q,lock,rev,atu){
   if(q.k==="c"){const s=new Set(v||[]);
     h.push('<div class="omut">'+(atu?"Düz olanların hamısını seçin":"Doğru olanların hepsini işaretle")+'</div>');
     q.st.forEach((t,i)=>{const on=s.has(i),ok=q.ok.includes(i);let c="";if(lock){if(on&&ok)c=" ok";else if(on&&!ok)c=" no";else if(!on&&ok)c=" miss"}
-      h.push('<button class="ock'+(on?" on":"")+c+'" data-a="tck" data-j="'+i+'"'+(lock?" disabled":"")+'><span class="b">'+(on?"✓":"")+'</span><span>'+(i+1)+'. '+esc(t)+'</span></button>')});
+      h.push('<button class="ock'+(on?" on":"")+c+'" data-a="tck" data-j="'+i+'"'+(lock?" disabled":"")+'><span class="b">'+(on?"✓":"")+'</span><span>'+(q.nums?esc(t):(i+1)+'. '+esc(t))+'</span></button>')});
     return h.join("")}
   const O=ropts(r,k),A=qAns(q),labels=q.k==="m"?q.it.map(x=>x.t):A.map((_,i)=>atu?"[["+(i+1)+"]]":"("+(i+1)+")");
   A.forEach((a,i)=>{const m=v&&v[i]||"",ok=m&&tnorm(m)===tnorm(a);const c=lock?(m?(ok?" ok":" no"):" miss"):"";
@@ -1929,16 +1988,46 @@ function openBody(r,k,q,lock,rev,atu){
   return h.join("");
 }
 function qText(q,atu){if(q.k==="f"&&!atu)return esc(q.q).replace(/\[\[(\d+)\]\]/g,'<b class="obl">($1)</b>');return esc(q.q)}
-function corrText(q){if(!q.k)return"ABCDEF"[q.a]+". "+q.o[q.a];if(q.k==="c")return q.ok.map(i=>(i+1)+". "+q.st[i]).join("; ");if(q.k==="m")return q.it.map(x=>x.t+" → "+x.a).join("; ");return q.bl.map((a,i)=>"[["+(i+1)+"]] "+a).join("; ")}
+function corrText(q){if(!q.k)return"ABCDEF"[q.a]+". "+q.o[q.a];if(q.k==="c")return q.nums?q.ok.map(i=>q.st[i]).join(", "):q.ok.map(i=>(i+1)+". "+q.st[i]).join("; ");if(q.k==="m")return q.it.map(x=>x.t+" → "+x.a).join("; ");return q.bl.map((a,i)=>"[["+(i+1)+"]] "+a).join("; ")}
 
 const OKIND={m:"Eşleştirme",f:"Boşluk doldurma",c:"Doğruları işaretle"};
 function oPrev(q,i,edit){
-  let h='<div class="card tedc" data-tq="'+esc(q.q.toLocaleLowerCase("tr"))+'" style="margin-top:8px"><div class="row2" style="justify-content:space-between"><span class="muted" style="font-size:12px;font-weight:700">'+(i+1)+'. soru · '+OKIND[q.k]+'</span>'+(edit?'<button class="lnk" style="color:var(--red)" data-a="tqdel" data-i="'+i+'">Sil</button>':'')+'</div><p style="font-weight:650;margin-top:4px;line-height:1.4">'+qText(q)+'</p>';
-  if(q.k==="c")h+=q.st.map((t,j)=>{const ok=q.ok.includes(j);return edit?'<button class="tpo'+(ok?" ok":"")+'" data-a="tqck" data-i="'+i+'" data-j="'+j+'"><b>'+(ok?"✓":(j+1))+'</b>'+esc(t)+'</button>':'<div class="tpo'+(ok?" ok":"")+'"><b>'+(ok?"✓":(j+1))+'</b>'+esc(t)+'</div>'}).join("");
+  const fk=figKind(q);
+  let h='<div class="card tedc'+(q.k==="x"?" fneed":"")+'" data-tq="'+esc(q.q.toLocaleLowerCase("tr"))+'" style="margin-top:8px"><div class="row2" style="justify-content:space-between"><span class="muted" style="font-size:12px;font-weight:700">'+(i+1)+'. soru · '+(fk?"📷 "+FKIND[fk]:OKIND[q.k])+'</span><span class="row2" style="gap:12px">'+(edit&&fk?'<button class="lnk" data-a="fedit" data-i="'+i+'">Düzenle</button>':'')+(edit?'<button class="lnk" style="color:var(--red)" data-a="tqdel" data-i="'+i+'">Sil</button>':'')+'</span></div><p style="font-weight:650;margin-top:4px;line-height:1.4">'+qText(q)+'</p>'+qImg(q);
+  if(q.k==="x")h+='<div class="sbox" style="margin-top:8px">⚠️ Cevap bulunamadı. '+(edit?'Düzenle\'ye dokunup doğru numarayı gir; düzenlenmezse teste alınmaz.':'"Soruları gözden geçir"den düzenle; düzenlenmezse teste alınmaz.')+'</div>';
+  else if(q.k==="c"&&q.nums)h+='<div class="fnums sm">'+q.st.map((t,j)=>'<span class="'+(q.ok.includes(j)?"on":"")+'">'+esc(t)+'</span>').join("")+'</div>';
+  else if(q.k==="c")h+=q.st.map((t,j)=>{const ok=q.ok.includes(j);return edit?'<button class="tpo'+(ok?" ok":"")+'" data-a="tqck" data-i="'+i+'" data-j="'+j+'"><b>'+(ok?"✓":(j+1))+'</b>'+esc(t)+'</button>':'<div class="tpo'+(ok?" ok":"")+'"><b>'+(ok?"✓":(j+1))+'</b>'+esc(t)+'</div>'}).join("");
   else if(q.k==="m")h+=q.it.map(x=>'<div class="tpo ok"><b>•</b>'+esc(x.t)+' → '+esc(x.a)+'</div>').join("");
   else h+=q.bl.map((a,j)=>'<div class="tpo ok"><b>'+(j+1)+'</b>'+esc(a)+'</div>').join("");
   return h+'</div>';
 }
+
+
+/* ---------- şekilli sorular ---------- */
+function qImg(q,atu){return q&&q.img?'<div class="'+(atu?"aimg":"qimg")+'" data-a="zoom"><img src="'+q.img+'" alt=""><span class="zm">🔍</span></div>':''}
+let zoomZ=1;
+function openZoom(src){closeZoom();zoomZ=1;const d=document.createElement("div");d.id="zov";d.innerHTML='<div class="zsc"><img src="'+src+'" alt=""></div><div class="zbt"><button data-z="-1">−</button><button data-z="0">✕</button><button data-z="1">＋</button></div><div class="zh">İki parmakla büyüt · kaydır</div>';document.body.appendChild(d);
+  const sc=d.querySelector(".zsc"),im=d.querySelector("img");const set=z=>{zoomZ=Math.max(1,Math.min(6,z));im.style.width=(zoomZ*100)+"%"};
+  d.addEventListener("click",e=>{const z=e.target.closest("[data-z]");if(!z)return;e.stopPropagation();const v=+z.dataset.z;if(!v)return closeZoom();set(zoomZ*(v>0?1.5:1/1.5))});
+  let d0=0,z0=1;sc.addEventListener("touchstart",e=>{if(e.touches.length===2){d0=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);z0=zoomZ}},{passive:true});
+  sc.addEventListener("touchmove",e=>{if(e.touches.length===2&&d0){e.preventDefault();const d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);set(z0*d1/d0)}},{passive:false});
+  sc.addEventListener("touchend",()=>{d0=0});
+  let lt=0;im.addEventListener("click",()=>{const n=Date.now();if(n-lt<350)set(zoomZ>1.2?1:2.5);lt=n});}
+function closeZoom(){const z=document.getElementById("zov");if(z)z.remove()}
+const FKIND={m:"Numara seç",c:"Numaraları işaretle",x:"Cevap yok"};
+function figKind(q){return q.k==="x"?"x":(q.nums?q.k:null)}
+let fEd=null;
+function fEditOpen(i){const q=tNew&&tNew.res.qs[i];if(!q)return;const k=q.k==="c"?"c":"m";
+  fEd={i,k,N:q.nums||5,rows:q.k==="m"?q.it.map(x=>({t:x.t,a:x.a})):[{t:"Cavab",a:""}],ok:q.k==="c"?q.ok.slice():[]};sheet={k:"fedit"};render()}
+function fEditSheet(){const e=fEd,q=e&&tNew&&tNew.res.qs[e.i];if(!q){sheet=null;return""}
+  const nums=Array.from({length:e.N},(_,j)=>String(j+1));
+  let h='<h2 style="margin-top:4px">Şekilli soru</h2><div class="muted" style="margin-top:2px">'+esc(q.q)+'</div>'+qImg(q);
+  h+='<div class="seg" style="margin-top:12px">'+[["m","Numara seç"],["c","Numaraları işaretle"]].map(t=>'<button class="'+(e.k===t[0]?"on":"")+'" data-a="fedk" data-v="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>';
+  h+='<label class="f">Şekildeki numaralar</label><div class="fstep"><button class="btn line" data-a="fedn" data-v="-1">−</button><b>1 – '+e.N+'</b><button class="btn line" data-a="fedn" data-v="1">＋</button></div>';
+  if(e.k==="m"){h+='<label class="f">Sorulan yerler ve doğru numara</label>'+e.rows.map((r,j)=>'<div class="frow"><input data-fedt="'+j+'" value="'+esc(r.t)+'" placeholder="ör. Nisbi refrakterlik"><select data-feda="'+j+'"><option value="">—</option>'+nums.map(n=>'<option'+(r.a===n?" selected":"")+'>'+n+'</option>').join("")+'</select>'+(e.rows.length>1?'<button class="lnk" style="color:var(--red)" data-a="feddel" data-j="'+j+'">✕</button>':'')+'</div>').join("")+'<button class="lnk" style="margin-top:8px" data-a="fedadd">＋ Satır ekle</button>'}
+  else h+='<label class="f">Doğru numaralara dokun</label><div class="fnums">'+nums.map((n,j)=>'<button class="'+(e.ok.includes(j)?"on":"")+'" data-a="fedok" data-v="'+j+'">'+n+'</button>').join("")+'</div>';
+  h+='<button class="btn dark full" style="margin-top:16px" data-a="fedsave">Kaydet</button><button class="btn line full" style="margin-top:8px;color:var(--red)" data-a="feddelq">Bu soruyu sil</button>';
+  return h}
 
 /* ---------- ATU style ---------- */
 const AM={v:"Vize",f:"Final",a:"Bütün suallar"},AMN={v:[15,5],f:[15,10]};
@@ -1955,6 +2044,7 @@ function atuCfg(t){
   let h='<div class="sec"><span>Sınav</span></div><div class="amodes">'+[["v","Vize","15 qapalı + 5 açıq","40 bal"],["f","Final","15 qapalı + 10 açıq","50 bal"],["a","Bütün suallar",nC+" qapalı + "+nO+" açıq",(2*(nC+nO))+" bal · faiz %"]].map(x=>'<button class="'+(am===x[0]?"on":"")+'" data-a="tcfg" data-k="am" data-v="'+x[0]+'"><b>'+x[1]+'</b><small>'+x[2]+'<br>'+x[3]+'</small></button>').join("")+'</div>';
   h+='<label class="f">Kapalı sorular</label>'+sel("c")+'<label class="f">Açık sorular</label>'+sel("o");
   if(am!=="a"){const need=AMN[am],w=[];if(nC<need[0])w.push(nC+" kapalı");if(nO<need[1])w.push(nO+" açık");if(w.length)h+='<div class="sbox" style="margin-top:10px">⚠️ Seçilen testlerde sadece '+w.join(" ve ")+' soru var, hepsi sınava girer.</div>'}
+  h+='<button class="ttog" style="margin-top:12px" data-a="tcfg" data-k="ash" data-v="'+(tCfg.ash?0:1)+'">🔀 Şıkları karıştır<span class="sw'+(tCfg.ash?"":" off")+'"></span></button>';
   h+='<div class="anote">• Hər sual <b>2 bal</b>, səhv cavab bal aparmır.<br>• Açıq sualda <b>bir səhv varsa 0</b>, səhv yoxdursa amma boş varsa <b>1</b>, hamısı düzdürsə <b>2 bal</b>.<br>• Vaxt yoxdur. Suallar hər cəhddə təsadüfi seçilir.</div>';
   h+='<button class="btn dark full" style="margin-top:14px" data-a="atustart" data-id="'+t.id+'"'+(nC+nO?'':' disabled')+'>Cəhd et</button>';
   return h;
@@ -1963,11 +2053,12 @@ function atuMake(t,S,am){
   const dc=S.c&&tData[S.c],dO=S.o&&tData[S.o];if((S.c&&!dc)||(S.o&&!dO))return null;
   let C=dc?dc.qs.map((q,i)=>q.k?null:S.c+"|"+i).filter(Boolean):[],O=dO?dO.qs.map((q,i)=>q.k?S.o+"|"+i:null).filter(Boolean):[];
   shuffle(C);shuffle(O);if(AMN[am]){C=C.slice(0,AMN[am][0]);O=O.slice(0,AMN[am][1])}
-  const ids=C.concat(O);if(!ids.length)return null;const r=newRun(t,ids,"end");r.atu=1;r.am=am;r.src={c:S.c||"",o:S.o||""};saveRun(r);return r}
+  const ids=C.concat(O);if(!ids.length)return null;const r=newRun(t,ids,"end");r.atu=1;r.am=am;r.osh=!!tCfg.ash;r.src={c:S.c||"",o:S.o||""};saveRun(r);return r}
 function atuTop(r,t,fin){return'<div class="anb">'+(fin?'':'<button class="alnk" data-a="tquit">‹ Çıx</button>')+'<b>'+esc(t?t.title:"Test")+' · '+AM[r.am]+'</b>'+(fin?'':'<button class="alnk" data-a="atusum">Bitir</button>')+'</div>'}
 function atuNav(r){return'<div class="anv">'+r.ids.map((k,j)=>'<button class="'+(hasAns(rq(r,k),r.ans[k])?"a":"")+(j===r.i&&!r.sum?" c":"")+((r.marked||[]).includes(k)?" f":"")+'" data-a="tjump" data-v="'+j+'">'+(j+1)+'</button>').join("")+'</div>'}
-function atuClosed(q,v,lock){let h='';if(q.st.length)h+='<div class="ast">'+q.st.map((s,j)=>/^[a-h]\)/.test(s)?esc(s):(j+1)+'. '+esc(s)).join("<br>")+'</div>';
-  h+=q.o.map((o,j)=>{let c=v===j?" on":"";if(lock){if(j===q.a&&v===j)c+=" ok";else if(v===j)c+=" no"}return'<button class="arad'+c+'" data-a="tans" data-k="'+j+'"'+(lock?" disabled":"")+'><span class="rb"></span><span>'+"abcdef"[j]+'. '+esc(o)+'</span></button>'}).join("");
+function rperm(r,k,q){if(!r.osh)return q.o.map((_,j)=>j);r.perm=r.perm||{};const P=r.perm[k];if(!Array.isArray(P)||P.length!==q.o.length){r.perm[k]=shuffle(q.o.map((_,j)=>j));if(!r.done)saveRun(r)}return r.perm[k]}
+function atuClosed(q,v,lock,P){P=P||q.o.map((_,j)=>j);let h='';if(q.st.length)h+='<div class="ast">'+q.st.map((s,j)=>/^[a-h]\)/.test(s)?esc(s):(j+1)+'. '+esc(s)).join("<br>")+'</div>';
+  h+=P.map((j,pos)=>{const o=q.o[j];let c=v===j?" on":"";if(lock){if(j===q.a&&v===j)c+=" ok";else if(v===j)c+=" no"}return'<button class="arad'+c+'" data-a="tans" data-k="'+j+'"'+(lock?" disabled":"")+'><span class="rb"></span><span>'+"abcdef"[pos]+'. '+esc(o)+'</span></button>'}).join("");
   if(!lock&&v!=null)h+='<button class="alnk" style="margin-top:6px" data-a="tans" data-k="'+v+'">Seçimi təmizlə</button>';return h}
 function atuQView(){
   const r=tRun,t=testById(r.tid);
@@ -1978,7 +2069,7 @@ function atuQView(){
   if(!q)return h+'<div class="aform">Sual tapılmadı (test silinib).</div></div>';
   const v=r.ans[k],mk=(r.marked||[]).includes(k);
   h+='<div class="ainfo"><div><b>Sual '+(i+1)+'</b><br>'+(hasAns(q,v)?"Cavab yadda saxlanıldı":"Cavab verilməyib")+'<br>2,00 baldan</div><button class="aflag'+(mk?" on":"")+'" data-a="tmark">⚑ '+(mk?"İşarəni sil":"İşarələ")+'</button></div>';
-  h+='<div class="aform"><div class="aq">'+qText(q,true)+'</div>'+(q.k?'<div class="oq">'+openBody(r,k,q,false,false,true)+'</div>':atuClosed(q,v,false))+'</div>';
+  h+='<div class="aform"><div class="aq">'+qText(q,true)+'</div>'+qImg(q,true)+(q.k?'<div class="oq">'+openBody(r,k,q,false,false,true)+'</div>':atuClosed(q,v,false,rperm(r,k,q)))+'</div>';
   h+='<div class="abt">'+(i>0?'<button data-a="tnav" data-v="-1">Əvvəlki səhifə</button>':'<span></span>')+(i<r.ids.length-1?'<button class="p" data-a="tnav" data-v="1">Növbəti səhifə</button>':'<button class="p" data-a="atusum">Cəhdi bitir...</button>')+'</div></div>';
   return h;
 }
@@ -1991,7 +2082,7 @@ function atuRView(){
   h+='<div class="abt"><button data-a="tendr">Bağla</button><button class="p" data-a="atuagain">Yeni cəhd</button></div>';
   r.ids.forEach((k,j)=>{const q=Q(k);if(!q)return;const v=r.ans[k],s=sc[j],st=!hasAns(q,v)?"Cavab verilməyib":(s===2?"Düz":(s===1?"Qismən düz":"Səhv"));
     h+='<div class="ainfo s'+s+'"><div><b>Sual '+(j+1)+'</b><br>'+st+'<br>Bal '+bf(s)+' / 2,00</div></div>';
-    h+='<div class="aform"><div class="aq">'+qText(q,true)+'</div>'+(q.k?'<div class="oq">'+openBody(r,k,q,true,false,true)+'</div>':atuClosed(q,v,true))+(s<2?'<div class="aout">Düzgün cavab: '+esc(corrText(q))+'</div>':'')+'</div>'});
+    h+='<div class="aform"><div class="aq">'+qText(q,true)+'</div>'+qImg(q,true)+(q.k?'<div class="oq">'+openBody(r,k,q,true,false,true)+'</div>':atuClosed(q,v,true,rperm(r,k,q)))+(s<2?'<div class="aout">Düzgün cavab: '+esc(q.k?corrText(q):"abcdef"[rperm(r,k,q).indexOf(q.a)]+". "+q.o[q.a])+'</div>':'')+'</div>'});
   return h+'</div>';
 }
 
@@ -2486,6 +2577,7 @@ function sheetHtml(){
   else if(sheet.k==="fmenu"){const f=fById(sheet.id);if(!f){sheet=null;return""}body=fmenuSheet(f)}
   else if(sheet.k==="logout")body=logoutWarnSheet();
   else if(sheet.k==="tsrc")body=tsrcSheet();
+  else if(sheet.k==="fedit")body=fEditSheet();
   else if(sheet.k==="ykcal")body=ykCalSheet();
   else if(sheet.k==="ykadd")body='<h2 style="margin-top:4px">Ders ekle</h2><div class="muted">'+esc(fmt(yk.d))+' · programda olmayan bir derse yoklama girmek için. Program değişmez, kayıtlar dersin diğer kayıtlarıyla birlikte sayılır.</div>'
     +'<label class="f">Ders</label><select id="ykas">'+subjOpts(sheet.s||"",false)+'</select>'
@@ -2827,7 +2919,7 @@ document.addEventListener("click",async e=>{
   const b=e.target.closest("[data-a]");if(!b)return;
   const a=b.dataset.a,id=b.dataset.id;
   if(a==="closesheet"){sheet=null;sfileObj=null;return render()}
-  if(sheet&&!["like","libshare","libdel","libopen","teslim","soon","sopen","pvote","ptog","pvotem","pchange","cdone","tdrop","topen","tdoata","tredagit","tsavedagit","absjump","tnew","yksubjsave","ykcalm","ykcalday","ykaddk","ykaddok","fmovesheet","fmv","fnew","fcolor","fsave","fpin","fdel","logoutforce","tsel"].includes(a)&&!b.closest("a")){sheet=null;sfileObj=null}
+  if(sheet&&!["like","libshare","libdel","libopen","teslim","soon","sopen","pvote","ptog","pvotem","pchange","cdone","tdrop","topen","tdoata","tredagit","tsavedagit","absjump","tnew","yksubjsave","ykcalm","ykcalday","ykaddk","ykaddok","fmovesheet","fmv","fnew","fcolor","fsave","fpin","fdel","logoutforce","tsel","fedk","fedn","fedadd","feddel","fedok","fedsave","feddelq","zoom"].includes(a)&&!b.closest("a")){sheet=null;sfileObj=null}
   if(a==="go")return go(b.dataset.v,id?{id}:null);
   if(a==="tab")return tab(b.dataset.v);
   if(a==="soon")return showToast("🌮 Bu özellik yakında gelecek. Beklerken biraz tako ye.");
@@ -2999,20 +3091,33 @@ document.addEventListener("click",async e=>{
     if(tBusy)return;try{tBusy="İndiriliyor…";render();const bl=await loadFileBlob("files/"+id,x.file,id,p=>{tBusy="İndiriliyor… %"+p;const el=document.querySelector(".sbox");if(el)el.textContent="⏳ "+tBusy});await tProcess(bl,{title:x.title,s:x.s||"",lib:id})}catch(e2){tBusy="";showToast("Açılamadı: "+errText(e2));render()}return}
   if(a==="tshare"){if(!tNew)return;if(b.dataset.v==="all"&&!canRaw("test"))return;tNew.share=b.dataset.v;return render()}
   if(a==="tqset"){if(!tNew)return;const q=tNew.res.qs[+b.dataset.i];if(q){q.a=+b.dataset.k;q.u=false}return render()}
+  if(a==="zoom"){const im=b.querySelector("img");if(im)openZoom(im.src);return}
+  if(a==="fedit"){return fEditOpen(+b.dataset.i)}
+  if(fEd&&sheet&&sheet.k==="fedit"){const e=fEd;
+    if(a==="fedk"){e.k=b.dataset.v;return render()}
+    if(a==="fedn"){e.N=Math.max(2,Math.min(40,e.N+(+b.dataset.v)));e.ok=e.ok.filter(j=>j<e.N);e.rows.forEach(r=>{if(+r.a>e.N)r.a=""});return render()}
+    if(a==="fedadd"){e.rows.push({t:"",a:""});return render()}
+    if(a==="feddel"){e.rows.splice(+b.dataset.j,1);return render()}
+    if(a==="fedok"){const j=+b.dataset.v;e.ok=e.ok.includes(j)?e.ok.filter(x=>x!==j):e.ok.concat(j).sort((x,y)=>x-y);return render()}
+    if(a==="feddelq"){tNew.res.qs.splice(e.i,1);fEd=null;sheet=null;return render()}
+    if(a==="fedsave"){const q=tNew.res.qs[e.i];if(!q)return;
+      if(e.k==="m"){const rows=e.rows.map(r=>({t:r.t.trim(),a:r.a})).filter(r=>r.t||r.a);if(!rows.length||rows.some(r=>!r.t||!r.a))return showToast("Her satıra bir ad yaz ve numara seç");Object.assign(q,{k:"m",nums:e.N,it:rows});delete q.st;delete q.ok}
+      else{if(!e.ok.length)return showToast("En az bir numara seç");Object.assign(q,{k:"c",nums:e.N,st:Array.from({length:e.N},(_,j)=>String(j+1)),ok:e.ok.slice()});delete q.it}
+      delete q.bl;fEd=null;sheet=null;return render()}}
   if(a==="tqck"){if(!tNew)return;const q=tNew.res.qs[+b.dataset.i],j=+b.dataset.j;if(q&&q.k==="c"){q.ok=q.ok.includes(j)?q.ok.filter(x=>x!==j):q.ok.concat(j).sort((x,y)=>x-y)}return render()}
   if(a==="tck"){const r=tRun;if(!r||r.done)return;const k=r.ids[r.i],q=rq(r,k);if(!q||q.k!=="c"||(r.mode==="now"&&judged(r,k)))return;const j=+b.dataset.j;let v=(r.ans[k]||[]).slice();v=v.includes(j)?v.filter(x=>x!==j):v.concat(j).sort((x,y)=>x-y);if(v.length)r.ans[k]=v;else delete r.ans[k];saveRun(r);return render()}
   if(a==="tchk"){const r=tRun;if(!r)return;const k=r.ids[r.i];if(!hasAns(rq(r,k),r.ans[k]))return;r.chk=r.chk||{};r.chk[k]=1;saveRun(r);return render()}
   if(a==="tqdel"){if(!tNew)return;tNew.res.qs.splice(+b.dataset.i,1);return render()}
-  if(a==="tsave"){if(!tNew||tBusy)return;const nm=((document.getElementById("tname")||{}).value||tNew.title||"").trim();if(!nm)return showToast("Teste bir ad ver");if(!tNew.res.qs.length)return showToast("Soru yok");
+  if(a==="tsave"){if(!tNew||tBusy)return;const nm=((document.getElementById("tname")||{}).value||tNew.title||"").trim();if(!nm)return showToast("Teste bir ad ver");if(!tNew.res.qs.filter(q=>q.k!=="x").length)return showToast("Soru yok");
     if(!navigator.onLine)return showToast("Kaydetmek için internet gerekiyor");
-    const N=tNew,share=N.share==="all"&&canRaw("test")?"all":"me",data={secs:N.res.secs,qs:N.res.qs},tid="t"+Date.now().toString(36)+me.uid.slice(0,4);
+    const N=tNew,share=N.share==="all"&&canRaw("test")?"all":"me",data={secs:N.res.secs,qs:N.res.qs.filter(q=>q.k!=="x")},tid="t"+Date.now().toString(36)+me.uid.slice(0,4);
     try{tBusy="Kaydediliyor…";render();
       await B.set("tests/"+tid,{title:nm.slice(0,60),s:N.s||"",owner:me.uid,ownerName:myName(),share,at:Date.now(),lib:N.lib||"",n:data.qs.length,no:data.qs.filter(q=>q.k).length,unc:data.qs.filter(q=>q.u).length,secs:data.secs,up:true});
       const file=await upChunks("tqs/"+tid,new File([JSON.stringify(data)],"test.json",{type:"application/json"}),p=>{tBusy="Kaydediliyor… %"+p});
       await B.set("tests/"+tid,{file,up:false},true);tData[tid]=data;tNew=null;tBusy="";stack=[{v:"test"}];route={v:"testd",id:tid};showToast("🧪 Test kaydedildi · "+data.qs.length+" soru");render();window.scrollTo(0,0)}
     catch(e2){tBusy="";showToast("Kaydedilemedi: "+errText(e2));render()}return}
   if(a==="tgo"){return go("testd",{id})}
-  if(a==="tcfg"){const k=b.dataset.k,v=b.dataset.v;if(k==="sec"||k==="cnt")tCfg[k]=+v;else if(k==="mode")tCfg.mode=v;else if(k==="mix")tCfg.mix=v==="1";else if(k==="atu"){tCfg.atu=v==="1";lsSet("tatu",tCfg.atu?"1":"0")}else if(k==="am"){tCfg.am=v;lsSet("tatum",v)}return render()}
+  if(a==="tcfg"){const k=b.dataset.k,v=b.dataset.v;if(k==="sec"||k==="cnt")tCfg[k]=+v;else if(k==="mode")tCfg.mode=v;else if(k==="mix")tCfg.mix=v==="1";else if(k==="atu"){tCfg.atu=v==="1";lsSet("tatu",tCfg.atu?"1":"0")}else if(k==="am"){tCfg.am=v;lsSet("tatum",v)}else if(k==="ash"){tCfg.ash=v==="1";lsSet("tatush",tCfg.ash?"1":"0")}return render()}
   if(a==="tstart"){const t=testById(id),d=t&&tData[id];if(!d)return;let pool=d.qs.map((q,i)=>i).filter(i=>tCfg.sec<0||d.qs[i].sec===tCfg.sec);if(tCfg.mix)shuffle(pool);if(tCfg.cnt)pool=pool.slice(0,tCfg.cnt);if(!pool.length)return showToast("Bu bölümde soru yok");newRun(t,pool,tCfg.mode);go("testq");return window.scrollTo(0,0)}
   if(a==="tcont"){const r=getRun(id);if(!r||!tData[id])return;if(r.atu){const miss=[...new Set(r.ids.map(k=>rtid(r,k)))].filter(x=>!tData[x]);if(miss.length){miss.forEach(x=>{const tt=testById(x);if(tt)ensureTD(tt)});return showToast(miss.every(x=>testById(x))?"Sorular yükleniyor, birazdan tekrar bas":"Bu denemedeki bir test silinmiş")}}tRun=r;go("testq");return window.scrollTo(0,0)}
   if(a==="atustart"||a==="atuagain"){const t=testById(a==="atustart"?id:(tRun&&tRun.tid));if(!t)return;const S=a==="atustart"?atuSrc(t):tRun.src,am=a==="atustart"?(tCfg.am||"v"):tRun.am;const miss=[S.c,S.o].filter(x=>x&&!tData[x]);if(miss.length){miss.forEach(x=>{const tt=testById(x);if(tt)ensureTD(tt)});return showToast("Sorular yükleniyor, birazdan tekrar bas")}const r=atuMake(t,S,am);if(!r)return showToast("Soru yok");if(a==="atustart")go("testq");else{route={v:"testq"};render()}return window.scrollTo(0,0)}
@@ -3072,6 +3177,7 @@ document.addEventListener("toggle",e=>{const t=e.target;if(t&&t.dataset&&t.datas
 document.addEventListener("input",e=>{const t=e.target;if(t.dataset.f&&form){setPath(form,t.dataset.f,t.value)}
   if(t.dataset.ykq&&yk){yk.q=t.value;document.querySelectorAll("[data-tile]").forEach(el=>el.style.display=qm(yk.q,el.dataset.q)?"":"none")}
   if(t.id==="tname"&&tNew){tNew.title=t.value}
+  if(t.dataset.fedt!=null&&fEd&&fEd.rows[+t.dataset.fedt]){fEd.rows[+t.dataset.fedt].t=t.value}
   if(t.dataset.tedq!=null){const q=t.value.toLocaleLowerCase("tr");document.querySelectorAll(".tedc").forEach(el=>el.style.display=!q||el.dataset.tq.includes(q)?"":"none")}
   if(t.dataset.kutq){kutQ=t.value;const sr=document.getElementById("kutSrch"),nm=document.getElementById("kutNorm");if(sr)sr.style.display=kutQ?"":"none";if(nm)nm.style.display=kutQ?"none":"";document.querySelectorAll("#kutSrch [data-lq]").forEach(el=>el.style.display=qm(kutQ,el.dataset.lq)?"":"none")}});
 document.addEventListener("pointerdown",e=>{const t=e.target.closest("[data-tile]");if(!t)return;lpFired=false;lpXY=[e.clientX,e.clientY];clearTimeout(lpT);lpT=setTimeout(()=>{lpFired=true;try{navigator.vibrate&&navigator.vibrate(30)}catch(_){}ykAllDay(t.dataset.tile)},650)});
@@ -3082,6 +3188,7 @@ document.addEventListener("change",async e=>{
   const t=e.target;
   if(t.dataset.tpdf){const fl=t.files&&t.files[0];sheet=null;if(fl)await tProcess(fl,{title:fl.name.replace(/\.pdf$/i,""),s:"",lib:""});else render();return}
   if(t.dataset.tsub&&tNew){tNew.s=t.value;return}
+  if(t.dataset.feda!=null&&fEd&&fEd.rows[+t.dataset.feda]){fEd.rows[+t.dataset.feda].a=t.value;return}
   if(t.dataset.tsel!=null&&tRun){const r=tRun;if(r.done)return;const k=r.ids[r.i],q=rq(r,k);if(!q||!q.k||q.k==="c"||(r.mode==="now"&&judged(r,k)))return;const v=Array.isArray(r.ans[k])?r.ans[k].slice():qAns(q).map(()=>"");v[+t.dataset.tsel]=t.value;if(v.some(x=>x))r.ans[k]=v;else delete r.ans[k];saveRun(r);return render()}
   if(t.dataset.tsrc){const tt=testById(route.id);if(!tt)return;const S=atuSrc(tt);S[t.dataset.tsrc]=t.value;lsSet("tatus_"+tt.id,JSON.stringify(S));const x=testById(t.value);if(x)ensureTD(x);return render()}
   if(t.dataset.f&&form){setPath(form,t.dataset.f,t.value);if(t.dataset.rr)render();return}
