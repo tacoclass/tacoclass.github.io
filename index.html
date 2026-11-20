@@ -902,6 +902,23 @@ nav .nind{display:none}nav .nme{display:none}nav button .ib{display:flex;font-st
 @keyframes tapq{50%{opacity:.55}}
 #frz{top:auto;bottom:calc(max(8px,calc(env(safe-area-inset-bottom) - 12px)) + 76px)}#frz.out{transform:translate(-50%,10px)}
 @media(min-width:900px){#frz{bottom:24px;margin-left:132px}}
+.sdel{display:block;margin:8px 0 0 auto;border:0;background:none;font:inherit;font-size:13px;font-weight:700;color:var(--red);padding:4px 2px;cursor:pointer}
+/* 2.3.1 jurnal karşılaştırma + özet */
+.jcr{cursor:pointer}.jcv{color:var(--mut2);font-size:15px;margin-left:6px;transition:transform .25s;display:inline-block}.jcv.on{transform:rotate(180deg)}
+.chip.jca{background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--acc)}.chip.jcf{background:color-mix(in srgb,var(--org) 15%,transparent);color:var(--org)}
+.jcp{background:var(--soft);border-radius:16px;padding:12px;margin:0 0 12px;animation:pgin .28s cubic-bezier(.2,.8,.2,1);position:relative}
+.jcg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.jcg>div{background:var(--card);border-radius:12px;padding:10px}
+.jcg h4{font-size:10.5px;letter-spacing:.8px;color:var(--mut);margin-bottom:6px}.jcg p{font-size:12.5px;line-height:1.55}.jcg .no{color:var(--red);font-weight:700}.jcg .ok{color:var(--grn);font-weight:700}.jcg .mt{color:var(--mut);font-size:11.5px;margin-top:3px}
+.jcn{font-size:12px;color:var(--mut);margin-top:9px;line-height:1.45}
+.jcb{display:flex;gap:7px;margin-top:10px}.jcb .btn{flex:1;font-size:13px;padding:10px 8px}
+.btn.jdel{background:color-mix(in srgb,var(--red) 15%,transparent);color:var(--red);border:0}
+.jsum{background:linear-gradient(140deg,color-mix(in srgb,var(--acc) 6%,var(--card)),var(--card));border-radius:20px;padding:14px;box-shadow:var(--sh)}
+.jst{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;font:inherit;color:var(--tx);text-align:left;padding:0;cursor:pointer}
+.jst .ji{width:44px;height:44px;border-radius:14px;background:color-mix(in srgb,var(--acc) 15%,transparent);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+.jst .w{flex:1;min-width:0}.jst b{font-size:15.5px;display:block}.jst small{font-size:12px;color:var(--mut)}
+.jst em{font-style:normal;font-size:13px;font-weight:800;color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,transparent);border-radius:12px;padding:7px 11px;white-space:nowrap;flex:none}
+.jsc{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.jsc span{font-size:12px;font-weight:700;border-radius:10px;padding:5px 9px;background:var(--soft);display:flex;align-items:center;gap:6px}.jsc i{width:7px;height:7px;border-radius:50%;background:var(--a)}
+.jsl{margin-top:12px;animation:pgin .3s cubic-bezier(.2,.8,.2,1);position:relative}.jsl .card{box-shadow:none;background:var(--soft)}
 
 </style>
 </head><body>
@@ -926,7 +943,7 @@ const FB_VER = "10.12.2";
 const MOCK = /[?&]mock/.test(location.search);
 if(MOCK)window.__ev=s=>eval(s);
 
-const VERSION="2.3.0",VDATE="10 Kasım 2026";
+const VERSION="2.3.1",VDATE="10 Kasım 2026";
 const PERMS = [
   ["jurnal","Yoklama / jurnal girebilir"],
   ["sinav","Sınav tarihlerini girebilir"],
@@ -1047,7 +1064,7 @@ function mockBackend0(){
 /* ============================================================ STATE */
 let B=null,me,member=null,isDev=false,roles={},cls=null,hak=null,anns=[],examsAll=[],changesAll=[],hwsAll=[],subsAll=[],members=[],users=[],prof=null;
 let cfg=null,vSem=null,jurAll=[],jmeta=null,libShared=[],libMine=[],yk=null,unsubSem=[],absTab="mine",kutTab="not",kutS="",kutQ="",dlBusy="",dlProg={},vwr=null;
-let updReady=false,navAct=null,topics=[],claims=[],profLoaded=false,profSrv=null,bakList=null,bakFor="",isDevReal=false,progTab="w0",sheet=null,sfileObj=null,upProg="",toast="",toastT=null,usage=null,polls=[],votes=[],svotes=[],pollEdit=new Set(),pollSel={};
+let jcOpen=null,jListOpen=false,updReady=false,navAct=null,topics=[],claims=[],profLoaded=false,profSrv=null,bakList=null,bakFor="",isDevReal=false,progTab="w0",sheet=null,sfileObj=null,upProg="",toast="",toastT=null,usage=null,polls=[],votes=[],svotes=[],pollEdit=new Set(),pollSel={};
 let exams=[],changes=[],hws=[],subsList=[],jentAll=[],exA=[],exP=[],lpT=null,lpFired=false,lpXY=null;const blobCache={};
 let route={v:"home"},stack=[],pend=null,statusMsg="",saveTimer=null,loginMode="in",loginErr="",loginOk="",busy=false,msg="";
 const yOpen=new Set();let form=null,draft=null,hdraft=null,odevFilter="all",absSel=null,progDay=null,progWeek=0,unsubAll=[],unsubPerm=[],dataStarted=false;
@@ -1077,7 +1094,7 @@ function u(a){return a.p==="1"||a.p==="2"||a.p==="h"?1:2}
 function pl(a){return u(a)===1?"Yarım":"Tamamı"}
 function tint(hex){return hex}
 function col(s){const S=C().subjects[s];return"--a:"+(S?S.c:"#6b7486")}
-function sname(s){const S=C().subjects[s];return S?S.n:"Genel"}
+function sname(s){const S=C().subjects[s]||(C().gone||{})[s];return S?S.n:"Genel"}
 // Firestore iç içe dizi (array of arrays) kabul etmez: o:[[s,k]] -> o:[{s,k}] olarak saklanır
 function encClass(D){const X=clone(D);for(const d in (X.sch||{}))X.sch[d]=(X.sch[d]||[]).map(sl=>Object.assign({},sl,{o:(sl.o||[]).map(o=>Array.isArray(o)?{s:o[0],k:o[1]||"d"}:o)}));return X}
 function decClass(D){if(!D)return D;for(const d in (D.sch||{}))D.sch[d]=(D.sch[d]||[]).map(sl=>Object.assign({},sl,{o:(sl.o||[]).map(o=>Array.isArray(o)?o:[o.s,o.k||"d"])}));return D}
@@ -1641,7 +1658,7 @@ function progEdit(){
   const sopts=sel=>D.order.map(k=>'<option value="'+k+'"'+(k===sel?" selected":"")+'>'+esc(D.subjects[k].n)+'</option>').join("");
   const topts=sel=>'<option value="d"'+(sel==="d"?" selected":"")+'>Ders</option><option value="m"'+(sel==="m"?" selected":"")+'>Muhazire</option>';
   let h='<button class="back" data-a="back">‹ Vazgeç</button><h2 style="margin-top:6px">Dersler</h2><div class="card">';
-  D.order.forEach(k=>{const S=D.subjects[k];h+='<div class="ed"><div class="subj" style="margin:0"><input data-e="subjects.'+k+'.n" value="'+esc(S.n)+'" placeholder="Ders adı"><select data-e="subjects.'+k+'.c">'+PALETTE.map(p=>'<option value="'+p[1]+'"'+(p[1]===S.c?" selected":"")+'>'+p[0]+'</option>').join("")+'</select></div><div class="subj"><input data-e="subjects.'+k+'.h" value="'+esc(S.h||"")+'" placeholder="Hoca"><input data-e="subjects.'+k+'.o" value="'+esc(S.o||"")+'" placeholder="Otaq"></div></div>'});
+  D.order.forEach(k=>{const S=D.subjects[k];h+='<div class="ed"><div class="subj" style="margin:0"><input data-e="subjects.'+k+'.n" value="'+esc(S.n)+'" placeholder="Ders adı"><select data-e="subjects.'+k+'.c">'+PALETTE.map(p=>'<option value="'+p[1]+'"'+(p[1]===S.c?" selected":"")+'>'+p[0]+'</option>').join("")+'</select></div><div class="subj"><input data-e="subjects.'+k+'.h" value="'+esc(S.h||"")+'" placeholder="Hoca"><input data-e="subjects.'+k+'.o" value="'+esc(S.o||"")+'" placeholder="Otaq"></div>'+(D.order.length>1?'<button class="sdel" data-a="rmsubj" data-k="'+k+'">🗑 Dersi sil</button>':'')+'</div>'});
   h+='<button class="btn line full" style="margin-top:10px" data-a="addsubj">+ Ders ekle</button></div><div class="cols2">';
   for(let d=1;d<=5;d++){
     h+='<div><h2>'+DAYS[d]+'</h2><div class="card">';
@@ -1764,10 +1781,20 @@ function jurView(){
   let h='<div class="card jinfo" style="margin-top:12px">📋 '+(jmeta&&jmeta.at?'Jurnal son güncelleme: <b>'+esc(timeAgo(jmeta.at))+'</b> · '+esc(jmeta.by||""):'Jurnale henüz kayıt girilmedi.')+'<p class="muted" style="margin-top:4px">Jurnal, başkanın yoklamada girdiği resmi devamsızlıktır. Burada sadece kendi kayıtlarını görürsün.</p></div>';
   h+='<div class="cols2"><div><h2>Karşılaştırma <span>· '+(cmp.length?cmp.length+' fark':'uyuşuyor ✓')+'</span>'+(act.length>1&&!ro()?'<button class="lnk" data-a="jall">Hepsini düzelt</button>':'')+'</h2><div class="card">';
   if(!cmp.length)h+='<div class="empty">Kendi kayıtlarınla jurnal aynı 👍</div>';
-  cmp.forEach(c=>{const x=c.j||c.m;
-    let txt=c.ty==="add"?"Jurnalde var, sende yok":(c.ty==="fix"?"Sende: "+esc(sname(c.m.s))+" · "+pl(c.m)+" → jurnalde: "+esc(sname(c.j.s))+" · "+pl(c.j):"Sende var, jurnalde yok");
-    h+='<div class="li" style="'+col(x.s)+';cursor:default"><span class="dt"></span><span class="w"><b>'+esc(sname(x.s))+' <span style="color:var(--mut2);font-weight:500">· '+pl(x)+'</span></b><small>'+esc(fmtS(x.d))+' · '+esc(String(x.t).replace(/^x/,""))+' · '+txt+'</small></span>'+(ro()?'':(c.ty==="add"?'<button class="btn sm dark" data-a="jadd" data-id="'+c.j.id+'">Kayıtlarıma ekle</button>':(c.ty==="fix"?'<button class="btn sm line" data-a="jfix" data-id="'+c.j.id+'">Düzelt</button>':'<span class="chip warn">Kontrol et</span>')))+'</div>'});
-  h+='</div><h2>Jurnal kayıtların</h2>'+histList(J,false)+'</div><div><h2>Jurnale göre durum</h2>'+summaryCard(J,true,"j")+'</div></div>';
+  cmp.forEach(c=>{const x=c.j||c.m,key=x.d+"|"+x.t,op=jcOpen===key;
+    let txt=c.ty==="add"?"Jurnalde var, sende yok":(c.ty==="fix"?"Sende ve jurnalde farklı":"Sende var, jurnalde yok");
+    const chip=c.ty==="add"?'<span class="chip jca">Jurnalde var</span>':(c.ty==="fix"?'<span class="chip jcf">Farklı</span>':'<span class="chip warn">Kontrol et</span>');
+    h+='<div class="li jcr" style="'+col(x.s)+'" data-a="jcx" data-v="'+esc(key)+'"><span class="dt"></span><span class="w"><b>'+esc(sname(x.s))+' <span style="color:var(--mut2);font-weight:500">· '+pl(x)+'</span></b><small>'+esc(fmtS(x.d))+' · '+esc(String(x.t).replace(/^x/,""))+' · '+txt+'</small></span>'+chip+'<span class="jcv'+(op?" on":"")+'">⌄</span></div>';
+    if(op){const m=c.m,j=c.j,dk=a=>u(a)===1?"Yarım (45 dk)":"Tamamı (90 dk)",dl=parse(x.d).toLocaleDateString("tr-TR",{day:"numeric",month:"long",weekday:"long"})+" "+String(x.t).replace(/^x/,"");
+      h+='<div class="jcp"><div class="jcg"><div><h4>SENİN KAYDIN</h4>'+(m?'<p>'+esc(sname(m.s))+'<br>'+esc(TY[m.k]||"")+' · <b>'+dk(m)+'</b><br>'+esc(dl)+'</p>':'<p class="no">Kaydın yok</p><p class="mt">Bu derse "gelmedim" girmemişsin.</p>')+'</div><div><h4>JURNAL</h4>'+(j?'<p>Yoklama <span class="ok">alındı ✓</span><br>Sen <span class="no">"yok"</span> yazılmışsın<br>'+esc(sname(j.s))+' · <b>'+dk(j)+'</b></p>':'<p>Yoklama <span class="ok">alındı ✓</span><br>Sen <span class="no">"yok" yazılmamışsın</span></p>')+'</div></div>';
+      h+='<div class="jcn">'+(c.ty==="add"?"Başkan seni bu derste yok yazmış ama senin kayıtlarında yok. Kendi hesabının doğru olması için ekleyebilirsin.":(c.ty==="fix"?"İki kayıt aynı derse ait ama ders ya da süre farklı. Jurnaldeki resmi kayıttır; istersen seninkini ona göre düzeltebilirsin.":"Başkan o derste seni gelmiş saymış. Gerçekten gelmediysen başkana söyle; geldiysen kendi kaydını silebilirsin."))+'</div>';
+      if(!ro())h+='<div class="jcb">'+(c.ty==="add"?'<button class="btn dark" data-a="jadd" data-id="'+j.id+'">＋ Kayıtlarıma ekle</button>':(c.ty==="fix"?'<button class="btn dark" data-a="jfix" data-id="'+j.id+'">Jurnaldeki gibi düzelt</button>':'<button class="btn jdel" data-a="delabs" data-id="'+m.id+'">🗑 Kaydımı sil</button>'))+'<button class="btn line" data-a="jcx" data-v="'+esc(key)+'">Kalsın</button></div>';
+      h+='</div>'}});
+  const tot=J.reduce((n,a)=>n+u(a),0),by={};J.forEach(a=>by[a.s]=(by[a.s]||0)+1);const Js=J.slice().sort((a,b)=>a.d<b.d?1:(a.d>b.d?-1:(a.t<b.t?1:-1))),last=Js[0];
+  h+='</div><h2>Jurnal kayıtların</h2>';
+  if(!J.length)h+='<div class="card"><div class="empty">Jurnalde senin adına kayıt yok 👍</div></div>';
+  else{h+='<div class="jsum"><button class="jst" data-a="jlist"><span class="ji">📋</span><span class="w"><b>'+J.length+' kayıt · '+f(tot)+' ders</b><small>Son: '+esc(fmtS(last.d))+' · '+esc(sname(last.s))+'</small></span><em>'+(jListOpen?"Gizle ⌃":"Göster ⌄")+'</em></button><div class="jsc">'+Object.keys(by).sort((a,b)=>by[b]-by[a]).map(k=>'<span style="'+col(k)+'"><i></i>'+esc(sname(k))+' · '+by[k]+'</span>').join("")+'</div>'+(jListOpen?'<div class="jsl">'+histList(J,false)+'</div>':'')+'</div>'}
+  h+='</div><div><h2>Jurnale göre durum</h2>'+summaryCard(J,true,"j")+'</div></div>';
   return h;
 }
 function jApply(list){const mine=abs().slice();list.forEach(j=>{const i=mine.findIndex(a=>a.d===j.d&&a.t===j.t);const r={id:i>=0?mine[i].id:uid8(),d:j.d,t:j.t,s:j.s,k:j.k,p:j.p};if(i>=0)mine[i]=r;else mine.push(r)});setAbs(mine)}
@@ -1778,7 +1805,7 @@ function syncAutoJ(force){
   if(!ch&&!force)return;
   prof.jSeen=[...seenS].slice(-800);
   setAbs(mine.concat(add));
-  if(add.length)statusMsg=add.length+" jurnal kaydı eklendi ✓";
+  if(add.length)showToast("📋 Jurnalden "+add.length+" kayıt devamsızlığına eklendi");else if(force)showToast("Jurnaldeki kayıtların zaten devamsızlığında var ✓");
 }
 
 /* ---------- YÖNETİM ---------- */
@@ -1819,7 +1846,7 @@ function openBlob(url,name){const el=document.createElement("a");el.href=url;el.
 /* ---------- HAKKINDA ---------- */
 function aboutView(){
   return'<h2>Hakkında</h2><div class="card about"><div class="row2" style="gap:14px"><img src="'+ICON_SRC+'" alt="" class="alogo"><div><b style="font-size:20px">Taco</b><p class="muted">Sürüm '+VERSION+' · '+VDATE+'</p><p style="font-size:13px;margin-top:3px;font-weight:700">Designed by Ömür A</p></div></div><p style="margin-top:12px;font-size:14px;line-height:1.5">Taco; sınıfın ders programını, sınavlarını, ödevlerini, duyurularını, ders notlarını ve herkesin kendi devamsızlığını tek yerde toplar.</p>'
-  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.3.0</b><ul><li>🏠 Yeni ana sayfa: kompakt ders kartı (geri sayım + günün dersleri + yoklama), "Bu hafta" şeridi; Yaklaşanlar sadece sınav/iş varken çıkar.</li><li>🧪 Test yenilendi: yeni liste, başlangıç ve çözme ekranı, kaydırarak geçiş, sonuç ekranı, ilerleme grafiği, "Sadece şekilli sorular".</li><li>📕 Yanlışlarım: bütün testlerdeki yanlışlar tek yerde; doğru yapınca listeden çıkar.</li><li>📄 Cevapsız PDF uyarısı; cevabı boş sorular ayıklanır. Madde işaretsiz eşleştirmeler de okunur.</li><li>✅ Devamsızlık: 1./2. yarı yerine Geldi / Yarım / Gelmedi. Başkan öğrenci sayfasından takvimle geçmiş kayıp girebilir.</li><li>📅 Program geçmişi: program değişikliği seçilen tarihten geçerli olur, eski haftalar eski programla kalır.</li><li>🏝️ Telefonda yüzen ada alt bar (yumuşak geçişli), tablette yeni yan panel.</li><li>⚙️ Yeni Yönetim ve Kullanım sayfaları, koyu modda yeni sıcak antrasit ton, açılışta "Yükleniyor" ekranı kalktı.</li></ul><b>2.2.9</b><ul><li>🧪 Test: açık sorular — eşleştirme, boşluk doldurma ([[1]]) ve doğru cümleleri işaretleme. Sarıyla vurgulu cevaplar PDF\'ten otomatik okunur.</li><li>🎓 ATU style: okulun sınav sistemi gibi görünüm ve puanlama (Vize, Final, Bütün suallar).</li><li>📷 Şekilli sorular: şekiller PDF\'ten otomatik kesilir; şıklı ve numara seçmeli şekil soruları, düzenleme. Sarıyla işaretli kapalı sorular da okunur.</li></ul><b>2.2.8</b><ul><li>🧪 Test: cevaplı PDF\'ten (telefondan ya da kütüphaneden) test oluştur, soruları tek tek çöz; cevabı hemen ya da sınav bitince gör</li><li>Yeni duyuru ana sayfada renkli dönen çerçeveyle görünür, "Okudum" ile söner</li><li>Duyurular menüsü sadece duyuru/anket yetkisi olanlarda</li><li>Açılış animasyonu</li><li>Yoklama: takvimden tarih seçme (eksik günler işaretli), programda olmayan derse "＋ Ders ekle", iki dersli saatlerde ders seçme penceresi</li><li>Ana sayfada Yaklaşanlar yenilendi: kaydırmalı kartlar, kaç gün kaldığı büyük yazıyla</li></ul><b>2.2.7</b><ul><li>Kütüphane yenilendi: dersler kart olarak, her dersin kendi sayfası, yeni eklenenler şeridi</li><li>Notlarda ilk sayfanın küçük önizlemesi</li><li>Dosya indirilirken kartın titremesi düzeltildi</li></ul><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
+  +'<details><summary>Yenilikler</summary><div class="ab"><b>2.3.1</b><ul><li>⚡ Taco anında açılıyor; yeni sürüm arkada inip "Yenile" uyarısı çıkarıyor.</li><li>🗑 Programı düzenle\'de ders silme.</li><li>📋 Jurnal karşılaştırmasında farka dokununca iki kayıt yan yana açılıyor; jurnal kayıtların özet kartta gizli duruyor.</li><li>Jurnalden eklenen kayıtlar için bildirim.</li></ul><b>2.3.0</b><ul><li>🏠 Yeni ana sayfa: kompakt ders kartı (geri sayım + günün dersleri + yoklama), "Bu hafta" şeridi; Yaklaşanlar sadece sınav/iş varken çıkar.</li><li>🧪 Test yenilendi: yeni liste, başlangıç ve çözme ekranı, kaydırarak geçiş, sonuç ekranı, ilerleme grafiği, "Sadece şekilli sorular".</li><li>📕 Yanlışlarım: bütün testlerdeki yanlışlar tek yerde; doğru yapınca listeden çıkar.</li><li>📄 Cevapsız PDF uyarısı; cevabı boş sorular ayıklanır. Madde işaretsiz eşleştirmeler de okunur.</li><li>✅ Devamsızlık: 1./2. yarı yerine Geldi / Yarım / Gelmedi. Başkan öğrenci sayfasından takvimle geçmiş kayıp girebilir.</li><li>📅 Program geçmişi: program değişikliği seçilen tarihten geçerli olur, eski haftalar eski programla kalır.</li><li>🏝️ Telefonda yüzen ada alt bar (yumuşak geçişli), tablette yeni yan panel.</li><li>⚙️ Yeni Yönetim ve Kullanım sayfaları, koyu modda yeni sıcak antrasit ton, açılışta "Yükleniyor" ekranı kalktı.</li></ul><b>2.2.9</b><ul><li>🧪 Test: açık sorular — eşleştirme, boşluk doldurma ([[1]]) ve doğru cümleleri işaretleme. Sarıyla vurgulu cevaplar PDF\'ten otomatik okunur.</li><li>🎓 ATU style: okulun sınav sistemi gibi görünüm ve puanlama (Vize, Final, Bütün suallar).</li><li>📷 Şekilli sorular: şekiller PDF\'ten otomatik kesilir; şıklı ve numara seçmeli şekil soruları, düzenleme. Sarıyla işaretli kapalı sorular da okunur.</li></ul><b>2.2.8</b><ul><li>🧪 Test: cevaplı PDF\'ten (telefondan ya da kütüphaneden) test oluştur, soruları tek tek çöz; cevabı hemen ya da sınav bitince gör</li><li>Yeni duyuru ana sayfada renkli dönen çerçeveyle görünür, "Okudum" ile söner</li><li>Duyurular menüsü sadece duyuru/anket yetkisi olanlarda</li><li>Açılış animasyonu</li><li>Yoklama: takvimden tarih seçme (eksik günler işaretli), programda olmayan derse "＋ Ders ekle", iki dersli saatlerde ders seçme penceresi</li><li>Ana sayfada Yaklaşanlar yenilendi: kaydırmalı kartlar, kaç gün kaldığı büyük yazıyla</li></ul><b>2.2.7</b><ul><li>Kütüphane yenilendi: dersler kart olarak, her dersin kendi sayfası, yeni eklenenler şeridi</li><li>Notlarda ilk sayfanın küçük önizlemesi</li><li>Dosya indirilirken kartın titremesi düzeltildi</li></ul><b>2.2.6</b><ul><li>Genel arama: dersler, sınavlar, notlar, konular ve duyurular tek yerden (internetsiz de çalışır)</li><li>Kütüphanede klasörler: sınıf klasörleri ve sadece senin gördüğün kişisel klasörler</li><li>Gönderilmeyi bekleyen kayıt sayısı gösteriliyor; gönderilmemiş kayıt varken çıkış yaparken uyarı çıkıyor</li><li>Kütüphanedeki dosyalar açılmama sorunu düzeltildi</li><li>PDF ve fotoğraflar artık uygulamanın içinde açılıyor, "Paylaş" ile Dosyalar\'a kaydedilebiliyor</li><li>İndirirken yüzde gösteriliyor, bir kez açılan dosya sonra internetsiz de açılıyor</li></ul><b>2.2.5</b><ul><li>Otomatik yedekleme: günlük yedek, 14 gün saklama, geliştirici geri yükleyebilir</li><li>İnternetsiz kullanım: son bilgiler görünür, girilenler internet gelince kaydedilir</li></ul><b>2.2.4</b><ul><li>Muhazireler programdan çıkarılsa bile muhazire hakkı ve kayıtları korunuyor</li><li>Haklar sayfasında her derste ders ve muhazire kutusu</li><li>Ders programı kaydetme hatası (invalid-argument) düzeltildi</li><li>Program sayfasına "Programı düzenle" düğmesi</li></ul><b>2.2.3</b><ul><li>Serbest İşler yenilendi: Konular ve Serbest İşlerim</li><li>Başkan konu listesini PDF ya da fotoğraftan yükler, konular otomatik okunur</li><li>Konu seçme, bırakma, başkanın ataması ve otomatik dağıtım</li><li>Devamsızlık özet kutularına dokununca detay</li><li>"Muhazireler bitti" işaretli derslerde muhazire artık limitte görünmüyor</li></ul><b>2.2.2</b><ul><li>Muhazire hakkı artık her zaman derste de kullanılabiliyor</li><li>Daha detaylı devamsızlık sayfası</li></ul><b>2.2</b><ul><li>Yeni sade tasarım: ana sayfa, program, devamsızlık, serbest işler, kütüphane</li><li>Ders bitince ana sayfada yarının dersleri</li><li>Ders değişikliği uyarı bandı</li><li>Anketler (gizli veya açık oylama)</li><li>Kütüphanede Sorular bölümü ve "Faydalı" işareti, 15 MB dosya</li><li>Serbest işe dosya teslimi</li><li>Sınavları ve programı takvime ekleme</li></ul><b>2.1</b><ul><li>Başkan için tek dokunuşla yoklama ekranı</li><li>Jurnal: resmi devamsızlık ve kendi kayıtlarınla karşılaştırma</li><li>Kütüphane: ortak ve kişisel ders notları</li><li>Bireysel sınavlar</li><li>Dönem sistemi ve geçmiş dönemler</li><li>Yeni menü: Yönetim sekmesi ve 🔔 duyurular</li></ul><b>2.0</b><ul><li>Hesap sistemi, onay ve yetkiler</li><li>Ana sayfa widgetları</li><li>Uzaktan düzenlenebilir ders programı ve ders değişiklikleri</li><li>Sınav takvimi</li><li>Proje ödevleri (kişiye özel, grup) ve teslim takibi</li><li>Koyu tema ve tablet görünümü</li></ul></div></details>'
   +'<details><summary>Gizlilik</summary><div class="ab"><ul><li>Uygulamada geçirilen süre (ne zaman, kaç dakika, hangi bölüm) geliştirici tarafından görülebilir.</li><li>Kendi girdiğin devamsızlıkları sen ve "sınıfı görme" yetkisi olanlar görür.</li><li>Jurnalde herkes sadece kendi kaydını görür; yoklama yetkisi olanlar herkesinkini görür.</li><li>"Sadece ben" notlarını yalnızca sen görürsün.</li><li>Bireysel sınavları sadece seçilen kişiler görür.</li><li>Gizli anketlerde kimin neye oy verdiği görünmez; açık anketlerde oy verenlerin isimleri herkese görünür.</li><li>Serbest iş teslim dosyalarını sadece sen ve ödev yetkilisi görür.</li><li>Kişisel ödevler yalnızca sana aittir.</li></ul></div></details>'
   +'<details><summary>Altyapı</summary><div class="ab"><p>Veriler Google Firebase (Firestore) üzerinde saklanır; giriş Firebase Authentication ile yapılır. Uygulama GitHub Pages üzerinden yayınlanır.</p></div></details></div>';
 }
@@ -2013,6 +2040,15 @@ function homeView(){
   return h+'</div><div class="o4 hwk">'+weekStrip()+'</div></div>';
 }
 
+function rmSubjSheet(){const k=sheet.sk,D=draft,S=D&&D.subjects[k];if(!S){sheet=null;return""}
+  let nS=0;for(const d in D.sch)(D.sch[d]||[]).forEach(sl=>{if((sl.o||[]).some(o=>o[0]===k))nS++});
+  const nA=abs().filter(a=>a.s===k).length,nE=exams.filter(e=>e.s===k).length;
+  let h='<h2 style="margin-top:4px">“'+esc(S.n)+'” silinsin mi?</h2><div class="pchgs">';
+  h+='<div class="pchg r">'+(nS?'Programdaki '+nS+' saatten çıkarılacak':'Programda hiç saati yok')+'</div>';
+  if(nA)h+='<div class="pchg">Geçmiş '+nA+' devamsızlık kaydın silinmez, eski ders olarak kalır</div>';
+  if(nE)h+='<div class="pchg">'+nE+' sınav kaydı silinmez</div>';
+  h+='</div><p class="muted" style="font-size:12.5px;margin-top:10px">Bu değişiklik sayfanın altındaki <b>Kaydet</b>\'e basınca kalıcı olur. Vazgeçersen ders geri gelir.</p>';
+  return h+'<div class="row2" style="gap:8px;margin-top:14px"><button class="btn line" style="flex:1" data-a="closesheet">Vazgeç</button><button class="btn red" style="flex:1" data-a="rmsubjok">🗑 Sil</button></div>'}
 function mkSheet(){const S=sheet,P=S.t==="pdf";
   let h='<h2 style="margin-top:4px">'+(P?"📄 PDF hazırla":"📊 Slayt hazırla")+'</h2>'+(S.tt?'<div class="muted">'+esc(S.tt)+'</div>':'');
   h+='<label class="f">'+(P?"Sayfa sayısı":"Slayt sayısı")+'</label><div class="tcnt">'+(P?[2,3,4,5]:[6,8,10,12]).map(n=>'<button class="'+(S.n===n?"on":"")+'" data-a="mkn" data-v="'+n+'">'+n+'</button>').join("")+'</div>';
@@ -2978,6 +3014,7 @@ function sheetHtml(){
   else if(sheet.k==="ykcal")body=ykCalSheet();
   else if(sheet.k==="progfrom")body=progFromSheet();
   else if(sheet.k==="mk")body=mkSheet();
+  else if(sheet.k==="rmsubj")body=rmSubjSheet();
   else if(sheet.k==="ykadd")body='<h2 style="margin-top:4px">Ders ekle</h2><div class="muted">'+esc(fmt(yk.d))+' · programda olmayan bir derse yoklama girmek için. Program değişmez, kayıtlar dersin diğer kayıtlarıyla birlikte sayılır.</div>'
     +'<label class="f">Ders</label><select id="ykas">'+subjOpts(sheet.s||"",false)+'</select>'
     +'<label class="f">Tür</label><div class="seg">'+[["d","Ders"],["m","Muhazire"]].map(t=>'<button class="'+((sheet.kind||"d")===t[0]?"on":"")+'" data-a="ykaddk" data-v="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>'
@@ -3319,7 +3356,7 @@ document.addEventListener("click",async e=>{
   const b=e.target.closest("[data-a]");if(!b)return;
   const a=b.dataset.a,id=b.dataset.id;
   if(a==="closesheet"){sheet=null;sfileObj=null;return render()}
-  if(sheet&&!["like","libshare","libdel","libopen","teslim","soon","sopen","pvote","ptog","pvotem","pchange","cdone","tdrop","topen","tdoata","tredagit","tsavedagit","absjump","tnew","yksubjsave","ykcalm","ykcalday","ykaddk","ykaddok","fmovesheet","fmv","fnew","fcolor","fsave","fpin","fdel","logoutforce","tsel","fedk","fedn","fedadd","feddel","fedok","fedsave","feddelq","zoom","pfrom","pfsave","mkopen","mkn","mkl","mkgo"].includes(a)&&!b.closest("a")){sheet=null;sfileObj=null}
+  if(sheet&&!["like","libshare","libdel","libopen","teslim","soon","sopen","pvote","ptog","pvotem","pchange","cdone","tdrop","topen","tdoata","tredagit","tsavedagit","absjump","tnew","yksubjsave","ykcalm","ykcalday","ykaddk","ykaddok","fmovesheet","fmv","fnew","fcolor","fsave","fpin","fdel","logoutforce","tsel","fedk","fedn","fedadd","feddel","fedok","fedsave","feddelq","zoom","pfrom","pfsave","mkopen","mkn","mkl","mkgo","rmsubj","rmsubjok"].includes(a)&&!b.closest("a")){sheet=null;sfileObj=null}
   if(a==="go")return go(b.dataset.v,id?{id}:null);
   if(a==="tab")return tab(b.dataset.v);
   if(a==="mkopen"){const box=b.closest(".sheet")||(b.parentElement&&b.parentElement.parentElement);const hh=box&&box.querySelector("h2,b");const tt=(hh&&hh.textContent||"").trim().slice(0,90);sheet={k:"mk",t:b.dataset.v,n:b.dataset.v==="pdf"?3:8,lang:"az",tt,note:""};return render()}
@@ -3449,6 +3486,8 @@ document.addEventListener("click",async e=>{
   if(a==="reject"){if(!confirmTwice(b))return;await doSet("members/"+id,{status:"rejected",by:myName(),dt:Date.now()},true,"Reddedildi");if(route.v==="uye")back();else render();return}
   if(a==="permset"){const v=b.dataset.v,p={};if(v==="all")PERMS.forEach(x=>p[x[0]]=true);if(v==="baskan")BASKAN.forEach(x=>p[x]=true);try{if(v!=="none")await B.set("roles/"+id,{p,at:Date.now()});else await B.del("roles/"+id);statusMsg=v==="baskan"?"Başkan yetkileri verildi ✓":(v==="all"?"Bütün yetkiler verildi ✓":"Yetkiler kaldırıldı")}catch(x){statusMsg=errText(x)}render();return}
   // program edit
+  if(a==="rmsubj"){sheet={k:"rmsubj",sk:b.dataset.k};return render()}
+  if(a==="rmsubjok"){const k=sheet&&sheet.sk,D=draft;if(!k||!D||!D.subjects[k])return;D.gone=D.gone||{};D.gone[k]={n:D.subjects[k].n,c:D.subjects[k].c};delete D.subjects[k];D.order=D.order.filter(x=>x!==k);for(const d in D.sch){D.sch[d]=(D.sch[d]||[]).map(sl=>Object.assign(sl,{o:(sl.o||[]).filter(o=>o[0]!==k)})).filter(sl=>sl.o.length)}sheet=null;showToast("Ders silindi · Kaydet'e basınca kalıcı olur");return render()}
   if(a==="addsubj"){const k="s"+uid8().slice(0,6);draft.subjects[k]={n:"Yeni ders",c:PALETTE[draft.order.length%PALETTE.length][1],h:"",o:""};draft.order.push(k);return render()}
   if(a==="addslot"){const d=b.dataset.d;(draft.sch[d]=draft.sch[d]||[]).push({t:"",l:"",o:[[draft.order[0],"d"]]});return render()}
   if(a==="rmslot"){draft.sch[b.dataset.d].splice(+b.dataset.i,1);return render()}
@@ -3544,6 +3583,8 @@ document.addEventListener("click",async e=>{
     route={v:"testr"};render();return window.scrollTo(0,0)}
   if(a==="tquit"){return back()}
   if(a==="tagain"){const r=tRun;if(!r)return;if(r.w){tRun=null;const L=wrList();if(!L.length){stack=[{v:"test"}];return go("testw")}return wrStart(L)}tRun=null;stack=[{v:"test"}];return go("testd",{id:r.tid})}
+  if(a==="jcx"){jcOpen=jcOpen===b.dataset.v?null:b.dataset.v;return render()}
+  if(a==="jlist"){jListOpen=!jListOpen;return render()}
   if(a==="appreload"){location.reload();return}
   if(a==="htcont"){route={v:"test"};stack=[];return go("testd",{id})}
   if(a==="htw"){route={v:"test"};stack=[];return go("testw")}
